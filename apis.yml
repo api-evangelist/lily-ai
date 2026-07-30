@@ -1,22 +1,89 @@
 aid: lily-ai
-name: Lily Ai
-description: Lily Ai is a company surfaced as a portfolio company of canaan-partners and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+name: Lily AI
+description: >-
+  Lily AI, Inc. is a retail product-intelligence company whose platform, Lily Max, enriches
+  e-commerce product catalogs so that products are legible to advertising platforms, search
+  engines, onsite search, and AI shopping agents. Agents identify gaps in a retailer's product
+  data, generate consumer-centric attributes and copy, run controlled tests against a holdout,
+  and deploy the winning enrichments across Google Merchant Center feeds, Meta Commerce Manager
+  catalogs, AI discovery and agentic commerce surfaces, and onsite PDP, search, and faceting.
+  Lily AI sells to enterprise retailers, brands, and agencies and positions itself as a layer
+  over the existing commerce stack rather than a replacement for a PIM or feed manager. The
+  company raised a $25M Series B with participation from Canaan Partners, Conductive Ventures,
+  Sorenson Ventures, and NEA. As of this enrichment pass Lily AI publishes no public developer
+  portal, API reference, OpenAPI definition, SDKs, or GitHub organization; the platform is
+  delivered as a managed enterprise service with onboarding handled through sales.
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://lily.ai/icon.png
 url: https://raw.githubusercontent.com/api-evangelist/lily-ai/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - canaan-partners
 x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier-reason: no-public-api-surface
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
+- Retail
+- E-Commerce
+- Artificial Intelligence
+- Product Data
+- Advertising
+- Agentic Commerce
+- Search
+- Marketing
 apis: []
+common:
+- type: DomainSecurity
+  url: security/lily-ai-domain-security.yml
+- type: Website
+  url: https://lily.ai/
+- type: Blog
+  url: https://lily.ai/blog
+- type: Pricing
+  url: https://lily.ai/pricing
+- type: SignUp
+  url: https://lily.ai/free-trial
+- type: TermsOfService
+  url: https://lily.ai/terms
+- type: PrivacyPolicy
+  url: https://lily.ai/privacy
+- type: Support
+  url: https://lily.ai/contact
+- type: HelpCenter
+  url: https://lily.ai/faqs
+- type: CaseStudies
+  url: https://lily.ai/case-studies
+- type: Press
+  url: https://lily.ai/press
+- type: LinkedIn
+  url: https://www.linkedin.com/company/lily-ai
+- type: LLMsTxt
+  url: llms/lily-ai-llms.txt
+- type: Lifecycle
+  url: lifecycle/lily-ai-lifecycle.yml
+- type: StatusPage
+  url: https://status.lily.ai/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
