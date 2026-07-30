@@ -1,0 +1,101 @@
+# Lily AI, Inc.
+
+
+> Lily helps retailers and brands grow with AI-driven advertising across Google, Meta, and onsite, plus discovery and agentic commerce powered by Lily Max.
+
+
+## Pages
+- [Lily Max](https://lily-marketing.web.app/): Lily Max is the agentic product intelligence engine for AI commerce. Lift across Google Ads, Meta Ads, AI discovery, and onsite. Tested, not promised.
+- [Google Ads Feed Optimization](https://lily-marketing.web.app/google-ads): Optimize your Google Merchant Center feed for Shopping, Performance Max, and Demand Gen. Product-led paid performance, measured against a control.
+- [How Lily Max Works](https://lily-marketing.web.app/how-it-works): See how Lily Max agents find product-data gaps, generate AI-ready enrichments, run controlled tests, and deploy the winners across every surface AI sells on.
+- [Meta Ads Catalog Optimization](https://lily-marketing.web.app/meta-ads): Optimize your Meta Commerce Manager catalog for Advantage+ catalog ads, retargeting, and prospecting across Facebook and Instagram. Measured against a holdout.
+- [AI Discovery & Agentic Commerce](https://lily-marketing.web.app/ai-discovery): Make your products legible to AI. Optimize feeds, schema, and bot-facing content so answer engines and shopping agents can understand, cite, and recommend them.
+- [Onsite Search & PDP Optimization](https://lily-marketing.web.app/onsite): Optimize PDP copy, onsite search, filters, and facets so shoppers find and buy on the site you own. Richer product data, measured against a control.
+- [Pricing](https://lily-marketing.web.app/pricing): Lily pricing scales with your business. Talk to us for a tailored plan.
+- [FAQs](https://lily-marketing.web.app/faqs): Answers about Lily's products, pricing, coverage, implementation, security, and the outcomes customers report.
+- [Blog](https://lily-marketing.web.app/blog): Playbooks, product updates, and points of view on AI retail media and agentic commerce from the Lily team.
+- [Resources](https://lily-marketing.web.app/resources): Guides, case studies, and insights on AI retail media and agentic commerce.
+- [Book a Demo](https://lily-marketing.web.app/book-a-demo): See Lily in action. Book a personalized demo for your business.
+- [Privacy Policy](https://lily-marketing.web.app/privacy): How Lily AI collects, uses, shares, and protects your personal data, including CCPA and GDPR rights. Last updated May 20, 2022.
+- [Terms of Service](https://lily-marketing.web.app/terms): The terms governing use of Lily AI's website and services, including arbitration and class action waiver. Last updated May 6, 2022.
+- [Security & Data Trust](https://lily-marketing.web.app/security): How Lily keeps your data secure and earns your trust.
+- [Press](https://lily-marketing.web.app/press): Lily news, announcements, and media resources.
+- [Paid Ads](https://lily-marketing.web.app/paid-ads): Lily Max enriches the product data your paid campaigns depend on, then tests what actually lifts performance across Google and Meta.
+- [Case Studies](https://lily-marketing.web.app/case-studies): How leading retail brands grew revenue and ROAS with Lily-enriched product intelligence across paid, agentic, and onsite surfaces.
+- [Lily Max for Enterprise](https://lily-marketing.web.app/enterprise): One product intelligence engine across every AI commerce surface. Built for catalog scale and complex verticals, and proven with controlled tests.
+- [Lily Max for Agencies & Partners](https://lily-marketing.web.app/agencies): Bring product intelligence to every client. Manage catalogs in one place, white-label the engine, and grow accounts with controlled-test proof of lift.
+- [Contact](https://lily-marketing.web.app/contact): Get in touch with the Lily AI team: sales, support, partnerships, and press.
+- [Start a Pilot](https://lily-marketing.web.app/free-trial): Request access to Lily Max and see a value signal on your own catalog before any credits are spent. Make every product AI-ready. Tested, not promised.
+
+## Customer stories
+- [How A.L.C. boosted full-catalog product discovery on Google](https://lily-marketing.web.app/case-studies/alc-full-catalog-discovery-on-google): A.L.C. enriched its product attributes with Lily AI to expand discoverability across its full catalog, on-site and on Google, driving a major lift in non-branded search and net sales.
+- [thredUP increases sell-through by 15% with enriched product data](https://lily-marketing.web.app/case-studies/thredup-sell-through-15-percent): AI-driven deep tagging from Lily AI gave thredUP shoppers two to three times as many ways to search and discover its single-SKU inventory, lifting sell-through by 15%.
+- [A global luxury retailer increases relevant results for descriptive searches by up to 30x](https://lily-marketing.web.app/case-studies/luxury-retailer-descriptive-search-30x): Over half of this retailer's on-site searches were attribute-heavy, long-tail queries its manual attribution couldn't serve. Lily AI's consumer-centric attributes increased relevant results by up to 30x.
+- [A large multi-brand retailer boosts product discovery, projecting a $22M revenue increase](https://lily-marketing.web.app/case-studies/multi-brand-retailer-22m-product-discovery): Richer Lily AI attribution lifted on-site discoverability 8.5% and search-driven demand 3.3% for a large multi-brand specialty retailer, projecting to a $22M revenue increase across brands.
+- [Lily AI recommendations increase RPV by 0.65%, driving $20-30M in incremental demand](https://lily-marketing.web.app/case-studies/multi-brand-retailer-rpv-recommendations): Layering Lily AI's granular attributes onto an existing Certona recommendation engine produced more relevant recommendations, lifting revenue per visit and order size for a $20-30M incremental-demand projection.
+- [Lily AI demand forecasting drives 7-8 digit revenue lift with accuracy at scale](https://lily-marketing.web.app/case-studies/demand-forecasting-accuracy-at-scale): Lily AI's visual-similarity models replaced manual proxy-product guesswork, cutting a retailer's forecasting cycle from three months to one and projecting a $7-48M topline revenue lift.
+- [How a luxury home brand boosted sales from Shopify site search and Google search](https://lily-marketing.web.app/case-studies/luxury-home-brand-shopify-and-google): A top luxury home furnishing brand enriched its Shopify product content and GMC feed with Lily AI, lifting on-site revenue per visit, Google impressions, and ad clicks, with a ROAS boost two weeks after going live.
+- [Tapestry boosts traffic and sales from Google Search with Lily AI](https://lily-marketing.web.app/case-studies/tapestry-google-search-discovery): At CommerceNext 2024, Tapestry (parent of Coach) and Lily AI showed how enriching product attributes with customer-centric language drove high-single and double-digit lifts across SEM, SEO, and Site Search.
+- [From experimentation to full AI vibes at Rue Gilt Groupe](https://lily-marketing.web.app/case-studies/rue-gilt-groupe-full-ai-vibes): A CommerceNext 2025 conversation on putting AI to work across the Rue Gilt Groupe portfolio.
+- [From SEM to GEO: how Merrell connects with Gen Z and millennials](https://lily-marketing.web.app/case-studies/merrell-sem-to-geo): How Merrell is evolving from search-engine to generative-engine optimization.
+- [How Bloomingdale's makes site search convert with enriched product data](https://lily-marketing.web.app/case-studies/bloomingdales-site-search-convert): Bloomingdale's on lifting on-site search conversion with richer product attributes.
+- [“AI is here, now what?” with Tapestry and Lily AI](https://lily-marketing.web.app/case-studies/tapestry-ai-is-here-now-what): Tapestry and Lily AI on turning AI ambition into measurable retail results.
+- [How J.Crew uses AI to delight customers and power sales growth](https://lily-marketing.web.app/case-studies/jcrew-ai-delight-customers): J.Crew on using product intelligence to improve discovery and growth.
+- [Visual search: Thrift the Look on-demand webinar](https://lily-marketing.web.app/case-studies/visual-search-thrift-the-look): An on-demand session on visual search and shop-the-look experiences.
+
+## Blog
+- [The most expensive thing in retail right now](https://lily-marketing.web.app/blog/the-most-expensive-thing-in-retail-right-now): Brands are pouring attention into a future that isn't generating revenue yet, while the surfaces actually producing revenue today get treated like settled infrastructure. A preview of my CommerceNext session with Ken Pilot and Noam Paransky.
+- [Google says conversational attributes are optional. History says otherwise.](https://lily-marketing.web.app/blog/conversational-attributes-optional-history-says-otherwise): Mobile-friendly, page speed, structured data: Google introduced each as optional, and each became the price of entry. Conversational attributes, its new AI-shopping feed fields, look like the next one.
+- [You don't have an agency problem. You have an input problem.](https://lily-marketing.web.app/blog/you-dont-have-an-agency-problem): A CMO fired three paid agencies in two years and decided you can't find a good one anymore. The real problem was upstream: the old agency edge has been commoditized, and the leverage has moved to the inputs only the brand controls.
+- [It always turns out to be a feed](https://lily-marketing.web.app/blog/it-always-turns-out-to-be-a-feed): OpenAI spent a year pitching conversational shopping, then quietly rebuilt something that looks a lot like Google Merchant Center. Every platform that monetizes shopping ends up needing the same thing first: a feed.
+- [Google may have just created a billion-dollar optimization market](https://lily-marketing.web.app/blog/google-created-a-billion-dollar-optimization-market): AI visibility struggled to attract serious budget for a simple reason: nobody funds what they can't measure. With Google's new AI Performance Insights, it's measurable now. So the money moves.
+- [Agentic commerce is here. Is your catalog ready for it?](https://lily-marketing.web.app/blog/agentic-commerce-is-here): Shoppers are starting to delegate research and purchase decisions to AI assistants. The brands that win will be the ones whose product data those agents can actually understand.
+- [Automation commoditized everything except your feed](https://lily-marketing.web.app/blog/automation-commoditized-everything-except-your-feed): Google spent five years making paid search dramatically easier to run, which is exactly why it keeps getting more expensive to win. A classic Jevons paradox: automation standardized the edge brands used to build by hand. The one input it can't commoditize is your product feed.
+- [What makes a product feed agent-ready](https://lily-marketing.web.app/blog/what-makes-a-product-feed-agent-ready): A practical checklist for turning a standard product feed into one that AI assistants and shopping agents can confidently surface and recommend.
+- [Google just told the market AI content isn't the moat. Structured product data is.](https://lily-marketing.web.app/blog/google-ai-content-isnt-the-moat-structured-data-is): Google's official guide on optimizing for AI search quietly dismissed the llms.txt-and-content-variants playbook a whole vendor category was built on. For retailers, the moat isn't AI-optimized content. It's structured, machine-readable product data.
+- [$80M in incremental revenue last month, one optimization: the feed](https://lily-marketing.web.app/blog/80m-incremental-revenue-one-optimization-the-feed): Four 28-day Google Ads tests across a luxury house, a US department store, a global home retailer, and an athletic-wear brand. Every lift came from one place: the Google Merchant Center feed.
+- [The score is not the outcome](https://lily-marketing.web.app/blog/the-score-is-not-the-outcome): Visibility scores are useful, but they're a means, not an end. Here's how Lily Max ties product intelligence back to revenue and ROAS.
+- [Performance Max for large catalogs, without the guesswork](https://lily-marketing.web.app/blog/google-ads-pmax-for-large-catalogs): PMax can be a black box. We break down how catalog-aware product intelligence makes it work for retailers with tens of thousands of SKUs.
+- [Stripe is building the rails. Your product data decides who wins on them.](https://lily-marketing.web.app/blog/stripe-rails-product-data-decides-who-wins): A day at Stripe Sessions made one thing unmistakable: agentic commerce has moved from interesting future to build now. Stripe is building the payment rails. The brands that win on them will already have their product data structured for agents.
+- [Brands are paying for bad product data twice now](https://lily-marketing.web.app/blog/brands-pay-for-bad-product-data-twice): Adobe says 34% of retail product pages can't be properly read by AI, even as the AI channel converts 42% better. The cost of thin product data used to be invisible. Answer engines just made it impossible to ignore.
+- [How a home brand grew agentic revenue 3x in a quarter](https://lily-marketing.web.app/blog/how-a-home-brand-grew-agentic-revenue): A look at how one home-goods retailer used product intelligence to become discoverable across AI assistants, and what changed in their numbers.
+- [Building Lily Max: the engine behind every Lily product](https://lily-marketing.web.app/blog/building-lily-max): A behind-the-scenes look at the architecture that connects product data, shopper intent, and channels into one continuously-learning system.
+- [Retail media beyond the dashboard](https://lily-marketing.web.app/blog/retail-media-beyond-the-dashboard): Dashboards report the past. The next generation of retail media has to optimize toward outcomes in real time. Here's our take.
+
+## Press
+- [Purva Gupta named an EY Entrepreneur Of The Year 2024 Bay Area finalist](https://lily-marketing.web.app/press/ey-entrepreneur-of-the-year-2024-finalist): Lily AI Co-Founder and CEO Purva Gupta was named a finalist for the EY Entrepreneur Of The Year 2024 Bay Area award.
+- [Lily AI closes $25M Series B to bring the language of the customer across the retail value chain](https://lily-marketing.web.app/press/series-b-announcement): Lily AI announced the close of its Series B financing round, with participation from Canaan Partners, Conductive Ventures, Sorenson Ventures and NEA, to bring the language of the customer across the entire retail value chain.
+- [Retail tech start-up Lily AI secures $25 million Series B financing](https://lily-marketing.web.app/press/series-b-funding-wwd): WWD reports on Lily AI's $25 million Series B round and its plans to expand across mid-market retail, home and beauty, and into the U.K. and Europe.
+
+## FAQs
+- [What is Lily Max?](https://lily-marketing.web.app/faqs/what-is-lily-max)
+- [What is Lily AI?](https://lily-marketing.web.app/faqs/what-is-lily-ai)
+- [What is agentic product intelligence?](https://lily-marketing.web.app/faqs/what-is-agentic-product-intelligence)
+- [How does Lily Max work?](https://lily-marketing.web.app/faqs/how-does-lily-max-work)
+- [Who is Lily Max for?](https://lily-marketing.web.app/faqs/who-is-lily-max-for)
+- [Which channels and surfaces does Lily Max support?](https://lily-marketing.web.app/faqs/which-channels-and-surfaces-does-lily-max-support)
+- [What does Lily do?](https://lily-marketing.web.app/faqs/what-does-lily-do)
+- [Which channels does Lily support?](https://lily-marketing.web.app/faqs/which-channels-does-lily-support)
+- [Is Lily a content generator or a feed manager?](https://lily-marketing.web.app/faqs/is-lily-a-content-generator-or-a-feed-manager)
+- [How much does Lily Max cost?](https://lily-marketing.web.app/faqs/how-much-does-lily-max-cost)
+- [How is Lily priced?](https://lily-marketing.web.app/faqs/how-is-lily-priced)
+- [Is there a free trial?](https://lily-marketing.web.app/faqs/is-there-a-free-trial)
+- [How is Lily different from a feed management tool or an agency?](https://lily-marketing.web.app/faqs/how-is-lily-different-from-a-feed-management-tool-or-an-agen)
+- [How is Lily different from AI visibility tools?](https://lily-marketing.web.app/faqs/how-is-lily-different-from-ai-visibility-tools)
+- [How is Lily different from agentic-commerce-only (ACO) tools?](https://lily-marketing.web.app/faqs/how-is-lily-different-from-agentic-commerce-only-aco-tools)
+- [What data does Lily need to get started?](https://lily-marketing.web.app/faqs/what-data-does-lily-need-to-get-started)
+- [How does Lily keep product intelligence accurate?](https://lily-marketing.web.app/faqs/how-does-lily-keep-product-intelligence-accurate)
+- [Do I keep control of my ad accounts and data?](https://lily-marketing.web.app/faqs/do-i-keep-control-of-my-ad-accounts-and-data)
+- [How does Lily prove the results are real?](https://lily-marketing.web.app/faqs/how-does-lily-prove-the-results-are-real)
+- [Can Lily guarantee my products will appear in ChatGPT, AI Overviews, or other AI assistants?](https://lily-marketing.web.app/faqs/can-lily-guarantee-my-products-will-appear-in-chatgpt-ai-ove)
+- [Can I measure revenue from AI-driven discovery?](https://lily-marketing.web.app/faqs/can-i-measure-revenue-from-ai-driven-discovery)
+- [Why does Lily say "the score is not the outcome"?](https://lily-marketing.web.app/faqs/why-does-lily-say-the-score-is-not-the-outcome)
+- [What kind of results do customers see?](https://lily-marketing.web.app/faqs/what-kind-of-results-do-customers-see)
+- [How long until I see impact?](https://lily-marketing.web.app/faqs/how-long-until-i-see-impact)
+- [Does Lily Max replace my existing tools or PIM?](https://lily-marketing.web.app/faqs/does-lily-max-replace-my-existing-tools-or-pim)
+- [How do I get started, and how soon will I see results?](https://lily-marketing.web.app/faqs/how-do-i-get-started-and-how-soon-will-i-see-results)
+- [How long does onboarding take?](https://lily-marketing.web.app/faqs/how-long-does-onboarding-take)
+- [How does Lily protect my data?](https://lily-marketing.web.app/faqs/how-does-lily-protect-my-data)
+- [Is my catalog or ad data ever shared or sold?](https://lily-marketing.web.app/faqs/is-my-catalog-or-ad-data-ever-shared-or-sold)
+- [Does Lily work for agencies managing multiple brands?](https://lily-marketing.web.app/faqs/does-lily-work-for-agencies-managing-multiple-brands)
+- [How do I partner with Lily as an agency?](https://lily-marketing.web.app/faqs/how-do-i-partner-with-lily-as-an-agency)

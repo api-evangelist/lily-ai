@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: searched
+source: live probe of https://lily.ai (2026-07-19)
+host: https://lily.ai
+notes: >-
+  No /.well-known/ discovery documents are published. Every probed path returns
+  404. Recorded as valid negative data — no WellKnown or SecurityTxt pointer is
+  wired into apis.yml because no document exists. Only api-host candidates on the
+  registrable domain were probed; api.lily.ai, docs.lily.ai, and developer.lily.ai
+  do not resolve (NXDOMAIN), so there is no API host to probe.
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+related:
+- path: /llms.txt
+  status: 200
+  file: ../llms/lily-ai-llms.txt
+  note: Published and harvested verbatim; wired as type LLMsTxt.
+- path: /robots.txt
+  status: 200
+- path: /sitemap.xml
+  status: 200
+  note: 86 URLs; all <loc> values point at the lily-marketing.web.app Firebase staging host rather than lily.ai.

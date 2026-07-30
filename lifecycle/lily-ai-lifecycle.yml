@@ -1,0 +1,106 @@
+generated: '2026-07-19'
+method: searched
+source: >-
+  https://status.lily.ai/ (live service status page, fetched 2026-07-19);
+  https://lily.ai/security; https://lily.ai/terms; https://lily.ai/llms.txt.
+  No public API versioning or deprecation policy is published by Lily AI —
+  the platform is delivered as a managed enterprise service with no public
+  developer portal or API reference.
+versioning:
+  scheme: null
+  mechanism: null
+  docs: null
+  notes: >-
+    Lily AI publishes no public API, no OpenAPI definition, and no versioning
+    policy. Nothing was found on lily.ai, and no api./docs./developer. subdomain
+    resolves (NXDOMAIN as of 2026-07-19). Recorded as absent, not assumed.
+deprecation:
+  policy_url: null
+  sunset_header: null
+  notes: >-
+    No deprecation or sunset policy published. RFC 8594 Sunset/Deprecation
+    header support could not be assessed because there is no reachable public
+    API host.
+sla:
+  url: null
+  public_uptime_target: null
+  notes: >-
+    No public SLA or numeric uptime target found. https://lily.ai/terms
+    (last updated May 6, 2022) governs website and service use; availability
+    commitments appear to be handled in enterprise agreements.
+status_page: https://status.lily.ai/
+status_page_details:
+  platform: self-hosted (Next.js, CNAME to ghs.googlehosted.com)
+  title: Service Status
+  observed_state: All systems operational
+  components_reported_total: 46
+  incident_history: false
+  uptime_figures: false
+  subscribe: false
+  notes: >-
+    Unusually granular for a company with no public API — the page exposes the
+    internal service topology by component name. Listed verbatim below as
+    observed evidence of the platform's internal architecture. These are NOT
+    publicly documented or consumer-accessible APIs.
+  observed_components:
+    agents:
+    - agentic-analytics
+    - agentic-config-service
+    - core-attribution-agent
+    - data-scoring-agent
+    - faq-agent
+    - google-agent
+    - highlights-agent
+    - item-setup-agent
+    - meta-agent
+    - meta-copy-agent
+    - product-copy-agent
+    - retailer-mapping-agent
+    - search-descriptor-agent
+    workers_and_queues:
+    - curation-worker-service
+    - experiment-stats-worker
+    - integration-delivery-worker
+    - integration-image-processing-worker
+    - integration-ingest-worker
+    - langfuse-worker
+    - temporal-worker
+    - workflow-worker
+    web_uis:
+    - langfuse-web-ui
+    - temporal-web-ui
+    - workflow-webapp
+    platform_services:
+    - ai-mcp-server
+    - curation-service
+    - identity-service
+    - integration-api-service
+    - langfuse-web
+    - marketing-prod
+    - notification-api-prod
+    - observability-service
+    - platform-gateway
+    - release-query
+    - temporal-admintools
+    - temporal-frontend
+    - temporal-history
+    - temporal-matching
+    - temporal-web
+    - webhook-receiver
+    jobs_and_migrations:
+    - curation-compute
+    - identity-service-migrate
+    - integration-api-ch-migrate
+    - integration-api-migrate
+    - notification-migrate
+    - workflow-db-migrate
+deprecated_operations: []
+notes: >-
+  The status page names an `ai-mcp-server` component, a `webhook-receiver`, a
+  `platform-gateway`, and an `integration-api-service`. These indicate an
+  internal MCP, webhook, and API surface exists in production, but none of it is
+  publicly documented, reachable, or offered to developers. Per the pipeline's
+  no-fabrication rule, no MCPServer, Webhooks, or AsyncAPI pointer is emitted on
+  the strength of a status-page component name alone. Re-check on a later pass if
+  Lily AI opens a developer program — the `ai-mcp-server` component makes them a
+  plausible near-term MCP publisher.
