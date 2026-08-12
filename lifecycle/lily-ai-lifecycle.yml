@@ -1,26 +1,42 @@
-generated: '2026-07-19'
+generated: '2026-08-12'
 method: searched
 source: >-
-  https://status.lily.ai/ (live service status page, fetched 2026-07-19);
+  https://status.lily.ai/ (live service status page, re-fetched 2026-08-12);
+  https://lilyapp-api-prd.pub.lilyai.net/api-json (the published OpenAPI);
+  https://lilyapp-api-prd.pub.lilyai.net/ (build identifier);
   https://lily.ai/security; https://lily.ai/terms; https://lily.ai/llms.txt.
-  No public API versioning or deprecation policy is published by Lily AI —
-  the platform is delivered as a managed enterprise service with no public
-  developer portal or API reference.
+  No public API versioning or deprecation policy is published by Lily AI. The
+  2026-08-12 pass DID find a live, publicly-served OpenAPI for the LilyApp
+  middleware, so the versioning facts below are now derived from the contract and
+  from the running build rather than recorded as unknown.
 versioning:
-  scheme: null
-  mechanism: null
+  scheme: path-prefix and controller-suffix, applied unevenly
+  mechanism: URL path
   docs: null
+  contract_version: '1.0'
+  build_version: 2026.02b
+  build_version_scheme: calendar (YYYY.MMx), reported at GET https://lilyapp-api-prd.pub.lilyai.net/
+  evidence:
+  - /v2/auth/b2c/login and /v2/auth/microsoft/login run alongside the unversioned
+    /auth/b2c/login and /auth/microsoft/login
+  - /productcopyV2/* runs alongside /productcopy/*
+  - info.version in the contract is the literal "1.0" and does not track the build
   notes: >-
-    Lily AI publishes no public API, no OpenAPI definition, and no versioning
-    policy. Nothing was found on lily.ai, and no api./docs./developer. subdomain
-    resolves (NXDOMAIN as of 2026-07-19). Recorded as absent, not assumed.
+    Two generations of the same resources are live simultaneously. The contract's
+    own info.version never moves, so the only real version signal is the build tag
+    the service reports at its root. There is no published versioning policy, no
+    version header, and no media-type versioning.
 deprecation:
   policy_url: null
-  sunset_header: null
+  sunset_header: false
+  deprecated_flags_in_spec: 0
   notes: >-
-    No deprecation or sunset policy published. RFC 8594 Sunset/Deprecation
-    header support could not be assessed because there is no reachable public
-    API host.
+    No deprecation or sunset policy is published, no operation in the 100-operation
+    contract carries `deprecated: true`, and no Sunset or Deprecation response
+    header (RFC 8594) was observed on any probed response. The superseded v1
+    auth and productcopy controllers remain live and unmarked, so a consumer has no
+    machine-readable way to tell which generation to build against. NO
+    `Deprecation` pointer is emitted.
 sla:
   url: null
   public_uptime_target: null
@@ -95,6 +111,19 @@ status_page_details:
     - notification-migrate
     - workflow-db-migrate
 deprecated_operations: []
+superseded_but_unmarked:
+  note: >-
+    Not declared deprecated by the provider — recorded here as an observation, not
+    as a provider claim.
+  operations:
+  - AuthController_loginUserExt        # superseded by AuthV2Controller_loginUserExt
+  - AuthController_loginUser           # superseded by AuthV2Controller_loginUser
+  - ProductCopyController_updateProductCopyDetails
+  - ProductCopyController_getProductCopyDetails
+  - ProductCopyController_updateProductCopyStatus
+  - ProductBatchesController_getAllProductCopyBatchesFromPI
+  - ProductBatchesController_getAllProductCopiesForBatch
+  - ProductBatchesController_deleteProductBatch
 notes: >-
   The status page names an `ai-mcp-server` component, a `webhook-receiver`, a
   `platform-gateway`, and an `integration-api-service`. These indicate an
@@ -104,3 +133,19 @@ notes: >-
   the strength of a status-page component name alone. Re-check on a later pass if
   Lily AI opens a developer program — the `ai-mcp-server` component makes them a
   plausible near-term MCP publisher.
+  UPDATE 2026-08-12: one of those surfaces turned out to be reachable after all.
+  The production JavaScript bundle at app.lily.ai names
+  https://lilyapp-api-prd.pub.lilyai.net as its API base; that host serves a public
+  Swagger UI at /api and an OpenAPI 3.0.0 contract at /api-json (100 operations,
+  41 schemas), harvested this pass. It is the customer application's middleware,
+  not a developer product — no portal, no reference, no SDK, no credential path —
+  but it is genuinely published, so it is now captured in openapi/. The MCP,
+  webhook and integration components remain unreachable and unpointered.
+staging:
+  host: https://lilyapp-api-stg.pub.lilyai.net
+  reachable: false
+  finding: >-
+    Resolves (20.42.147.200) but presents an EXPIRED TLS certificate as of
+    2026-08-12, so the handshake aborts. Recorded as an observed operational
+    defect, not as a sandbox — Lily AI does not offer or document a public test
+    environment.

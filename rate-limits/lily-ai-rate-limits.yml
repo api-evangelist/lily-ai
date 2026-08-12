@@ -1,0 +1,65 @@
+generated: '2026-08-12'
+method: probed
+source: >-
+  Live unauthenticated responses from https://lilyapp-api-prd.pub.lilyai.net/config/brands
+  and /subsidiary/list observed 2026-08-12. Lily AI publishes no rate-limit
+  documentation — these values are read directly off the response headers the
+  production API returns.
+docs: null
+limit_count: 3
+scope: per-client (observed on unauthenticated requests; the throttle counter
+  increments before the JWT guard rejects the call)
+headers:
+  family: X-RateLimit-* with named throttler suffixes (short / medium / long)
+  observed:
+  - X-RateLimit-Limit-short
+  - X-RateLimit-Remaining-short
+  - X-RateLimit-Reset-short
+  - X-RateLimit-Limit-medium
+  - X-RateLimit-Remaining-medium
+  - X-RateLimit-Reset-medium
+  - X-RateLimit-Limit-long
+  - X-RateLimit-Remaining-long
+  - X-RateLimit-Reset-long
+  retry_after: not returned on any observed response
+  standard: >-
+    Not IETF draft RateLimit-* (RFC 9239 style). The suffixed X-RateLimit-*-<name>
+    triple is the @nestjs/throttler named-throttler convention, consistent with the
+    service self-identifying as a NestJS application.
+limits:
+- name: short
+  window: 1s
+  limit: 10
+  burst: null
+  reset_field: X-RateLimit-Reset-short
+  evidence: 'X-RateLimit-Limit-short: 10 / X-RateLimit-Remaining-short: 9 / X-RateLimit-Reset-short: 1'
+- name: medium
+  window: 10s
+  limit: 50
+  burst: null
+  reset_field: X-RateLimit-Reset-medium
+  evidence: 'X-RateLimit-Limit-medium: 50 / X-RateLimit-Remaining-medium: 49 / X-RateLimit-Reset-medium: 10'
+- name: long
+  window: 60s
+  limit: 100
+  burst: null
+  reset_field: X-RateLimit-Reset-long
+  evidence: 'X-RateLimit-Limit-long: 100 / X-RateLimit-Remaining-long: 99 / X-RateLimit-Reset-long: 60'
+exhaustion:
+  status_code: null
+  note: >-
+    A 16-request parallel burst against the 10-req/1s short window did not produce a
+    429 — every response was 401 from the auth guard. The exhaustion status code is
+    therefore NOT recorded as observed. It is not documented anywhere public either.
+notes: >-
+  These limits govern the LilyApp middleware API that backs app.lily.ai. Lily AI has
+  no public developer program, so there is no published rate-limit policy, no
+  per-plan quota table, and no documented behaviour on exhaustion. Everything here
+  was measured, not read.
+x-evidence:
+- url: https://lilyapp-api-prd.pub.lilyai.net/config/brands
+  status: 401
+  fetched: '2026-08-12'
+- url: https://lilyapp-api-prd.pub.lilyai.net/subsidiary/list
+  status: 401
+  fetched: '2026-08-12'

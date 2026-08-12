@@ -1,0 +1,183 @@
+generated: '2026-08-12'
+method: derived
+source: >-
+  openapi/lily-ai-lilyapp-api-openapi.yml — components.schemas $ref graph (41
+  schemas) plus id-reference fields. No published object reference exists; Lily AI
+  ships no developer documentation.
+api: LilyApp Middleware API
+notes: >-
+  The graph is anchored on Subsidiary (a retailer tenant). Everything else hangs off
+  a Product, which is identified two ways at once — the retailer's own `skuId` and
+  Lily's internal `lily_product_id` / `productId` — and enriched by Tags
+  (consumer-centric product attributes, Lily's core asset) and ProductCopy
+  (generated PDP/ad copy). Analytics entities measure the lift of Lily-impacted
+  search against a non-impacted control, which is the company's stated
+  "tested, not promised" methodology showing up in the schema layer.
+id_conventions:
+  note: >-
+    Naming is inconsistent across generations. The same concepts appear in
+    snake_case (sku_id, product_id, subsidiary_id, lily_product_id) in older DTOs
+    and camelCase (skuId, productId, subsidiaryID) in newer ones. There are no
+    prefixed opaque ids.
+  identifiers:
+  - skuId / sku_id — the retailer's own SKU identifier; the primary product key
+  - lily_product_id / productId — Lily's internal product identifier
+  - subsidiaryCode / subsidiaryID / subsidiary_id — retailer tenant key
+  - experimentId — controlled-test identifier used by the Superset chart endpoint
+  - session_id — copy-generation session
+entities:
+- name: Subsidiary
+  schema: SubsidiaryDto
+  description: A retailer tenant. Every data operation is scoped to one.
+  keys: [id, code]
+- name: Brand
+  schema: BrandDto
+  description: A brand within a subsidiary's catalog.
+  keys: [id, code]
+- name: Product
+  schema: ProductOldDto / ProductDtoWithSynonym / ProductCopyDto / ProductCopyDtoV2
+  description: >-
+    A catalog item. Four DTO generations describe it — the legacy search DTO, the
+    synonym-bearing search DTO, and two product-copy DTOs (v1 and v2).
+  keys: [skuId, productId, lily_product_id]
+- name: Tag
+  schema: SubsidiaryTagsDto / TagsWithSynonyms / TagSections
+  description: >-
+    A consumer-centric product attribute, grouped into sections and carrying
+    synonyms. This is Lily AI's product-intelligence payload.
+- name: ProductCopy
+  schema: ProductCopyDto / ProductCopyDtoV2
+  description: Generated marketing copy for a product, with a review status.
+- name: ProductCopyBatch
+  schema: ProductCopyBatches
+  description: A named batch of products queued for copy generation and review.
+- name: ProductCopyStatus
+  schema: ProductCopyStatus
+  description: Review state attached to generated copy.
+- name: Filter
+  schema: FilterDto / FilterContainerDto
+  description: Faceted search filter definitions returned for the product gallery.
+- name: PiAnalytics
+  schema: PiAnalyticsDto / PiAnalyticsValuesDto / PiAnalyticsMetaDto / PiAnalyticsTypeDto
+  description: >-
+    Product-intelligence performance metrics, split three ways —
+    lily_impacted_search, non_lily_impacted_search, and without_search — i.e. the
+    controlled-test structure.
+- name: PiTrends
+  schema: PiTrendsDto / PiTrendsSearchTermDto
+  description: Search-term trend data.
+- name: Partner
+  schema: ConfigurePartnerPayload / PartnerConnectionPayload
+  description: >-
+    An outbound integration destination (Google Merchant Center, Meta Commerce
+    Manager, onsite search). Configured with a url + accessToken pair.
+- name: Pagination
+  schema: PaginationDto
+  description: Shared page envelope (pageNumber, pageSize, total, totalPages).
+- name: PersonProductType
+  schema: PersonProductTypesDto
+  description: Taxonomy of person/product types used to scope tag lookups.
+- name: RetailerInfo
+  schema: RetailerInfoDto
+  description: Retailer configuration returned for the signed-in tenant.
+relationships:
+- from: SearchOldResponseDto
+  to: ProductOldDto
+  type: has_many
+  via: products
+- from: ProductDtoWithSynonym
+  to: TagSections
+  type: has_many
+  via: tagSections
+- from: TagSections
+  to: TagsWithSynonyms
+  type: has_many
+  via: tags
+- from: ProductSearchDtoWithSynonyms
+  to: ProductDtoWithSynonym
+  type: has_many
+  via: productsWithSynonym
+- from: ProductSearchDtoWithSynonyms
+  to: PaginationDto
+  type: has_one
+  via: pagination
+- from: SearchPAMPayloadDto
+  to: SubsidiaryTagsDto
+  type: has_many
+  via: subsidiary_tags
+- from: TagUpdatePayloadDto
+  to: SubsidiaryTagsDto
+  type: has_many
+  via: subsidiary_tags_to_add
+- from: TagUpdatePayloadDto
+  to: SubsidiaryTagsDto
+  type: has_many
+  via: subsidiary_tags_to_remove
+- from: TagUpdatePayloadDto
+  to: Product
+  type: belongs_to
+  via: product_id
+- from: TagUpdatePayloadDto
+  to: Subsidiary
+  type: belongs_to
+  via: subsidiary_id
+- from: FilterContainerDto
+  to: FilterDto
+  type: has_many
+  via: filters
+- from: PiAnalyticsDto
+  to: PiAnalyticsValuesDto
+  type: has_one
+  via: lily_impacted_search
+- from: PiAnalyticsDto
+  to: PiAnalyticsValuesDto
+  type: has_one
+  via: non_lily_impacted_search
+- from: PiAnalyticsDto
+  to: PiAnalyticsValuesDto
+  type: has_one
+  via: without_search
+- from: PiTrendsDto
+  to: PiTrendsSearchTermDto
+  type: has_many
+  via: search_terms
+- from: ProductCopySearchDto
+  to: ProductCopyDto
+  type: has_many
+  via: products
+- from: ProductCopySearchDto
+  to: PaginationDto
+  type: has_one
+  via: pagination
+- from: ProductCopySearchDtoV2
+  to: ProductCopyDtoV2
+  type: has_many
+  via: products
+- from: ProductCopySearchDtoV2
+  to: PaginationDto
+  type: has_one
+  via: pagination
+- from: SearchProductCopyBodyDto
+  to: SubsidiaryTagsDto
+  type: has_many
+  via: subsidiary_tags
+- from: ExportProductCopyBodyDto
+  to: SubsidiaryTagsDto
+  type: has_many
+  via: subsidiary_tags
+- from: ProductDetailsUpdatePayloadDto
+  to: ProductCopyStatus
+  type: has_one
+  via: status
+- from: ProductStatusUpdatePayloadDto
+  to: ProductCopyStatus
+  type: has_one
+  via: status
+- from: ConfigurePartnerPayload
+  to: PartnerConnectionPayload
+  type: has_one
+  via: connectionDetails
+counts:
+  schemas: 41
+  entities: 15
+  relationships: 23

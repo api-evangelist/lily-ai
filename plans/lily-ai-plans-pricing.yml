@@ -1,0 +1,26 @@
+generated: '2026-08-12'
+method: searched
+source: https://www.lily.ai/pricing (and the FAQ entries "How much does Lily Max cost?",
+  "How is Lily priced?", "Is there a free trial?" surfaced in https://lily.ai/llms.txt)
+plan_count: 0
+currency: null
+plans: []
+notes: >-
+  Lily AI publishes no plans, no tiers, and no prices. The pricing page states only
+  that "Lily pricing scales with your business. Talk to us for a tailored plan" and
+  routes to a demo request. There is no self-service sign-up, no free tier, no
+  published quota, and no overage schedule — the FAQ confirms a pilot is requested
+  through sales rather than started with a card. Recorded as an explicit zero, not
+  an omission: this is a sales-gated enterprise product.
+gating:
+  self_service: false
+  free_trial: false
+  pilot_request: https://www.lily.ai/free-trial
+  contact_sales: https://www.lily.ai/book-a-demo
+x-evidence:
+- url: https://www.lily.ai/pricing
+  status: 200
+  fetched: '2026-08-12'
+- url: https://lily.ai/llms.txt
+  status: 200
+  fetched: '2026-08-12'

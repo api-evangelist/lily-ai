@@ -1,0 +1,127 @@
+generated: '2026-08-12'
+method: derived
+source: >-
+  openapi/lily-ai-lilyapp-api-openapi.yml plus live response headers and bodies
+  observed on https://lilyapp-api-prd.pub.lilyai.net (2026-08-12). Lily AI
+  publishes no developer documentation, so every convention below was read off the
+  contract or off the wire — none of it is stated by the provider.
+api: LilyApp Middleware API
+base_url: https://lilyapp-api-prd.pub.lilyai.net
+auth:
+  style: 'bearer JWT (Authorization: Bearer <token>)'
+  scheme_name: JWT
+  issuer: Azure AD B2C tenant lilyexternalaad (lilyexternalaad.b2clogin.com)
+  applied: >-
+    Declared once in components.securitySchemes and NOT applied per-operation or
+    globally via a top-level security block — the spec never states which of the
+    100 operations require a token. Live probing shows they do: unauthenticated
+    calls to /config/brands and /subsidiary/list both return 401 "null Token".
+  see: authentication/lily-ai-authentication.yml
+tenancy:
+  model: subsidiary-scoped multi-tenancy
+  note: >-
+    The dominant cross-cutting parameter in the contract. A caller's request is
+    scoped to a retailer subsidiary, and the API accepts FOUR different spellings
+    of the same concept, which is the most consequential inconsistency in the
+    surface for an agent.
+  variants:
+  - in: query
+    name: subsidiaryCode
+    operations: 19
+  - in: query
+    name: subsidiaryID
+    operations: 5
+  - in: header
+    name: subsidiary-id
+    operations: 5
+  - in: header
+    name: x-subsidiary-id
+    operations: 5
+  - in: path
+    name: subsidiaryCode
+    operations: 2
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No idempotency key of any kind. The string "idempoten" does not appear once in
+    the 50KB contract, there is no Idempotency-Key header, and the mutating
+    operations (PUT /productcopy/batches/add, POST
+    /productcopy/batches/add/products/{id}, DELETE
+    /productcopy/batches/remove/{id}) offer no safe-retry mechanism. No
+    `Idempotency` pointer is wired into apis.yml — this is a recorded absence, not
+    an oversight.
+pagination:
+  supported: true
+  style: page-number / page-size
+  consistency: inconsistent — two competing parameter vocabularies coexist
+  variants:
+  - params: [pageNumber, pageSize]
+    operations: 5
+    note: The dominant style; mirrored by the PaginationDto response envelope.
+  - params: [page, per_page]
+    operations: 1
+  - params: [limit, offset]
+    operations: 1
+  response_envelope:
+    schema: PaginationDto
+    fields: [pageNumber, pageSize, total, totalPages]
+    note: >-
+      pageNumber and pageSize are typed `object` with string defaults ("1", "100")
+      rather than integers — a schema-quality defect an agent has to work around.
+  cursor: false
+sorting_and_filtering:
+  sort_params: [order, sortColumn, sortDirection]
+  filter_surface: >-
+    POST /search/products and GET /search/products/filters/tableFormatted expose a
+    faceted filter model (FilterDto / FilterContainerDto) rather than query-string
+    filters.
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  correlation_id: >-
+    Error responses from the auth guard carry a `correlationId` UUID in the body.
+    No request-id RESPONSE HEADER is returned on success, so a caller can only
+    obtain a correlation handle by failing.
+  headers_observed: [ETag, Vary]
+versioning:
+  scheme: path-prefix and controller-suffix, applied unevenly
+  evidence:
+  - /v2/auth/... alongside the unversioned /auth/...
+  - /productcopyV2/... alongside /productcopy/...
+  - info.version is "1.0" and never changes; the deployed build is versioned
+    separately as 2026.02b (calendar versioning) and reported at GET /
+  note: >-
+    Two generations of the same resources are live simultaneously with no
+    deprecation marker on either. See lifecycle/lily-ai-lifecycle.yml.
+  media_type_versioning: false
+  header_versioning: false
+error_envelope:
+  format: vendor JSON, two competing shapes
+  rfc9457: false
+  see: errors/lily-ai-problem-types.yml
+rate_limit_signaling:
+  headers: X-RateLimit-{Limit,Remaining,Reset}-{short,medium,long}
+  documented: false
+  see: rate-limits/lily-ai-rate-limits.yml
+content_types:
+  request: application/json
+  response: application/json
+security_headers_observed:
+  headers:
+  - 'Strict-Transport-Security: max-age=15768000; includeSubDomains'
+  - Content-Security-Policy
+  - Cross-Origin-Opener-Policy
+  - Cross-Origin-Resource-Policy
+  - X-Content-Type-Options
+  - X-Frame-Options
+  - Referrer-Policy
+  note: Helmet-style hardening is present and complete on the API host.
+cross_links:
+  authentication: authentication/lily-ai-authentication.yml
+  errors: errors/lily-ai-problem-types.yml
+  lifecycle: lifecycle/lily-ai-lifecycle.yml
+  rate_limits: rate-limits/lily-ai-rate-limits.yml
+  data_model: data-model/lily-ai-data-model.yml

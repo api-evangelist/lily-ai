@@ -1,0 +1,46 @@
+generated: '2026-08-12'
+method: probed
+source: >-
+  DNS resolution of trust.lily.ai and live HTTPS probes (2026-08-12), plus
+  https://www.lily.ai/security
+trust_center:
+  url: https://trust.lily.ai/
+  exists: true
+  platform: Drata
+  platform_evidence: 'DNS CNAME trust.lily.ai -> trust.cname.drata.com'
+  readable: false
+  http_status: 403
+  block_reason: >-
+    Cloudflare managed bot challenge. Every automated request — including
+    /.well-known/security.txt and the Drata API paths — returns HTTP 403 with the
+    "Just a moment..." interstitial (cf challenge, zone trust.lily.ai). A human with
+    a JavaScript-capable browser can read the page; a machine cannot.
+certifications: []
+certifications_note: >-
+  NO certification is recorded, because none could be verified. A Drata-backed trust
+  center is where a SOC 2 Type II or ISO 27001 attestation would normally be
+  published, but the challenge page prevents reading it, and Lily AI's public
+  security page (https://www.lily.ai/security) names no certification at all — it
+  states only that the company "aligns with industry standards and customer
+  requirements". Per the no-fabrication rule, presence of a Drata tenant is NOT
+  treated as evidence of any specific certification, and no `Compliance` pointer is
+  emitted.
+public_security_claims:
+  source: https://www.lily.ai/security
+  claims:
+  - Encryption in transit and at rest
+  - Least-privilege access
+  - Secrets kept server-side
+  - Inputs validated
+  - Access logged
+  - Customer data used only to operate the customer's campaigns, never sold
+x-evidence:
+- url: https://trust.lily.ai/
+  status: 403
+  fetched: '2026-08-12'
+- url: https://trust.lily.ai/.well-known/security.txt
+  status: 403
+  fetched: '2026-08-12'
+- url: https://www.lily.ai/security
+  status: 200
+  fetched: '2026-08-12'

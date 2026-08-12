@@ -1,0 +1,81 @@
+generated: '2026-08-12'
+method: derived
+source: >-
+  openapi/lily-ai-lilyapp-api-openapi.yml, live responses from
+  https://lilyapp-api-prd.pub.lilyai.net (2026-08-12),
+  https://lilyexternalaad.b2clogin.com/.../v2.0/.well-known/openid-configuration,
+  and https://www.lily.ai/security. Lily AI publishes no compliance page naming a
+  certification.
+api: LilyApp Middleware API
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    Contract published at https://lilyapp-api-prd.pub.lilyai.net/api-json declares
+    openapi 3.0.0, 63 paths, 100 operations, 41 component schemas. Validates as
+    OpenAPI 3.0.
+- id: oidc
+  conforms: true
+  evidence: >-
+    The application authenticates against Lily AI's Azure AD B2C tenant. A valid
+    OIDC discovery document is served at
+    https://lilyexternalaad.b2clogin.com/lilyexternalaad.onmicrosoft.com/B2C_1A_SIGNIN_EMAILMFA/v2.0/.well-known/openid-configuration
+    (HTTP 200), advertising authorization/token/jwks/end_session endpoints,
+    RS256 id_token signing, pairwise subjects, and the `openid` scope. MFA is
+    enforced by the user flow name (B2C_1A_SIGNIN_EMAILMFA).
+- id: oauth2
+  conforms: partial
+  evidence: >-
+    Tokens are OAuth 2.0 / OIDC authorization-code tokens issued by Azure AD B2C
+    (response_types_supported includes `code`), but the API's own contract declares
+    only an opaque http/bearer scheme with no oauth2 flows, no authorization URL,
+    and no scopes. A machine reading the OpenAPI alone cannot obtain a token.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    No application/problem+json anywhere. Two competing vendor JSON error envelopes
+    are in use — see errors/lily-ai-problem-types.yml.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header and no idempotency semantics; the string "idempoten"
+    does not occur in the contract. Mutating batch operations offer no safe retry.
+- id: pagination
+  conforms: partial
+  evidence: >-
+    Page-number pagination is present with a shared PaginationDto envelope, but
+    three different parameter vocabularies coexist (pageNumber/pageSize,
+    page/per_page, limit/offset) and the envelope types page fields as `object`.
+- id: rfc9116
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on every Lily-operated host.
+- id: rfc8594
+  conforms: false
+  evidence: >-
+    No Sunset or Deprecation headers observed, and two generations of the same
+    resources (/productcopy and /productcopyV2, /auth and /v2/auth) run in parallel
+    with no deprecation marker on either.
+- id: rfc8615-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json return 404 on lily.ai
+    and on the API host. app.lily.ai answers 200 for them but with an HTML SPA
+    shell, which is not a card.
+- id: prometheus-exposition
+  conforms: true
+  evidence: >-
+    GET /metrics is declared in the contract (PrometheusController_index) and served
+    on the same public host as the API.
+compliance_programs:
+  certifications_named: []
+  trust_center: https://trust.lily.ai/
+  note: >-
+    Lily AI runs a Drata-hosted trust center at trust.lily.ai (CNAME
+    trust.cname.drata.com), which is where any SOC 2 / ISO 27001 attestation would
+    be listed — but it sits behind a Cloudflare managed bot challenge (HTTP 403 to
+    every automated client), so NO certification can be named from evidence. The
+    public https://www.lily.ai/security page names none either; it claims only
+    "encryption in transit and at rest", least-privilege access, server-side
+    secrets, validated inputs, access logging, and that it "aligns with industry
+    standards and customer requirements". Because no certification is verifiable, NO
+    `Compliance` pointer is emitted. See security/lily-ai-trust-center.yml.

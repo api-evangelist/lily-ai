@@ -1,0 +1,39 @@
+generated: '2026-08-12'
+method: searched
+source: >-
+  Registry searches on registry.npmjs.org, pypi.org, and api.github.com
+  (2026-08-12), plus a full read of https://lily.ai/llms.txt and the Lily AI site.
+package_count: 0
+official_count: 0
+packages: []
+notes: >-
+  Lily AI ships no client libraries. npm search for "lily-ai", "lilyai" and
+  "lily-max" returns only unrelated third-party packages (@jcubic/lily,
+  @lily-technologies/lnrpc, @levish0/lily-pad, @fontsource/lily-script-one);
+  pypi.org/pypi/lily-ai/json and /lilyai/json both return 404; and no GitHub
+  organization exists at github.com/lily-ai, /lilyai, /LilyAI or /lily-ai-inc (all
+  404 from api.github.com). No SDK, CLI, or SourceCode link appears anywhere on
+  lily.ai or in its llms.txt. No `SDKs` pointer is emitted — an honest zero.
+registries_checked:
+- registry: npm
+  queries: [lily-ai, lilyai, '@lily-ai/sdk', lily-max]
+  result: no first-party package
+- registry: pypi
+  queries: [lily-ai, lilyai]
+  result: 404 on both
+- registry: github
+  queries: [lily-ai, lilyai, LilyAI, lily-ai-inc]
+  result: 404 on all — no organization
+third_party_distribution:
+  docker_image_referenced: lilyaidocker/lilyapp-api:prd-2026.02b
+  note: >-
+    The production API self-reports this image tag at GET
+    https://lilyapp-api-prd.pub.lilyai.net/. It is Lily AI's own deployment
+    artifact, not a consumable client library, and it is not recorded as a package.
+x-evidence:
+- url: https://pypi.org/pypi/lily-ai/json
+  status: 404
+  fetched: '2026-08-12'
+- url: https://api.github.com/orgs/lily-ai
+  status: 404
+  fetched: '2026-08-12'

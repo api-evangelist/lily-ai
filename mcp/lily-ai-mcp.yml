@@ -1,0 +1,51 @@
+generated: '2026-08-12'
+method: searched
+source: >-
+  Live probes 2026-08-12 of https://lily.ai/mcp, https://www.lily.ai/mcp,
+  https://mcp.lily.ai, https://lilyapp-api-prd.pub.lilyai.net/mcp, plus
+  https://status.lily.ai/ and https://lily.ai/llms.txt
+status: not-published
+server_url: null
+tools: []
+notes: >-
+  Lily AI publishes no hosted or remote MCP server. Every candidate endpoint was
+  probed and missed. No `MCPServer` pointer is wired into apis.yml.
+  A candidate tool list was deliberately NOT derived from the OpenAPI: the
+  underlying contract is the credential-gated internal middleware behind
+  app.lily.ai, so a derived tool set would describe tools nobody outside Lily AI can
+  invoke, and would risk being read as a published MCP surface.
+internal_signal:
+  component: ai-mcp-server
+  source: https://status.lily.ai/
+  note: >-
+    Lily AI's public service-status page names an `ai-mcp-server` component in its
+    platform-services group, alongside `platform-gateway`, `integration-api-service`
+    and `webhook-receiver`. That is evidence an MCP surface runs in Lily AI's
+    production estate — it is NOT evidence of a published one. mcp.lily.ai does not
+    resolve, and no MCP endpoint answers on any reachable host. Re-check on a later
+    pass: a company already running an internal MCP server, whose entire positioning
+    is making product catalogs legible to shopping agents, is a plausible near-term
+    publisher.
+probes:
+- url: https://lily.ai/mcp
+  method: GET
+  status: 308
+  note: redirects to www.lily.ai/mcp
+- url: https://www.lily.ai/mcp
+  method: GET
+  status: 404
+- url: https://www.lily.ai/mcp
+  method: POST tools/list
+  status: 404
+  note: HTML 404 page, not a JSON-RPC response
+- url: https://mcp.lily.ai/
+  method: POST tools/list
+  status: null
+  note: NXDOMAIN — host does not resolve
+- url: https://lilyapp-api-prd.pub.lilyai.net/mcp
+  method: POST tools/list
+  status: 404
+  note: NestJS NotFoundException
+- url: https://lilyapp-api-prd.pub.lilyai.net/.well-known/oauth-protected-resource
+  method: GET
+  status: 404

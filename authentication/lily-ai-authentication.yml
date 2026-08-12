@@ -1,0 +1,101 @@
+generated: '2026-08-12'
+method: probed
+source: >-
+  openapi/lily-ai-lilyapp-api-openapi.yml (components.securitySchemes), live 401
+  responses from https://lilyapp-api-prd.pub.lilyai.net (2026-08-12), the
+  app.lily.ai production JavaScript bundle, and the OIDC discovery document at
+  https://lilyexternalaad.b2clogin.com/lilyexternalaad.onmicrosoft.com/B2C_1A_SIGNIN_EMAILMFA/v2.0/.well-known/openid-configuration
+docs: null
+summary:
+  types:
+  - http
+  - openIdConnect
+  model: >-
+    Bearer JWT issued by Lily AI's Azure AD B2C (Entra External ID) tenant. There is
+    no API key, no client-credentials path, and no self-service way to obtain a
+    credential — access is provisioned through Lily AI onboarding.
+schemes:
+- name: JWT
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  declared_in: openapi/lily-ai-lilyapp-api-openapi.yml
+  applied_to_operations: 0
+  note: >-
+    Declared in components.securitySchemes but never referenced by any operation and
+    with no root-level `security` block. The contract therefore reads as fully
+    anonymous while the deployment is not. Probed 2026-08-12: GET /config/brands and
+    GET /subsidiary/list both return HTTP 401 with body
+    {"message":"null Token","status":401,"correlationId":"<uuid>"}.
+- name: AzureADB2C
+  type: openIdConnect
+  declared_in: null
+  discovered_from: >-
+    app.lily.ai production bundle + live OIDC discovery fetch (HTTP 200,
+    2026-08-12). Not declared anywhere in Lily AI's OpenAPI.
+  openid_configuration: https://lilyexternalaad.b2clogin.com/lilyexternalaad.onmicrosoft.com/B2C_1A_SIGNIN_EMAILMFA/v2.0/.well-known/openid-configuration
+  file: ../well-known/lily-ai-b2c-openid-configuration.json
+  issuer: https://lilyexternalaad.b2clogin.com/036aae23-93d0-4faa-8a62-0699626e2799/v2.0/
+  tenant: lilyexternalaad.onmicrosoft.com
+  authorization_endpoint: https://lilyexternalaad.b2clogin.com/lilyexternalaad.onmicrosoft.com/b2c_1a_signin_emailmfa/oauth2/v2.0/authorize
+  token_endpoint: https://lilyexternalaad.b2clogin.com/lilyexternalaad.onmicrosoft.com/b2c_1a_signin_emailmfa/oauth2/v2.0/token
+  jwks_uri: https://lilyexternalaad.b2clogin.com/lilyexternalaad.onmicrosoft.com/b2c_1a_signin_emailmfa/discovery/v2.0/keys
+  end_session_endpoint: https://lilyexternalaad.b2clogin.com/lilyexternalaad.onmicrosoft.com/b2c_1a_signin_emailmfa/oauth2/v2.0/logout
+  user_flows:
+  - B2C_1A_SIGNIN_EMAILMFA
+  - B2C_1A_PASSWORDRESETEMAIL
+  scopes_supported:
+  - openid
+  api_scope_uri: https://lilyexternalaad.onmicrosoft.com/authprod
+  response_types_supported: [code, code id_token, code token, code id_token token, id_token, id_token token, token, token id_token]
+  response_modes_supported: [query, fragment, form_post]
+  id_token_signing_alg_values_supported: [RS256]
+  subject_types_supported: [pairwise]
+  mfa: >-
+    Enforced — the only sign-in user flow the application uses is
+    B2C_1A_SIGNIN_EMAILMFA (email + multi-factor).
+login_operations:
+- operationId: AuthV2Controller_loginUserExt
+  path: /v2/auth/b2c/login
+  method: GET
+  note: Current-generation Azure AD B2C login for external (customer) users.
+- operationId: AuthV2Controller_loginUser
+  path: /v2/auth/microsoft/login
+  method: GET
+  note: Microsoft (internal Entra) login.
+- operationId: AuthV2Controller_loginQaSupport
+  path: /v2/auth/qa-automated/login
+  method: POST
+  note: >-
+    QA automation login (QaSupportLoginDto). This is the only operation in the whole
+    contract that declares 401 and 403 responses.
+- operationId: AuthController_loginUserExt
+  path: /auth/b2c/login
+  method: GET
+  note: Superseded v1 equivalent, still live and undeprecated.
+- operationId: AuthController_loginUser
+  path: /auth/microsoft/login
+  method: GET
+  note: Superseded v1 equivalent, still live and undeprecated.
+authorization:
+  model: subsidiary (retailer tenant) scoping, carried on the request
+  note: >-
+    There is no OAuth scope surface for the API itself — the B2C tenant advertises
+    only `openid`, and the API declares no oauth2 flows and no scopes. Entitlement
+    is expressed by the subsidiary identifier a caller passes, in four different
+    spellings (subsidiaryCode, subsidiaryID, subsidiary-id header, x-subsidiary-id
+    header). No scopes/ artifact is emitted, per the pipeline's OAuth-only rule.
+credential_acquisition:
+  self_service: false
+  sign_up: null
+  note: >-
+    No developer sign-up, no key-issuance page, no documented onboarding. Lily AI
+    provisions application access through sales-led enterprise onboarding
+    (https://www.lily.ai/free-trial requests a pilot; it is not a credential path).
+x-evidence:
+- url: https://lilyapp-api-prd.pub.lilyai.net/config/brands
+  status: 401
+  fetched: '2026-08-12'
+- url: https://lilyexternalaad.b2clogin.com/lilyexternalaad.onmicrosoft.com/B2C_1A_SIGNIN_EMAILMFA/v2.0/.well-known/openid-configuration
+  status: 200
+  fetched: '2026-08-12'

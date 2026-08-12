@@ -1,0 +1,2773 @@
+openapi: 3.0.0
+info:
+  title: LilyApp API - Nest Based Application
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+paths:
+  /health:
+    get:
+      operationId: HealthController_check
+      parameters: []
+      responses:
+        '200':
+          description: The Health Check is successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  info:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties:
+                        type: string
+                    nullable: true
+                  error:
+                    type: object
+                    example: {}
+                    additionalProperties:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties:
+                        type: string
+                    nullable: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties:
+                        type: string
+        '503':
+          description: The Health Check is not successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  info:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties:
+                        type: string
+                    nullable: true
+                  error:
+                    type: object
+                    example:
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties:
+                        type: string
+                    nullable: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties:
+                        type: string
+  /config/brands:
+    get:
+      operationId: ConfigController_getAllBrands
+      parameters: []
+      responses:
+        '200':
+          description: List all brands.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubsidiaryDto'
+      security:
+      - JWT: []
+  /config/personproducttypes:
+    get:
+      operationId: ConfigController_getAllApis
+      parameters: []
+      responses:
+        '200':
+          description: List of Person Product Types.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonProductTypesDto'
+      security:
+      - JWT: []
+  /config/retailer/info:
+    get:
+      operationId: ConfigController_getReailerInfo
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieve retailer info (requires authentication).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetailerInfoDto'
+      security:
+      - JWT: []
+  /config/subsidiary/details/{id}:
+    get:
+      operationId: ConfigController_getSubsidiaryDetails
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List subsidiary details (requires authentication and authorization).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubsidiaryDto'
+      security:
+      - JWT: []
+  /config/subsidiary/{param}:
+    get:
+      operationId: ConfigController_getSubsidiaryConfig
+      parameters:
+      - name: param
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List subsidiary config details by ID or partner config details by subsidiary code
+            (requires authentication).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubsidiaryDto'
+      security:
+      - JWT: []
+  /config/users/{id}/brands:
+    get:
+      operationId: UsersController_listUserBrands
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Retrieve all the brands from a user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BrandDto'
+      security:
+      - JWT: []
+  /:
+    get:
+      operationId: HomeController_healthCheckRoot
+      parameters: []
+      responses:
+        '200':
+          description: ''
+  /search:
+    get:
+      operationId: SearchPamController_getSearchDataForGallery
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: page
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: per_page
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: retailer
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: brand
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: sku_id
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: product_types
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: person_types
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieve all the products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchOldResponseDto'
+      security:
+      - JWT: []
+  /search/products:
+    post:
+      operationId: SearchPamController_getAllProductsFromPI
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          default: '1'
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          default: '100'
+          type: string
+      - name: sortColumn
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: sortDirection
+        required: true
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchPAMPayloadDto'
+      responses:
+        '200':
+          description: Retrieve all the PAM products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductSearchDtoWithSynonyms'
+      security:
+      - JWT: []
+  /search/products/export:
+    post:
+      operationId: SearchPamController_exportAllProductsFromPI
+      parameters: []
+      responses:
+        '204':
+          description: ''
+  /search/products/tags{edit}:
+    post:
+      operationId: SearchPamController_updateProductTagsApi
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit tags of a product.
+      security:
+      - JWT: []
+  /search/products/filters/tableFormatted:
+    get:
+      operationId: SearchPamController_getFiltersTableFormattedLocalApi
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get db filters formatted as a table.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FilterContainerDto'
+      security:
+      - JWT: []
+  /search/subsidiary/tags:
+    get:
+      operationId: SearchPamController_getPrductTagsFiltersList
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get db filters formatted as a table.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FilterContainerDto'
+      security:
+      - JWT: []
+  /search/pi-analytics/meta:
+    get:
+      operationId: SearchAnalyticsController_getPIAnalyticsMeta
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get PI Analytics meta data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PiAnalyticsMetaDto'
+      security:
+      - JWT: []
+  /search/pi-analytics/{type}:
+    get:
+      operationId: SearchAnalyticsController_getPIAnalytics
+      parameters:
+      - name: type
+        required: true
+        in: path
+        schema:
+          type: string
+          enum:
+          - overview
+          - trends
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: restQueryParams
+        required: false
+        in: query
+        schema:
+          type: object
+      - name: to_date
+        required: false
+        in: query
+        schema:
+          format: date
+          type: string
+      - name: from_date
+        required: false
+        in: query
+        schema:
+          format: date
+          type: string
+      - name: device_type
+        required: false
+        in: query
+        schema:
+          enum:
+          - desktop
+          - mweb
+          - tablet
+          - other
+          type: string
+      - name: visitor_type
+        required: false
+        in: query
+        schema:
+          enum:
+          - new_visitor
+          - repeated_visitor
+          type: string
+      - name: limit
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: offset
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: order
+        required: false
+        in: query
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      - name: metric
+        required: false
+        in: query
+        schema:
+          enum:
+          - total_searches_rate
+          - noresult_points
+          - view_points
+          type: string
+      responses:
+        '200':
+          description: Get PI Analytics Data | PI Trends Data
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/PiAnalyticsTypeDto'
+                - $ref: '#/components/schemas/PiTrendsDto'
+      security:
+      - JWT: []
+  /search/tags/autocomplete:
+    get:
+      operationId: SearchTagsController_getProductTagAutocompleteApi
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all the tags for Autocomplete.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDto'
+      security:
+      - JWT: []
+  /search/tags/types:
+    get:
+      operationId: SearchTagsController_getPersonProductTypes
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get Person Product Types.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonProductTypesDto'
+      security:
+      - JWT: []
+  /search/products/tags/autocomplete:
+    get:
+      operationId: SearchTagsController_getProductTagsList
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all the tags for Autocomplete.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDto'
+      security:
+      - JWT: []
+  /auth/b2c/login:
+    get:
+      operationId: AuthController_loginUserExt
+      parameters: []
+      responses:
+        '200':
+          description: Login a user using Azure Active Directory with B2C.
+          content:
+            application/json:
+              schema:
+                type: string
+  /auth/microsoft/login:
+    get:
+      operationId: AuthController_loginUser
+      parameters: []
+      responses:
+        '200':
+          description: Login a user using Microsoft Azure.
+          content:
+            application/json:
+              schema:
+                type: string
+  /productcopy/batches:
+    get:
+      operationId: ProductBatchesController_getAllProductCopyBatchesFromPI
+      parameters:
+      - name: subsidiaryID
+        required: true
+        in: query
+        schema:
+          default: 40
+          type: number
+      responses:
+        '200':
+          description: Retrieve all the Product Copy batches per retailer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCopyBatches'
+      security:
+      - JWT: []
+  /productcopy/batches/{id}:
+    post:
+      operationId: ProductBatchesController_getAllProductCopiesForBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Batch's ID number
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          default: '1'
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          default: '100'
+          type: string
+      - name: order
+        required: false
+        in: query
+        description: The order in which the products are return in.
+        schema:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchProductCopyBodyDto'
+      responses:
+        '200':
+          description: Retrieve all the Product Copy products for a concrete batch.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCopySearchDto'
+      security:
+      - JWT: []
+  /productcopy/batches/export/{id}:
+    post:
+      operationId: ProductBatchesController_exportAllProductCopiesForBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Batch's ID number
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          default: '1'
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          default: '100'
+          type: string
+      - name: order
+        required: false
+        in: query
+        description: The order in which the products are return in.
+        schema:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportProductCopyBodyDto'
+      responses:
+        '200':
+          description: Retrieve all the products in a batch for a Product Copy export.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCopySearchDto'
+      security:
+      - JWT: []
+  /productcopy/batches/add:
+    put:
+      operationId: ProductBatchesController_createProductBatch
+      parameters:
+      - name: subsidiaryID
+        required: true
+        in: query
+        description: ID for retailer. Required to check user permission for retailer.
+        schema:
+          default: '40'
+          type: string
+      - name: batchID
+        required: false
+        in: query
+        description: Optional paramater. Can be added to reinstate a previously deleted batch or create
+          a batch with a specific number.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: "Create a new batch with no products. Default behavior is create a new batch with\
+            \ no products. \nAdding a batchID will create a new batch with that ID or reinstate a previously\
+            \ deleted batch."
+      security:
+      - JWT: []
+  /productcopy/batches/add/products/{id}:
+    post:
+      operationId: ProductBatchesController_createProductBatchCopiesAndProducts
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryID
+        required: true
+        in: query
+        description: ID for retailer. Required to check user permission for retailer.
+        schema:
+          default: '40'
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductCopyCopies'
+      responses:
+        '200':
+          description: Add products to an exisiting batch
+      security:
+      - JWT: []
+  /productcopy/batches/remove/{id}:
+    delete:
+      operationId: ProductBatchesController_deleteProductBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Batch's ID number
+        schema:
+          type: number
+      - name: subsidiaryID
+        required: true
+        in: query
+        description: ID for retailer. Required to check user permission for retailer.
+        schema:
+          default: '40'
+          type: string
+      responses:
+        '200':
+          description: Delete existing batch.
+      security:
+      - JWT: []
+  /productcopy/batches/remove/products/{id}:
+    delete:
+      operationId: ProductBatchesController_deleteProductBatchCopiesandProducts
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Batch's ID number
+        schema:
+          type: number
+      - name: subsidiaryID
+        required: true
+        in: query
+        description: ID for retailer. Required to check user permission for retailer.
+        schema:
+          default: '40'
+          type: string
+      responses:
+        '200':
+          description: Delete existing batch.
+      security:
+      - JWT: []
+  /productcopy/products/details/{productId}:
+    put:
+      operationId: ProductCopyController_updateProductCopyDetails
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDetailsUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit details of a product.
+      security:
+      - JWT: []
+  /productcopy/products/details/tags/{productId}:
+    get:
+      operationId: ProductCopyController_getProductCopyDetails
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all tags for a product.
+      security:
+      - JWT: []
+  /productcopy/products/status:
+    put:
+      operationId: ProductCopyController_updateProductCopyStatus
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductStatusUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit status of a product.
+      security:
+      - JWT: []
+  /productcopy/products/generate/{productId}:
+    post:
+      operationId: ProductCopyController_generateDescription
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        description: Request to record search, but not for results. Any number can be used.
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescriptionGenerationPayloadData'
+      responses:
+        '200':
+          description: Generate a new description of a product
+      security:
+      - JWT: []
+  /productcopyV2/products/details/{productId}:
+    put:
+      operationId: ProductCopyControllerV2_updateProductCopyDetails
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDetailsUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit details of a product.
+      security:
+      - JWT: []
+  /productcopyV2/products/details/tags/{productId}:
+    get:
+      operationId: ProductCopyControllerV2_getProductCopyTags
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all tags for a product.
+      security:
+      - JWT: []
+  /productcopyV2/products/details/images/{productId}:
+    get:
+      operationId: ProductCopyControllerV2_getProductCopyImages
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all tags for a product.
+      security:
+      - JWT: []
+  /productcopyV2/products/status/{productId}:
+    put:
+      operationId: ProductCopyControllerV2_updateProductCopyStatus
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductStatusUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit status of a product.
+      security:
+      - JWT: []
+  /productcopyV2/batches:
+    get:
+      operationId: ProductBatchesControllerV2_getAllProductCopyBatchesFromPI
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieve all the PAM product batches.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCopyBatches'
+      security:
+      - JWT: []
+  /productcopyV2/batches/{id}:
+    post:
+      operationId: ProductBatchesControllerV2_getAllProductCopiesForBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          default: '1'
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          default: '100'
+          type: string
+      - name: order
+        required: false
+        in: query
+        description: The order in which the products are return in.
+        schema:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchProductCopyBodyDto'
+      responses:
+        '200':
+          description: Retrieve all the PAM products for a concrete batch.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCopySearchDtoV2'
+      security:
+      - JWT: []
+    delete:
+      operationId: ProductBatchesControllerV2_deleteProductBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Delete existing batch.
+      security:
+      - JWT: []
+  /batch/ingestions/{subsidiaryId}:
+    get:
+      operationId: BatchController_listAllBatches
+      parameters:
+      - name: subsidiaryId
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Get batches for subsidiary
+      security:
+      - JWT: []
+  /products/search/synonyms:
+    post:
+      operationId: ProductController_searchProductsWithSynonyms
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: sortColumn
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: sortDirection
+        required: true
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductSearchSynonymsRequestBodyDto'
+      responses:
+        '200':
+          description: Get the list of all products with the synonyms based on search criteria.
+      security:
+      - JWT: []
+  /integration/partners/{subsidiaryCode}:
+    get:
+      operationId: IntegrationController_listAllBatches
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get partners for subsidiary
+      security:
+      - JWT: []
+  /integration/partners/connection-information/{subsidiaryCode}/{partnerCode}:
+    post:
+      operationId: IntegrationController_configurePartner
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: partnerCode
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurePartnerPayload'
+      responses:
+        '200':
+          description: Configure partner with subsidiary
+      security:
+      - JWT: []
+  /pi-api-proxy/*:
+    get:
+      operationId: PiApiProxyController_proxy_get
+      parameters:
+      - name: subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    post:
+      operationId: PiApiProxyController_proxy_post
+      parameters:
+      - name: subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    put:
+      operationId: PiApiProxyController_proxy_put
+      parameters:
+      - name: subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    delete:
+      operationId: PiApiProxyController_proxy_delete
+      parameters:
+      - name: subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    patch:
+      operationId: PiApiProxyController_proxy_patch
+      parameters:
+      - name: subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    options:
+      operationId: PiApiProxyController_proxy_options
+      parameters:
+      - name: subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    head:
+      operationId: PiApiProxyController_proxy_head
+      parameters:
+      - name: subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /pi-connector-proxy/*:
+    get:
+      operationId: PiConnectorProxyController_proxy_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    post:
+      operationId: PiConnectorProxyController_proxy_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    put:
+      operationId: PiConnectorProxyController_proxy_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    delete:
+      operationId: PiConnectorProxyController_proxy_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    patch:
+      operationId: PiConnectorProxyController_proxy_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    options:
+      operationId: PiConnectorProxyController_proxy_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    head:
+      operationId: PiConnectorProxyController_proxy_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /pi-config-proxy/*:
+    get:
+      operationId: PiConfigProxyController_proxy_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    post:
+      operationId: PiConfigProxyController_proxy_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    put:
+      operationId: PiConfigProxyController_proxy_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    delete:
+      operationId: PiConfigProxyController_proxy_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    patch:
+      operationId: PiConfigProxyController_proxy_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    options:
+      operationId: PiConfigProxyController_proxy_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    head:
+      operationId: PiConfigProxyController_proxy_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /v2/auth/b2c/login:
+    get:
+      operationId: AuthV2Controller_loginUserExt
+      parameters: []
+      responses:
+        '200':
+          description: Login a user using Azure Active Directory with B2C.
+          content:
+            application/json:
+              schema:
+                type: string
+  /v2/auth/microsoft/login:
+    get:
+      operationId: AuthV2Controller_loginUser
+      parameters: []
+      responses:
+        '200':
+          description: Login a user using Microsoft Azure.
+          content:
+            application/json:
+              schema:
+                type: string
+  /v2/auth/qa-automated/login:
+    post:
+      operationId: AuthV2Controller_loginQaSupport
+      parameters:
+      - name: x-qa-auth
+        required: true
+        in: header
+        schema:
+          type: string
+      - name: origin
+        required: true
+        in: header
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QaSupportLoginDto'
+      responses:
+        '200':
+          description: Login for QA Automated with JWT token validation.
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Invalid token or token validation failed.
+        '403':
+          description: Origin is not authorized to access this feature.
+  /subsidiary/list:
+    get:
+      operationId: SubsidiaryController_getSubsidiaryList
+      parameters: []
+      responses:
+        '200':
+          description: List all subsidiaries for user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+  /subsidiary/list-subsidiaries:
+    get:
+      operationId: SubsidiaryController_getSubsidiaryListUser
+      parameters: []
+      responses:
+        '200':
+          description: List all subsidiaries for user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      security:
+      - JWT: []
+  /tce-api-proxy/*:
+    get:
+      operationId: TceApiProxyController_proxy_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    post:
+      operationId: TceApiProxyController_proxy_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    put:
+      operationId: TceApiProxyController_proxy_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    delete:
+      operationId: TceApiProxyController_proxy_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    patch:
+      operationId: TceApiProxyController_proxy_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    options:
+      operationId: TceApiProxyController_proxy_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    head:
+      operationId: TceApiProxyController_proxy_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /ep-proxy/*:
+    get:
+      operationId: EnrichmentPlatformProxyController_proxy_get
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    post:
+      operationId: EnrichmentPlatformProxyController_proxy_post
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    put:
+      operationId: EnrichmentPlatformProxyController_proxy_put
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    delete:
+      operationId: EnrichmentPlatformProxyController_proxy_delete
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    patch:
+      operationId: EnrichmentPlatformProxyController_proxy_patch
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    options:
+      operationId: EnrichmentPlatformProxyController_proxy_options
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    head:
+      operationId: EnrichmentPlatformProxyController_proxy_head
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+  /superset/security/token:
+    get:
+      operationId: SupersetController_getPersonProductTypes
+      parameters:
+      - name: dashboardId
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: experimentId
+        required: true
+        in: query
+        description: Experiment ID for row-level security filtering
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get Superset Guest Token (requires authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuestTokenResponseDto'
+      security:
+      - JWT: []
+  /superset/chart/data:
+    post:
+      operationId: SupersetController_getChartData
+      parameters:
+      - name: sliceId
+        required: true
+        in: query
+        description: Superset slice ID
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChartDataBodyDto'
+      responses:
+        '200':
+          description: Proxy chart data from Superset (requires authentication)
+      security:
+      - JWT: []
+  /mock-data/sheet/failed-products-summary:
+    get:
+      operationId: SheetController_getFailedProductSummary
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /mock-data/sheet/taxonomy-mapping:
+    get:
+      operationId: SheetController_getTaxonomyMapping
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /mock-data/sheet/attribution-metrics:
+    get:
+      operationId: SheetController_getAttributionMetrics
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /mock-data/sheet/download-file:
+    get:
+      operationId: SheetController_getGoogleAuthToken
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /mock-data/sheet/product-copy/{tabId}:
+    get:
+      operationId: SheetController_getProductCopyData
+      parameters:
+      - name: tabId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /mock-data/sheet/search-based-attributes:
+    get:
+      operationId: SheetController_getAllAttributes
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /mock-data/sheet/get-terms:
+    get:
+      operationId: SheetController_getAllTerms
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /faqs/{skuId}:
+    get:
+      operationId: FaqProxyController_proxy_get
+      parameters:
+      - name: skuId
+        required: true
+        in: path
+        description: SKU ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    post:
+      operationId: FaqProxyController_proxy_post
+      parameters:
+      - name: skuId
+        required: true
+        in: path
+        description: SKU ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    put:
+      operationId: FaqProxyController_proxy_put
+      parameters:
+      - name: skuId
+        required: true
+        in: path
+        description: SKU ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    delete:
+      operationId: FaqProxyController_proxy_delete
+      parameters:
+      - name: skuId
+        required: true
+        in: path
+        description: SKU ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    patch:
+      operationId: FaqProxyController_proxy_patch
+      parameters:
+      - name: skuId
+        required: true
+        in: path
+        description: SKU ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    options:
+      operationId: FaqProxyController_proxy_options
+      parameters:
+      - name: skuId
+        required: true
+        in: path
+        description: SKU ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+    head:
+      operationId: FaqProxyController_proxy_head
+      parameters:
+      - name: skuId
+        required: true
+        in: path
+        description: SKU ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+  /metrics:
+    get:
+      operationId: PrometheusController_index
+      parameters: []
+      responses:
+        '200':
+          description: ''
+components:
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header
+  schemas:
+    SubsidiaryDto:
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: number
+        name:
+          type: string
+        brands:
+          type: array
+          items:
+            type: string
+      required:
+      - code
+      - id
+      - name
+      - brands
+    PersonProductTypesDto:
+      type: object
+      properties:
+        personTypes:
+          type: array
+          items:
+            type: string
+        productTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - personTypes
+      - productTypes
+    RetailerInfoDto:
+      type: object
+      properties:
+        hasSubidiaries:
+          type: boolean
+        isSubsidiary:
+          type: boolean
+        hasOrIsSubsidiary:
+          type: boolean
+      required:
+      - hasSubidiaries
+      - isSubsidiary
+      - hasOrIsSubsidiary
+    BrandDto:
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: number
+        name:
+          type: string
+      required:
+      - code
+      - id
+      - name
+    ProductOldDto:
+      type: object
+      properties:
+        lily_product_id:
+          type: number
+        parent_sku_code:
+          type: string
+        sku_id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        brand:
+          type: string
+        product_type:
+          type: string
+        person_type:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        retailer_tag_sections:
+          type: object
+        processing_completion_date:
+          type: string
+      required:
+      - lily_product_id
+      - parent_sku_code
+      - sku_id
+      - title
+      - description
+      - brand
+      - product_type
+      - person_type
+      - images
+      - retailer_tag_sections
+      - processing_completion_date
+    SearchOldResponseDto:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        page:
+          type: string
+        per_page:
+          type: string
+        retailer:
+          type: string
+        total_count:
+          type: number
+        products:
+          description: Array of products.
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductOldDto'
+      required:
+      - success
+      - message
+      - page
+      - per_page
+      - retailer
+      - total_count
+      - products
+    SubsidiaryTagsDto:
+      type: object
+      properties:
+        category:
+          type: object
+        label:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - category
+      - label
+      - tags
+    SearchPAMPayloadDto:
+      type: object
+      properties:
+        brand:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        person_types:
+          type: array
+          items:
+            type: string
+        product_types:
+          type: array
+          items:
+            type: string
+        sku_id:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+      required:
+      - brand
+    TagsWithSynonyms:
+      type: object
+      properties:
+        tag:
+          type: string
+        synonyms:
+          type: array
+          items:
+            type: string
+      required:
+      - tag
+      - synonyms
+    TagSections:
+      type: object
+      properties:
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagsWithSynonyms'
+      required:
+      - category
+      - tags
+    ProductDtoWithSynonym:
+      type: object
+      properties:
+        productId:
+          type: number
+        skuId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        brand:
+          type: string
+        productType:
+          type: string
+        personType:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        tagSections:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagSections'
+        lastExportedOn:
+          type: string
+        processedOn:
+          type: string
+        variantOf:
+          type: string
+        tagCount:
+          type: number
+      required:
+      - productId
+      - skuId
+      - title
+      - description
+      - brand
+      - productType
+      - personType
+      - images
+      - tagSections
+      - lastExportedOn
+      - processedOn
+      - variantOf
+      - tagCount
+    PaginationDto:
+      type: object
+      properties:
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
+    ProductSearchDtoWithSynonyms:
+      type: object
+      properties:
+        account:
+          type: string
+        subsidiary:
+          type: string
+        productsWithSynonym:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDtoWithSynonym'
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
+      required:
+      - account
+      - subsidiary
+      - productsWithSynonym
+      - pagination
+    TagUpdatePayloadDto:
+      type: object
+      properties:
+        product_id:
+          type: number
+        email:
+          type: string
+        subsidiary_id:
+          type: number
+        subsidiary_tags_to_add:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        subsidiary_tags_to_remove:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        subsidiary_code:
+          type: string
+      required:
+      - product_id
+      - email
+      - subsidiary_id
+      - subsidiary_tags_to_add
+      - subsidiary_tags_to_remove
+      - subsidiary_code
+    FilterDto:
+      type: object
+      properties:
+        id:
+          type: number
+        piTag:
+          type: string
+        pamLabel:
+          type: string
+      required:
+      - id
+      - piTag
+      - pamLabel
+    FilterContainerDto:
+      type: object
+      properties:
+        piType:
+          type: string
+        piSubsidiaryCode:
+          type: string
+        piTitle:
+          type: string
+        pamDiscriminator:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterDto'
+      required:
+      - piType
+      - piSubsidiaryCode
+      - piTitle
+      - pamDiscriminator
+      - filters
+    PiAnalyticsMetaDto:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: https://www.iso.org/iso-4217-currency-codes.html
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYR
+          - BZD
+          - CAD
+          - CDF
+          - CHF
+          - CLP
+          - CNY
+          - COP
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GGP
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - IMP
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JEP
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRO
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SPL
+          - SRD
+          - STD
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TVD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - UYU
+          - UZS
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XCD
+          - XDR
+          - XOF
+          - XPF
+          - YER
+          - ZAR
+          - ZMW
+          - ZWD
+          example: USD
+        device_types:
+          type: array
+          example:
+          - desktop
+          - tablet
+          items:
+            type: string
+            enum:
+            - desktop
+            - mweb
+            - tablet
+            - other
+        min_date:
+          type: string
+          format: date
+          example: '2023-01-21'
+        max_date:
+          type: null | string
+          format: date
+          example: '2023-08-29'
+      required:
+      - currency
+      - device_types
+      - min_date
+      - max_date
+    PiAnalyticsValuesDto:
+      type: object
+      properties:
+        visitors:
+          type: number
+          default: 27278
+        total_orders:
+          type: number
+          default: 2872
+        total_searches:
+          type: number
+          default: 74685
+        total_pdp_session:
+          type: number
+          default: 19966
+        total_revenue:
+          type: number
+          default: 573186.63
+        total_addtocart_session:
+          type: number
+          default: 9350
+        total_ordercomplete_session:
+          type: number
+          default: 2780
+        search_exit:
+          type: number
+          default: 4028
+      required:
+      - visitors
+      - total_orders
+      - total_searches
+      - total_pdp_session
+      - total_revenue
+      - total_addtocart_session
+      - total_ordercomplete_session
+      - search_exit
+    PiAnalyticsDto:
+      type: object
+      properties:
+        lily_impacted_search:
+          $ref: '#/components/schemas/PiAnalyticsValuesDto'
+        non_lily_impacted_search:
+          $ref: '#/components/schemas/PiAnalyticsValuesDto'
+        without_search:
+          $ref: '#/components/schemas/PiAnalyticsValuesDto'
+      required:
+      - lily_impacted_search
+      - non_lily_impacted_search
+      - without_search
+    PiAnalyticsTypeDto:
+      type: object
+      properties:
+        '2023-08-29':
+          description: 'Key has the following format: yyyy-mm-dd. Response might have as many keys as
+            dates available with analytics'
+          allOf:
+          - $ref: '#/components/schemas/PiAnalyticsDto'
+      required:
+      - '2023-08-29'
+    PiTrendsSearchTermDto:
+      type: object
+      properties:
+        device_type:
+          type: string
+          enum:
+          - desktop
+          - mweb
+          - tablet
+          - other
+          example: desktop
+        search_query:
+          type: string
+          example: seaside
+        total_searches:
+          type: number
+          example: 0.1
+        total_views:
+          type: number
+          example: 92.52
+        total_exit:
+          type: number
+          example: 6.54
+        no_result:
+          type: number
+          example: 0
+      required:
+      - device_type
+      - search_query
+      - total_searches
+      - total_views
+      - total_exit
+      - no_result
+    PiTrendsDto:
+      type: object
+      properties:
+        error:
+          type: boolean
+          example: false
+        from_date:
+          type: string
+          format: date
+          example: '2023-08-24'
+        to_date:
+          type: string
+          format: date
+          example: '2023-08-25'
+        device_type:
+          type: string
+          enum:
+          - desktop
+          - mweb
+          - tablet
+          - other
+          example: desktop
+        search_terms:
+          type: array
+          items:
+            $ref: '#/components/schemas/PiTrendsSearchTermDto'
+      required:
+      - error
+      - from_date
+      - to_date
+      - device_type
+      - search_terms
+    CategoryDto:
+      type: object
+      properties:
+        category:
+          type: string
+        name:
+          type: string
+      required:
+      - category
+      - name
+    ProductCopyBatches:
+      type: object
+      properties: {}
+    ProductCopyStatus:
+      type: string
+      enum:
+      - PENDING
+      - APPROVED
+      - DENIED
+    SearchProductCopyBodyDto:
+      type: object
+      properties:
+        keywords:
+          type: array
+          items:
+            type: array
+        skuId:
+          type: string
+        brand:
+          type: string
+        personType:
+          type: string
+        productType:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        status:
+          type: array
+          items:
+            type: array
+    ProductCopyDto:
+      type: object
+      properties:
+        productId:
+          type: number
+        skuId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        brand:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        lastExportedOn:
+          type: string
+        processedOn:
+          type: string
+        variantOf:
+          type: string
+        status:
+          type: string
+        statusChangedBy:
+          type: string
+        statusChangeTimestamp:
+          type: string
+      required:
+      - productId
+      - skuId
+      - title
+      - description
+      - brand
+      - images
+      - lastExportedOn
+      - processedOn
+      - variantOf
+      - status
+      - statusChangedBy
+      - statusChangeTimestamp
+    ProductCopySearchDto:
+      type: object
+      properties:
+        account:
+          type: string
+        subsidiary:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCopyDto'
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
+      required:
+      - account
+      - subsidiary
+      - products
+      - pagination
+    ExportProductCopyBodyDto:
+      type: object
+      properties:
+        keywords:
+          type: array
+          items:
+            type: array
+        skuId:
+          type: string
+        brand:
+          type: string
+        personType:
+          type: string
+        productType:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        status:
+          type: array
+          items:
+            type: array
+        productIDs:
+          type: array
+          items:
+            type: array
+    ProductCopyCopies:
+      type: object
+      properties: {}
+    ProductDetailsUpdatePayloadDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        subsidiary_code:
+          type: string
+          default: terra
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      required:
+      - title
+      - description
+      - subsidiary_code
+      - status
+    ProductStatusUpdatePayloadDto:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+        subsidiary_code:
+          type: string
+          default: terra
+        productIds:
+          type: array
+          items:
+            type: string
+      required:
+      - status
+      - subsidiary_code
+      - productIds
+    DescriptionGenerationPayloadData:
+      type: object
+      properties:
+        title:
+          type: object
+          description: Title of the product
+          default: Utility Shirt Dress
+        description:
+          type: object
+          description: Description of the product
+          default: On-trend short-sleeve shirt dress in our comfortable twill fabric, featuring classic
+            collar, utility-style front and chest pockets, self-tie adjustable belt, and functional button-through
+            detail.. To avoid color transfer, wash before wear, turn garment inside out. Machine wash
+            cold separately. Only non-chlorine bleach. Tumble dry low. Low iron if needed. Do not dry
+            clean. Body:97% Cotton, 3% Elastane.
+        feedback:
+          type: object
+          description: User input forn the AI
+          default: Write for GenZ.
+        session_id:
+          type: string
+      required:
+      - title
+      - description
+      - feedback
+    ProductCopyDtoV2:
+      type: object
+      properties:
+        productId:
+          type: number
+        skuId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        brand:
+          type: string
+        image:
+          type: string
+        lastExportedOn:
+          type: string
+        processedOn:
+          type: string
+        variantOf:
+          type: string
+      required:
+      - productId
+      - skuId
+      - title
+      - description
+      - brand
+      - image
+      - lastExportedOn
+      - processedOn
+      - variantOf
+    ProductCopySearchDtoV2:
+      type: object
+      properties:
+        account:
+          type: string
+        subsidiary:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCopyDtoV2'
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
+      required:
+      - account
+      - subsidiary
+      - products
+      - pagination
+    ProductSearchSynonymsRequestBodyDto:
+      type: object
+      properties: {}
+    PartnerConnectionPayload:
+      type: object
+      properties:
+        url:
+          type: string
+        accessToken:
+          type: string
+      required:
+      - url
+      - accessToken
+    ConfigurePartnerPayload:
+      type: object
+      properties:
+        connectionDetails:
+          $ref: '#/components/schemas/PartnerConnectionPayload'
+      required:
+      - connectionDetails
+    QaSupportLoginDto:
+      type: object
+      properties:
+        username:
+          type: string
+          example: xyz@abc.com
+          description: QA Support username/email
+        password:
+          type: string
+          example: xyz
+          description: QA Support password
+      required:
+      - username
+      - password
+    GuestTokenResponseDto:
+      type: object
+      properties: {}
+    ChartDataBodyDto:
+      type: object
+      properties:
+        guestToken:
+          type: string
+          description: Superset guest token
+        experimentId:
+          type: string
+          description: Experiment ID for filtering chart data
+      required:
+      - guestToken
+      - experimentId
+tags: []

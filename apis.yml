@@ -10,9 +10,13 @@ description: >-
   Lily AI sells to enterprise retailers, brands, and agencies and positions itself as a layer
   over the existing commerce stack rather than a replacement for a PIM or feed manager. The
   company raised a $25M Series B with participation from Canaan Partners, Conductive Ventures,
-  Sorenson Ventures, and NEA. As of this enrichment pass Lily AI publishes no public developer
-  portal, API reference, OpenAPI definition, SDKs, or GitHub organization; the platform is
-  delivered as a managed enterprise service with onboarding handled through sales.
+  Sorenson Ventures, and NEA. Lily AI operates no developer program: there is no developer
+  portal, no published API reference, no SDK, no GitHub organization, and no self-service
+  credential path, and the platform is sold and onboarded through enterprise sales. It does,
+  however, publicly serve the OpenAPI 3.0.0 contract for the LilyApp middleware that backs its
+  customer application at app.lily.ai — 63 paths and 100 operations behind an Azure AD B2C
+  bearer JWT, with a public Swagger UI. That contract is captured here as the company's only
+  machine-readable API surface.
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -30,11 +34,11 @@ x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - canaan-partners
-x-tier: stub
-x-tier-reason: no-public-api-surface
+x-tier: profiled
+x-tier-reason: published-openapi-no-developer-program
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-08-12'
 tags:
 - Company
 - Retail
@@ -45,8 +49,68 @@ tags:
 - Agentic Commerce
 - Search
 - Marketing
-apis: []
+apis:
+- name: LilyApp Middleware API
+  description: >-
+    The middleware API behind Lily AI's customer application at app.lily.ai. Publicly
+    served with a Swagger UI at /api and an OpenAPI 3.0.0 contract at /api-json (63
+    paths, 100 operations, 41 schemas), covering retailer/subsidiary configuration,
+    product search over Lily's consumer-centric attribute tags and synonyms, product
+    analytics and search-term trends, AI product-copy generation and batch review,
+    outbound partner integration configuration, and a set of pass-through proxies to
+    Lily's internal product-intelligence, connector, config, TCE and enrichment-platform
+    services. Calls require a bearer JWT issued by Lily AI's Azure AD B2C tenant; Lily AI
+    publishes no developer documentation and offers no self-service way to obtain one.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - product-intelligence
+  - product-attributes
+  - ecommerce
+  - retail
+  - product-copy
+  - catalog-enrichment
+  - search
+  - analytics
+  - middleware
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-lilyapp-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: Overlay
+    url: overlays/lily-ai-lilyapp-api-overlay.yaml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+  - type: AgentSkill
+    url: skills/_index.yml
 common:
+- type: Packages
+  url: packages/lily-ai-packages.yml
+- type: Plans
+  url: plans/lily-ai-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/lily-ai-rate-limits.yml
+- type: Conformance
+  url: conformance/lily-ai-conformance.yml
+- type: TrustCenter
+  url: security/lily-ai-trust-center.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Authentication
+  url: authentication/lily-ai-authentication.yml
 - type: DomainSecurity
   url: security/lily-ai-domain-security.yml
 - type: Website
@@ -83,7 +147,17 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-12'
+  status: enriched
+  artifacts_added: 14
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Contract discovery (STEP 0b) beat the previous "no public API surface" finding.
+    The app.lily.ai production bundle names https://lilyapp-api-prd.pub.lilyai.net as
+    its API base; that host serves a public Swagger UI at /api and an OpenAPI 3.0.0
+    contract at /api-json, harvested verbatim. Ownership confirmed per STEP 0c:
+    info.title "LilyApp API - Nest Based Application", description "Lily App
+    Middleware", servers[] empty (no contradicting host), lilyai.net registered to
+    the same AWS-hosted estate, docker image lilyaidocker/lilyapp-api, and the
+    contract's resources (subsidiary/brand config, Lily product-attribute tags,
+    product-copy generation, partner feed integration) are Lily AI's own product.

@@ -1,0 +1,85 @@
+generated: '2026-08-12'
+method: derived
+source: >-
+  openapi/lily-ai-lilyapp-api-openapi.yml (4xx/5xx responses) plus live
+  unauthenticated error bodies observed on
+  https://lilyapp-api-prd.pub.lilyai.net (2026-08-12). No public error reference
+  is published by Lily AI.
+format: vendor-json
+rfc9457: false
+notes: >-
+  The API does NOT use application/problem+json. Two distinct JSON error envelopes
+  are in play, which is itself the finding: the auth guard emits a flat
+  {message,status,correlationId} object, while the NestJS framework exception
+  filter emits a nested {response:{statusCode,message,error},status,options,message,name}
+  object. An agent cannot parse both with one shape. Only three non-2xx responses
+  are declared in the spec at all (401, 403, 503); every other operation declares
+  a 200 and nothing else, so the machine-readable error surface is effectively
+  undocumented.
+envelopes:
+- name: auth-guard
+  observed_on: any authenticated route called without a bearer token
+  content_type: application/json
+  fields:
+    message: human-readable string
+    status: integer HTTP status, duplicated in the body
+    correlationId: UUID v4 request identifier — the only tracing handle exposed
+  example_shape: '{"message":"<string>","status":<int>,"correlationId":"<uuid>"}'
+- name: nest-exception-filter
+  observed_on: unrouted paths and framework-level exceptions
+  content_type: application/json
+  fields:
+    response.statusCode: integer
+    response.message: string
+    response.error: reason phrase
+    status: integer
+    message: string
+    name: exception class name (e.g. NotFoundException, ServiceUnavailableException)
+  example_shape: '{"response":{"statusCode":<int>,"message":"<string>","error":"<string>"},"status":<int>,"options":{},"message":"<string>","name":"<ExceptionClass>"}'
+problem_types:
+- status: 401
+  name: Unauthorized
+  title: Missing or invalid bearer token
+  envelope: auth-guard
+  declared_in_spec: true
+  spec_operations:
+  - AuthV2Controller_loginQaSupport
+  observed_message: 'null Token'
+  remediation: >-
+    Present a valid Azure AD B2C-issued JWT in the Authorization: Bearer header.
+    Tokens are acquired through the b2c or microsoft login flows
+    (AuthV2Controller_loginUserExt / AuthV2Controller_loginUser).
+- status: 403
+  name: Forbidden
+  title: Token valid but the caller is not entitled to the subsidiary or resource
+  envelope: auth-guard
+  declared_in_spec: true
+  spec_operations:
+  - AuthV2Controller_loginQaSupport
+  remediation: >-
+    Most operations are scoped by subsidiary (subsidiaryCode / subsidiaryID query
+    params, or the subsidiary-id / x-subsidiary-id headers). Confirm the token's
+    principal is mapped to the subsidiary being addressed.
+- status: 404
+  name: Not Found
+  title: No route matches the request
+  envelope: nest-exception-filter
+  declared_in_spec: false
+  observed_message: 'Cannot GET /<path>'
+  remediation: Check the path against the published OpenAPI at /api-json.
+- status: 503
+  name: Service Unavailable
+  title: A dependency of the middleware is down
+  envelope: nest-exception-filter
+  declared_in_spec: true
+  spec_operations:
+  - HealthController_check
+  note: >-
+    GET /health returns 503 with a per-dependency status map (pi_api, lilyAppDB,
+    productCopy). Observed 503 on 2026-08-12 with productCopy reporting "down" —
+    the health endpoint is a live dependency read, not a static OK.
+  remediation: Inspect response.details[] to identify which dependency is down.
+coverage:
+  operations_total: 100
+  operations_declaring_any_4xx_or_5xx: 3
+  operations_declaring_only_2xx: 97

@@ -1,0 +1,96 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the LilyApp Middleware API
+  version: 1.0.0
+extends: ../openapi/_original/lily-ai-lilyapp-api-openapi.json
+x-provenance:
+  generated: '2026-08-12'
+  method: generated
+  source: >-
+    Enhancements API Evangelist applies on top of the verbatim contract harvested
+    from https://lilyapp-api-prd.pub.lilyai.net/api-json (2026-08-12). The original
+    is never mutated. Every action below records something observed on the wire or
+    read off the contract — nothing here invents behaviour.
+actions:
+- target: $
+  description: >-
+    Declare the production and staging hosts. The published contract ships an empty
+    servers[] (the NestJS default), so a consumer cannot tell from the document
+    alone where to call it. Both hosts were resolved from the app.lily.ai production
+    JavaScript bundle and confirmed live.
+  update:
+    servers:
+    - url: https://lilyapp-api-prd.pub.lilyai.net
+      description: Production — self-identifies as LilyApp-Api-Prod-AWS, build 2026.02b
+    - url: https://lilyapp-api-stg.pub.lilyai.net
+      description: >-
+        Staging — resolves, but presents an EXPIRED TLS certificate as of
+        2026-08-12, so the TLS handshake aborts.
+- target: $.info
+  description: >-
+    Add contact and a description that says what the service actually is. The
+    published info block carries an empty contact object and the one-line
+    description "Lily App Middleware".
+  update:
+    contact:
+      name: Lily AI, Inc.
+      url: https://www.lily.ai/contact
+    x-api-evangelist-note: >-
+      This is the middleware that backs Lily AI's customer application at
+      app.lily.ai. It is publicly reachable and publicly documented via a Swagger UI
+      at /api, but Lily AI operates no developer program — there is no portal, no
+      published reference, no SDK, and no sign-up path to a credential. Treat it as
+      an exposed internal contract, not a product API.
+- target: $
+  description: >-
+    Apply the declared JWT bearer scheme globally. The contract defines
+    components.securitySchemes.JWT but never references it from any operation or
+    from a root security block, so the document asserts that all 100 operations are
+    anonymous. Live probing disproves that — /config/brands and /subsidiary/list
+    both return 401 "null Token" without a token.
+  update:
+    security:
+    - JWT: []
+- target: $.paths['/health'].get
+  description: Tag and summarise the health check.
+  update:
+    tags: [Health]
+    summary: Dependency health check
+    description: >-
+      Returns a per-dependency status map (pi_api, lilyAppDB, productCopy). Returns
+      503 when any dependency is down; observed 503 with productCopy down on
+      2026-08-12.
+- target: $.paths['/metrics'].get
+  description: >-
+    Flag the Prometheus scrape endpoint, which is served on the same public host as
+    the rest of the API.
+  update:
+    tags: [Observability]
+    summary: Prometheus metrics scrape endpoint
+- target: $.components.schemas.PaginationDto.properties.pageNumber
+  description: >-
+    Correct the type. The contract types pageNumber as `object` with the string
+    default "1"; it is a page index.
+  update:
+    type: integer
+    default: 1
+- target: $.components.schemas.PaginationDto.properties.pageSize
+  description: >-
+    Correct the type. The contract types pageSize as `object` with the string
+    default "100"; it is a page size.
+  update:
+    type: integer
+    default: 100
+x-not-applied:
+  note: >-
+    The following were deliberately NOT overlaid because doing so would assert
+    behaviour the provider does not publish and we did not observe.
+  items:
+  - Per-operation summaries and descriptions — 100 of 100 operations ship none, and
+    inventing them would misrepresent the contract's real quality.
+  - Tags — only the 7 Enrichment Platform Proxy operations carry a tag; the other 93
+    are untagged, and grouping them would be our guess at the provider's intent.
+  - 4xx response declarations — only 3 of 100 operations declare any non-2xx
+    response. The observed 401 / 404 / 503 envelopes are captured in
+    errors/lily-ai-problem-types.yml instead of being back-written into the spec.
+  - An Idempotency-Key header — the API has no idempotency mechanism at all.

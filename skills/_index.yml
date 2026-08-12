@@ -1,0 +1,35 @@
+generated: '2026-08-12'
+method: generated
+source: >-
+  Authored by API Evangelist from openapi/lily-ai-lilyapp-api-openapi.yml. Every
+  operationId referenced was grepped out of the published contract at
+  https://lilyapp-api-prd.pub.lilyai.net/api-json — none is invented. Lily AI
+  publishes no skills, no AGENTS.md, and no developer documentation of its own.
+api: LilyApp Middleware API
+access_note: >-
+  These skills describe a real, publicly-documented contract that is NOT publicly
+  accessible: calling it requires a bearer JWT from Lily AI's Azure AD B2C tenant,
+  and Lily AI operates no developer program or self-service credential path. Each
+  skill states this up front.
+skill_count: 2
+skills:
+- name: lily-ai-product-attribute-search
+  file: lily-ai-product-attribute-search.md
+  summary: >-
+    Resolve a retailer subsidiary, discover its Lily-generated attribute vocabulary,
+    and search the catalog for products with their consumer-centric tags and
+    synonyms.
+  operations: 8
+- name: lily-ai-product-copy-batch
+  file: lily-ai-product-copy-batch.md
+  summary: >-
+    Create a product-copy batch, generate AI product descriptions, review and edit
+    them, move them through approval status, and export.
+  operations: 11
+not_authored:
+  note: >-
+    No skill was written for the seven proxy controllers (/pi-api-proxy,
+    /pi-connector-proxy, /pi-config-proxy, /tce-api-proxy, /ep-proxy) or for
+    /superset/*, /batch/*, /integration/* and /mock-data/*. The proxies declare a
+    wildcard path and no request or response schema, so there are no real parameters
+    to ground a skill in, and inventing them would fabricate a contract.
