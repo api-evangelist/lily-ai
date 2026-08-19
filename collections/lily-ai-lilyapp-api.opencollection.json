@@ -1,0 +1,2122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LilyApp API - Nest Based Application",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HealthController_check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/health"
+          }
+        },
+        {
+          "info": {
+            "name": "ConfigController_getAllBrands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/config/brands",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ConfigController_getAllApis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/config/personproducttypes",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ConfigController_getReailerInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/config/retailer/info",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ConfigController_getSubsidiaryDetails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/config/subsidiary/details/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ConfigController_getSubsidiaryConfig",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/config/subsidiary/:param",
+            "params": [
+              {
+                "name": "param",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "UsersController_listUserBrands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/config/users/:id/brands",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "HomeController_healthCheckRoot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/"
+          }
+        },
+        {
+          "info": {
+            "name": "SearchPamController_getSearchDataForGallery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "retailer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "brand",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sku_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "product_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "person_types",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SearchPamController_getAllProductsFromPI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/products",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortColumn",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SearchPamController_exportAllProductsFromPI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/products/export"
+          }
+        },
+        {
+          "info": {
+            "name": "SearchPamController_updateProductTagsApi",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/products/tags:edit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SearchPamController_getFiltersTableFormattedLocalApi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/products/filters/tableFormatted",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SearchPamController_getPrductTagsFiltersList",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/subsidiary/tags",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SearchAnalyticsController_getPIAnalyticsMeta",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/pi-analytics/meta",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SearchAnalyticsController_getPIAnalytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/pi-analytics/:type",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              },
+              {
+                "name": "restQueryParams",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "device_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "visitor_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "metric",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SearchTagsController_getProductTagAutocompleteApi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/tags/autocomplete",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SearchTagsController_getPersonProductTypes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/tags/types",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SearchTagsController_getProductTagsList",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/search/products/tags/autocomplete",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "AuthController_loginUserExt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/auth/b2c/login"
+          }
+        },
+        {
+          "info": {
+            "name": "AuthController_loginUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/auth/microsoft/login"
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesController_getAllProductCopyBatchesFromPI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/batches",
+            "params": [
+              {
+                "name": "subsidiaryID",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesController_getAllProductCopiesForBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/batches/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Batch's ID number"
+              },
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order in which the products are return in."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesController_exportAllProductCopiesForBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/batches/export/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Batch's ID number"
+              },
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order in which the products are return in."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesController_createProductBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/batches/add",
+            "params": [
+              {
+                "name": "subsidiaryID",
+                "value": "",
+                "type": "query",
+                "description": "ID for retailer. Required to check user permission for retailer."
+              },
+              {
+                "name": "batchID",
+                "value": "",
+                "type": "query",
+                "description": "Optional paramater. Can be added to reinstate a previously deleted batch or create a batch with a specific number."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesController_createProductBatchCopiesAndProducts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/batches/add/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subsidiaryID",
+                "value": "",
+                "type": "query",
+                "description": "ID for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesController_deleteProductBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/batches/remove/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Batch's ID number"
+              },
+              {
+                "name": "subsidiaryID",
+                "value": "",
+                "type": "query",
+                "description": "ID for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesController_deleteProductBatchCopiesandProducts",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/batches/remove/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Batch's ID number"
+              },
+              {
+                "name": "subsidiaryID",
+                "value": "",
+                "type": "query",
+                "description": "ID for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductCopyController_updateProductCopyDetails",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/products/details/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductCopyController_getProductCopyDetails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/products/details/tags/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductCopyController_updateProductCopyStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/products/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductCopyController_generateDescription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopy/products/generate/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Request to record search, but not for results. Any number can be used."
+              },
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductCopyControllerV2_updateProductCopyDetails",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopyV2/products/details/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductCopyControllerV2_getProductCopyTags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopyV2/products/details/tags/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductCopyControllerV2_getProductCopyImages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopyV2/products/details/images/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductCopyControllerV2_updateProductCopyStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopyV2/products/status/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesControllerV2_getAllProductCopyBatchesFromPI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopyV2/batches",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesControllerV2_getAllProductCopiesForBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopyV2/batches/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query",
+                "description": "Code name for retailer. Required to check user permission for retailer."
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order in which the products are return in."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductBatchesControllerV2_deleteProductBatch",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/productcopyV2/batches/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BatchController_listAllBatches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/batch/ingestions/:subsidiaryId",
+            "params": [
+              {
+                "name": "subsidiaryId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProductController_searchProductsWithSynonyms",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/products/search/synonyms",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortColumn",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortDirection",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "IntegrationController_listAllBatches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/integration/partners/:subsidiaryCode",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "IntegrationController_configurePartner",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/integration/partners/connection-information/:subsidiaryCode/:partnerCode",
+            "params": [
+              {
+                "name": "subsidiaryCode",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "partnerCode",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiApiProxyController_proxy_get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-api-proxy/*",
+            "headers": [
+              {
+                "name": "subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiApiProxyController_proxy_post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-api-proxy/*",
+            "headers": [
+              {
+                "name": "subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiApiProxyController_proxy_put",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-api-proxy/*",
+            "headers": [
+              {
+                "name": "subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiApiProxyController_proxy_patch",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-api-proxy/*",
+            "headers": [
+              {
+                "name": "subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiApiProxyController_proxy_delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-api-proxy/*",
+            "headers": [
+              {
+                "name": "subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiApiProxyController_proxy_head",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-api-proxy/*",
+            "headers": [
+              {
+                "name": "subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiApiProxyController_proxy_options",
+            "type": "http"
+          },
+          "http": {
+            "method": "OPTIONS",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-api-proxy/*",
+            "headers": [
+              {
+                "name": "subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConnectorProxyController_proxy_get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-connector-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConnectorProxyController_proxy_post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-connector-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConnectorProxyController_proxy_put",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-connector-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConnectorProxyController_proxy_patch",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-connector-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConnectorProxyController_proxy_delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-connector-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConnectorProxyController_proxy_head",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-connector-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConnectorProxyController_proxy_options",
+            "type": "http"
+          },
+          "http": {
+            "method": "OPTIONS",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-connector-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConfigProxyController_proxy_get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-config-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConfigProxyController_proxy_post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-config-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConfigProxyController_proxy_put",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-config-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConfigProxyController_proxy_patch",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-config-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConfigProxyController_proxy_delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-config-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConfigProxyController_proxy_head",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-config-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PiConfigProxyController_proxy_options",
+            "type": "http"
+          },
+          "http": {
+            "method": "OPTIONS",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/pi-config-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "AuthV2Controller_loginUserExt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/v2/auth/b2c/login"
+          }
+        },
+        {
+          "info": {
+            "name": "AuthV2Controller_loginUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/v2/auth/microsoft/login"
+          }
+        },
+        {
+          "info": {
+            "name": "AuthV2Controller_loginQaSupport",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/v2/auth/qa-automated/login",
+            "headers": [
+              {
+                "name": "x-qa-auth",
+                "value": ""
+              },
+              {
+                "name": "origin",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SubsidiaryController_getSubsidiaryList",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/subsidiary/list"
+          }
+        },
+        {
+          "info": {
+            "name": "SubsidiaryController_getSubsidiaryListUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/subsidiary/list-subsidiaries",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TceApiProxyController_proxy_get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/tce-api-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TceApiProxyController_proxy_post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/tce-api-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TceApiProxyController_proxy_put",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/tce-api-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TceApiProxyController_proxy_patch",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/tce-api-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TceApiProxyController_proxy_delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/tce-api-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TceApiProxyController_proxy_head",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/tce-api-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TceApiProxyController_proxy_options",
+            "type": "http"
+          },
+          "http": {
+            "method": "OPTIONS",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/tce-api-proxy/*",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SupersetController_getPersonProductTypes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/superset/security/token",
+            "params": [
+              {
+                "name": "dashboardId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "experimentId",
+                "value": "",
+                "type": "query",
+                "description": "Experiment ID for row-level security filtering"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SupersetController_getChartData",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/superset/chart/data",
+            "params": [
+              {
+                "name": "sliceId",
+                "value": "",
+                "type": "query",
+                "description": "Superset slice ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SheetController_getFailedProductSummary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/mock-data/sheet/failed-products-summary",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SheetController_getTaxonomyMapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/mock-data/sheet/taxonomy-mapping",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SheetController_getAttributionMetrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/mock-data/sheet/attribution-metrics",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SheetController_getGoogleAuthToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/mock-data/sheet/download-file",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SheetController_getProductCopyData",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/mock-data/sheet/product-copy/:tabId",
+            "params": [
+              {
+                "name": "tabId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SheetController_getAllAttributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/mock-data/sheet/search-based-attributes",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SheetController_getAllTerms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/mock-data/sheet/get-terms",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "FaqProxyController_proxy_get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/faqs/:skuId",
+            "params": [
+              {
+                "name": "skuId",
+                "value": "",
+                "type": "path",
+                "description": "SKU ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "FaqProxyController_proxy_post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/faqs/:skuId",
+            "params": [
+              {
+                "name": "skuId",
+                "value": "",
+                "type": "path",
+                "description": "SKU ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "FaqProxyController_proxy_put",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/faqs/:skuId",
+            "params": [
+              {
+                "name": "skuId",
+                "value": "",
+                "type": "path",
+                "description": "SKU ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "FaqProxyController_proxy_patch",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/faqs/:skuId",
+            "params": [
+              {
+                "name": "skuId",
+                "value": "",
+                "type": "path",
+                "description": "SKU ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "FaqProxyController_proxy_delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/faqs/:skuId",
+            "params": [
+              {
+                "name": "skuId",
+                "value": "",
+                "type": "path",
+                "description": "SKU ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "FaqProxyController_proxy_head",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/faqs/:skuId",
+            "params": [
+              {
+                "name": "skuId",
+                "value": "",
+                "type": "path",
+                "description": "SKU ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "FaqProxyController_proxy_options",
+            "type": "http"
+          },
+          "http": {
+            "method": "OPTIONS",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/faqs/:skuId",
+            "params": [
+              {
+                "name": "skuId",
+                "value": "",
+                "type": "path",
+                "description": "SKU ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PrometheusController_index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/metrics"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Enrichment Platform Proxy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "EnrichmentPlatformProxyController_proxy_get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/ep-proxy/*",
+            "headers": [
+              {
+                "name": "x-subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "EnrichmentPlatformProxyController_proxy_post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/ep-proxy/*",
+            "headers": [
+              {
+                "name": "x-subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "EnrichmentPlatformProxyController_proxy_put",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/ep-proxy/*",
+            "headers": [
+              {
+                "name": "x-subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "EnrichmentPlatformProxyController_proxy_patch",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/ep-proxy/*",
+            "headers": [
+              {
+                "name": "x-subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "EnrichmentPlatformProxyController_proxy_delete",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/ep-proxy/*",
+            "headers": [
+              {
+                "name": "x-subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "EnrichmentPlatformProxyController_proxy_head",
+            "type": "http"
+          },
+          "http": {
+            "method": "HEAD",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/ep-proxy/*",
+            "headers": [
+              {
+                "name": "x-subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "EnrichmentPlatformProxyController_proxy_options",
+            "type": "http"
+          },
+          "http": {
+            "method": "OPTIONS",
+            "url": "https://lilyapp-api-prd.pub.lilyai.net/ep-proxy/*",
+            "headers": [
+              {
+                "name": "x-subsidiary-id",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
