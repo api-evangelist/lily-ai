@@ -64,6 +64,16 @@ apis:
   humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
   baseURL: https://lilyapp-api-prd.pub.lilyai.net
   tags:
+  - Product Intelligence
+  - Product Attributes
+  - E-Commerce
+  - Retail
+  - product-copy
+  - catalog-enrichment
+  - Search
+  - Analytics
+  - Middleware
+  tags_raw:
   - product-intelligence
   - product-attributes
   - ecommerce
