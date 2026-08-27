@@ -50,42 +50,16 @@ tags:
 - Search
 - Marketing
 apis:
-- name: LilyApp Middleware API
-  description: >-
-    The middleware API behind Lily AI's customer application at app.lily.ai. Publicly
-    served with a Swagger UI at /api and an OpenAPI 3.0.0 contract at /api-json (63
-    paths, 100 operations, 41 schemas), covering retailer/subsidiary configuration,
-    product search over Lily's consumer-centric attribute tags and synonyms, product
-    analytics and search-term trends, AI product-copy generation and batch review,
-    outbound partner integration configuration, and a set of pass-through proxies to
-    Lily's internal product-intelligence, connector, config, TCE and enrichment-platform
-    services. Calls require a bearer JWT issued by Lily AI's Azure AD B2C tenant; Lily AI
-    publishes no developer documentation and offers no self-service way to obtain one.
+- aid: lily-ai:lily-ai-auth-api
+  name: Lily AI Auth API
+  description: The Auth API from Lily AI — 5 operation(s) for auth.
   humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
   baseURL: https://lilyapp-api-prd.pub.lilyai.net
   tags:
-  - Product Intelligence
-  - Product Attributes
-  - E-Commerce
-  - Retail
-  - product-copy
-  - catalog-enrichment
-  - Search
-  - Analytics
-  - Middleware
-  tags_raw:
-  - product-intelligence
-  - product-attributes
-  - ecommerce
-  - retail
-  - product-copy
-  - catalog-enrichment
-  - search
-  - analytics
-  - middleware
+  - Auth
   properties:
   - type: OpenAPI
-    url: openapi/lily-ai-lilyapp-api-openapi.yml
+    url: openapi/lily-ai-auth-api-openapi.yml
   - type: APIReference
     url: https://lilyapp-api-prd.pub.lilyai.net/api
   - type: Authentication
@@ -98,15 +72,510 @@ apis:
     url: errors/lily-ai-problem-types.yml
   - type: DataModel
     url: data-model/lily-ai-data-model.yml
-  - type: Overlay
-    url: overlays/lily-ai-lilyapp-api-overlay.yaml
   - type: RateLimits
     url: rate-limits/lily-ai-rate-limits.yml
   - type: Conformance
     url: conformance/lily-ai-conformance.yml
-  - type: AgentSkill
-    url: skills/_index.yml
+- aid: lily-ai:lily-ai-batch-api
+  name: Lily AI Batch API
+  description: The Batch API from Lily AI — 1 operation(s) for batch.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-batch-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-config-api
+  name: Lily AI Config API
+  description: The Config API from Lily AI — 6 operation(s) for config.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Config
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-config-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-enrichment-platform-proxy-api
+  name: Lily AI Enrichment Platform Proxy API
+  description: >-
+    The Enrichment Platform Proxy API from Lily AI — 1 operation(s) for enrichment platform proxy.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Enrichment Platform Proxy
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-enrichment-platform-proxy-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-faqs-api
+  name: Lily AI Faqs API
+  description: The Faqs API from Lily AI — 1 operation(s) for faqs.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Faqs
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-faqs-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-health-api
+  name: Lily AI Health API
+  description: The Health API from Lily AI — 1 operation(s) for health.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-health-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-integration-api
+  name: Lily AI Integration API
+  description: The Integration API from Lily AI — 2 operation(s) for integration.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Integration
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-integration-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-lilyapp-api-nest-based-application-api
+  name: Lily AI LilyApp API Nest Based Application API
+  description: >-
+    The LilyApp API Nest Based Application API from Lily AI — 1 operation(s) for lilyapp api nest based
+    application.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - LilyApp API Nest Based Application
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-lilyapp-api-nest-based-application-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-metrics-api
+  name: Lily AI Metrics API
+  description: The Metrics API from Lily AI — 1 operation(s) for metrics.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-metrics-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-mock-data-api
+  name: Lily AI Mock Data API
+  description: The Mock Data API from Lily AI — 7 operation(s) for mock data.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Mock Data
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-mock-data-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-pi-api-proxy-api
+  name: Lily AI Pi Api Proxy API
+  description: The Pi Api Proxy API from Lily AI — 1 operation(s) for pi api proxy.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Pi Api Proxy
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-pi-api-proxy-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-pi-config-proxy-api
+  name: Lily AI Pi Config Proxy API
+  description: The Pi Config Proxy API from Lily AI — 1 operation(s) for pi config proxy.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Pi Config Proxy
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-pi-config-proxy-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-pi-connector-proxy-api
+  name: Lily AI Pi Connector Proxy API
+  description: The Pi Connector Proxy API from Lily AI — 1 operation(s) for pi connector proxy.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Pi Connector Proxy
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-pi-connector-proxy-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-productcopy-api
+  name: Lily AI Productcopy API
+  description: The Productcopy API from Lily AI — 11 operation(s) for productcopy.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Productcopy
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-productcopy-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-productcopyv2-api
+  name: Lily AI Productcopy V2 API
+  description: The ProductcopyV2 API from Lily AI — 6 operation(s) for productcopyv2.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - ProductcopyV2
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-productcopyv2-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-products-api
+  name: Lily AI Products API
+  description: The Products API from Lily AI — 1 operation(s) for products.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-products-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-search-api
+  name: Lily AI Search API
+  description: The Search API from Lily AI — 11 operation(s) for search.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-search-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-subsidiary-api
+  name: Lily AI Subsidiary API
+  description: The Subsidiary API from Lily AI — 2 operation(s) for subsidiary.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Subsidiary
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-subsidiary-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-superset-api
+  name: Lily AI Superset API
+  description: The Superset API from Lily AI — 2 operation(s) for superset.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Superset
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-superset-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-tce-api-proxy-api
+  name: Lily AI Tce Api Proxy API
+  description: The Tce Api Proxy API from Lily AI — 1 operation(s) for tce api proxy.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Tce Api Proxy
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-tce-api-proxy-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
 common:
+- type: Overlay
+  url: overlays/lily-ai-lilyapp-api-overlay.yaml
 - type: Packages
   url: packages/lily-ai-packages.yml
 - type: Plans
