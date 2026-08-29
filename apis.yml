@@ -17,6 +17,18 @@ description: >-
   customer application at app.lily.ai — 63 paths and 100 operations behind an Azure AD B2C
   bearer JWT, with a public Swagger UI. That contract is captured here as the company's only
   machine-readable API surface.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
