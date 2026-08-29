@@ -42,6 +42,8 @@ accessModel:
   method: derived
 image: https://lily.ai/icon.png
 url: https://raw.githubusercontent.com/api-evangelist/lily-ai/refs/heads/main/apis.yml
+x-api-posture: no-product-api
+x-api-posture-basis: observed
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -586,6 +588,9 @@ apis:
   - type: Conformance
     url: conformance/lily-ai-conformance.yml
 common:
+- type: CapabilityMap
+  url: capabilities/lily-ai-capability-edges.yml
+  name: Lily AI Business Capability Map
 - type: Overlay
   url: overlays/lily-ai-lilyapp-api-overlay.yaml
 - type: Packages
