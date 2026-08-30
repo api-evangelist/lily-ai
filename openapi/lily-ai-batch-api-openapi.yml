@@ -1,0 +1,37 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Batch API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Batch
+paths:
+  /batch/ingestions/{subsidiaryId}:
+    get:
+      operationId: BatchController_listAllBatches
+      parameters:
+      - name: subsidiaryId
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Get batches for subsidiary
+      security:
+      - JWT: []
+      tags:
+      - Batch
+components:
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

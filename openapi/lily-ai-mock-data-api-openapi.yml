@@ -1,0 +1,103 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Mock Data API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Mock Data
+paths:
+  /mock-data/sheet/failed-products-summary:
+    get:
+      operationId: SheetController_getFailedProductSummary
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Mock Data
+  /mock-data/sheet/taxonomy-mapping:
+    get:
+      operationId: SheetController_getTaxonomyMapping
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Mock Data
+  /mock-data/sheet/attribution-metrics:
+    get:
+      operationId: SheetController_getAttributionMetrics
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Mock Data
+  /mock-data/sheet/download-file:
+    get:
+      operationId: SheetController_getGoogleAuthToken
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Mock Data
+  /mock-data/sheet/product-copy/{tabId}:
+    get:
+      operationId: SheetController_getProductCopyData
+      parameters:
+      - name: tabId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Mock Data
+  /mock-data/sheet/search-based-attributes:
+    get:
+      operationId: SheetController_getAllAttributes
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Mock Data
+  /mock-data/sheet/get-terms:
+    get:
+      operationId: SheetController_getAllTerms
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Mock Data
+components:
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

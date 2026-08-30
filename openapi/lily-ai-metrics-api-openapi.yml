@@ -1,0 +1,30 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Metrics API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Metrics
+paths:
+  /metrics:
+    get:
+      operationId: PrometheusController_index
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Metrics
+components:
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

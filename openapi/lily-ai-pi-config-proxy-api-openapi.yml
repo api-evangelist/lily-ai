@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Pi Config Proxy API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Pi Config Proxy
+paths:
+  /pi-config-proxy/*:
+    get:
+      operationId: PiConfigProxyController_proxy_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Config Proxy
+    post:
+      operationId: PiConfigProxyController_proxy_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Config Proxy
+    put:
+      operationId: PiConfigProxyController_proxy_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Config Proxy
+    delete:
+      operationId: PiConfigProxyController_proxy_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Config Proxy
+    patch:
+      operationId: PiConfigProxyController_proxy_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Config Proxy
+    options:
+      operationId: PiConfigProxyController_proxy_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Config Proxy
+    head:
+      operationId: PiConfigProxyController_proxy_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Config Proxy
+components:
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

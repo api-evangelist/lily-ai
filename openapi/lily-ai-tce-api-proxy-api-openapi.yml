@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Tce Api Proxy API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Tce Api Proxy
+paths:
+  /tce-api-proxy/*:
+    get:
+      operationId: TceApiProxyController_proxy_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Tce Api Proxy
+    post:
+      operationId: TceApiProxyController_proxy_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Tce Api Proxy
+    put:
+      operationId: TceApiProxyController_proxy_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Tce Api Proxy
+    delete:
+      operationId: TceApiProxyController_proxy_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Tce Api Proxy
+    patch:
+      operationId: TceApiProxyController_proxy_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Tce Api Proxy
+    options:
+      operationId: TceApiProxyController_proxy_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Tce Api Proxy
+    head:
+      operationId: TceApiProxyController_proxy_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Tce Api Proxy
+components:
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

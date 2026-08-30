@@ -1,0 +1,121 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Auth API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Auth
+paths:
+  /auth/b2c/login:
+    get:
+      operationId: AuthController_loginUserExt
+      parameters: []
+      responses:
+        '200':
+          description: Login a user using Azure Active Directory with B2C.
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Auth
+  /auth/microsoft/login:
+    get:
+      operationId: AuthController_loginUser
+      parameters: []
+      responses:
+        '200':
+          description: Login a user using Microsoft Azure.
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Auth
+  /v2/auth/b2c/login:
+    get:
+      operationId: AuthV2Controller_loginUserExt
+      parameters: []
+      responses:
+        '200':
+          description: Login a user using Azure Active Directory with B2C.
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Auth
+  /v2/auth/microsoft/login:
+    get:
+      operationId: AuthV2Controller_loginUser
+      parameters: []
+      responses:
+        '200':
+          description: Login a user using Microsoft Azure.
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Auth
+  /v2/auth/qa-automated/login:
+    post:
+      operationId: AuthV2Controller_loginQaSupport
+      parameters:
+      - name: x-qa-auth
+        required: true
+        in: header
+        schema:
+          type: string
+      - name: origin
+        required: true
+        in: header
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QaSupportLoginDto'
+      responses:
+        '200':
+          description: Login for QA Automated with JWT token validation.
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Invalid token or token validation failed.
+        '403':
+          description: Origin is not authorized to access this feature.
+      tags:
+      - Auth
+components:
+  schemas:
+    QaSupportLoginDto:
+      type: object
+      properties:
+        username:
+          type: string
+          example: xyz@abc.com
+          description: QA Support username/email
+        password:
+          type: string
+          example: xyz
+          description: QA Support password
+      required:
+      - username
+      - password
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

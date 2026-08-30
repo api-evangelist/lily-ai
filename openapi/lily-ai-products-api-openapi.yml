@@ -1,0 +1,57 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Products API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Products
+paths:
+  /products/search/synonyms:
+    post:
+      operationId: ProductController_searchProductsWithSynonyms
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: sortColumn
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: sortDirection
+        required: true
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductSearchSynonymsRequestBodyDto'
+      responses:
+        '200':
+          description: Get the list of all products with the synonyms based on search criteria.
+      security:
+      - JWT: []
+      tags:
+      - Products
+components:
+  schemas:
+    ProductSearchSynonymsRequestBodyDto:
+      type: object
+      properties: {}
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

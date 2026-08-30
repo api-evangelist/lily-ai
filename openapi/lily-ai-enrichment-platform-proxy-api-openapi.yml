@@ -1,0 +1,127 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Enrichment Platform Proxy API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Enrichment Platform Proxy
+paths:
+  /ep-proxy/*:
+    get:
+      operationId: EnrichmentPlatformProxyController_proxy_get
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    post:
+      operationId: EnrichmentPlatformProxyController_proxy_post
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    put:
+      operationId: EnrichmentPlatformProxyController_proxy_put
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    delete:
+      operationId: EnrichmentPlatformProxyController_proxy_delete
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    patch:
+      operationId: EnrichmentPlatformProxyController_proxy_patch
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    options:
+      operationId: EnrichmentPlatformProxyController_proxy_options
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+    head:
+      operationId: EnrichmentPlatformProxyController_proxy_head
+      parameters:
+      - name: x-subsidiary-id
+        required: true
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Enrichment Platform Proxy
+      security:
+      - JWT: []
+components:
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

@@ -1,0 +1,1005 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Search API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Search
+paths:
+  /search:
+    get:
+      operationId: SearchPamController_getSearchDataForGallery
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: page
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: per_page
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: retailer
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: brand
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: sku_id
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: product_types
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: person_types
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieve all the products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchOldResponseDto'
+      security:
+      - JWT: []
+      tags:
+      - Search
+  /search/products:
+    post:
+      operationId: SearchPamController_getAllProductsFromPI
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          default: '1'
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          default: '100'
+          type: string
+      - name: sortColumn
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: sortDirection
+        required: true
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchPAMPayloadDto'
+      responses:
+        '200':
+          description: Retrieve all the PAM products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductSearchDtoWithSynonyms'
+      security:
+      - JWT: []
+      tags:
+      - Search
+  /search/products/export:
+    post:
+      operationId: SearchPamController_exportAllProductsFromPI
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - Search
+  /search/products/tags{edit}:
+    post:
+      operationId: SearchPamController_updateProductTagsApi
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit tags of a product.
+      security:
+      - JWT: []
+      tags:
+      - Search
+  /search/products/filters/tableFormatted:
+    get:
+      operationId: SearchPamController_getFiltersTableFormattedLocalApi
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get db filters formatted as a table.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FilterContainerDto'
+      security:
+      - JWT: []
+      tags:
+      - Search
+  /search/subsidiary/tags:
+    get:
+      operationId: SearchPamController_getPrductTagsFiltersList
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get db filters formatted as a table.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FilterContainerDto'
+      security:
+      - JWT: []
+      tags:
+      - Search
+  /search/pi-analytics/meta:
+    get:
+      operationId: SearchAnalyticsController_getPIAnalyticsMeta
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get PI Analytics meta data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PiAnalyticsMetaDto'
+      security:
+      - JWT: []
+      tags:
+      - Search
+  /search/pi-analytics/{type}:
+    get:
+      operationId: SearchAnalyticsController_getPIAnalytics
+      parameters:
+      - name: type
+        required: true
+        in: path
+        schema:
+          type: string
+          enum:
+          - overview
+          - trends
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: restQueryParams
+        required: false
+        in: query
+        schema:
+          type: object
+      - name: to_date
+        required: false
+        in: query
+        schema:
+          format: date
+          type: string
+      - name: from_date
+        required: false
+        in: query
+        schema:
+          format: date
+          type: string
+      - name: device_type
+        required: false
+        in: query
+        schema:
+          enum:
+          - desktop
+          - mweb
+          - tablet
+          - other
+          type: string
+      - name: visitor_type
+        required: false
+        in: query
+        schema:
+          enum:
+          - new_visitor
+          - repeated_visitor
+          type: string
+      - name: limit
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: offset
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: order
+        required: false
+        in: query
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      - name: metric
+        required: false
+        in: query
+        schema:
+          enum:
+          - total_searches_rate
+          - noresult_points
+          - view_points
+          type: string
+      responses:
+        '200':
+          description: Get PI Analytics Data | PI Trends Data
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/PiAnalyticsTypeDto'
+                - $ref: '#/components/schemas/PiTrendsDto'
+      security:
+      - JWT: []
+      tags:
+      - Search
+  /search/tags/autocomplete:
+    get:
+      operationId: SearchTagsController_getProductTagAutocompleteApi
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all the tags for Autocomplete.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDto'
+      security:
+      - JWT: []
+      tags:
+      - Search
+  /search/tags/types:
+    get:
+      operationId: SearchTagsController_getPersonProductTypes
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get Person Product Types.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonProductTypesDto'
+      security:
+      - JWT: []
+      tags:
+      - Search
+  /search/products/tags/autocomplete:
+    get:
+      operationId: SearchTagsController_getProductTagsList
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all the tags for Autocomplete.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDto'
+      security:
+      - JWT: []
+      tags:
+      - Search
+components:
+  schemas:
+    SearchPAMPayloadDto:
+      type: object
+      properties:
+        brand:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        person_types:
+          type: array
+          items:
+            type: string
+        product_types:
+          type: array
+          items:
+            type: string
+        sku_id:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+      required:
+      - brand
+    PiAnalyticsMetaDto:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: https://www.iso.org/iso-4217-currency-codes.html
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYR
+          - BZD
+          - CAD
+          - CDF
+          - CHF
+          - CLP
+          - CNY
+          - COP
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GGP
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - IMP
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JEP
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRO
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SPL
+          - SRD
+          - STD
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TVD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - UYU
+          - UZS
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XCD
+          - XDR
+          - XOF
+          - XPF
+          - YER
+          - ZAR
+          - ZMW
+          - ZWD
+          example: USD
+        device_types:
+          type: array
+          example:
+          - desktop
+          - tablet
+          items:
+            type: string
+            enum:
+            - desktop
+            - mweb
+            - tablet
+            - other
+        min_date:
+          type: string
+          format: date
+          example: '2023-01-21'
+        max_date:
+          type: null | string
+          format: date
+          example: '2023-08-29'
+      required:
+      - currency
+      - device_types
+      - min_date
+      - max_date
+    SubsidiaryTagsDto:
+      type: object
+      properties:
+        category:
+          type: object
+        label:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - category
+      - label
+      - tags
+    PiTrendsSearchTermDto:
+      type: object
+      properties:
+        device_type:
+          type: string
+          enum:
+          - desktop
+          - mweb
+          - tablet
+          - other
+          example: desktop
+        search_query:
+          type: string
+          example: seaside
+        total_searches:
+          type: number
+          example: 0.1
+        total_views:
+          type: number
+          example: 92.52
+        total_exit:
+          type: number
+          example: 6.54
+        no_result:
+          type: number
+          example: 0
+      required:
+      - device_type
+      - search_query
+      - total_searches
+      - total_views
+      - total_exit
+      - no_result
+    PiAnalyticsDto:
+      type: object
+      properties:
+        lily_impacted_search:
+          $ref: '#/components/schemas/PiAnalyticsValuesDto'
+        non_lily_impacted_search:
+          $ref: '#/components/schemas/PiAnalyticsValuesDto'
+        without_search:
+          $ref: '#/components/schemas/PiAnalyticsValuesDto'
+      required:
+      - lily_impacted_search
+      - non_lily_impacted_search
+      - without_search
+    ProductSearchDtoWithSynonyms:
+      type: object
+      properties:
+        account:
+          type: string
+        subsidiary:
+          type: string
+        productsWithSynonym:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDtoWithSynonym'
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
+      required:
+      - account
+      - subsidiary
+      - productsWithSynonym
+      - pagination
+    TagsWithSynonyms:
+      type: object
+      properties:
+        tag:
+          type: string
+        synonyms:
+          type: array
+          items:
+            type: string
+      required:
+      - tag
+      - synonyms
+    SearchOldResponseDto:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        page:
+          type: string
+        per_page:
+          type: string
+        retailer:
+          type: string
+        total_count:
+          type: number
+        products:
+          description: Array of products.
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductOldDto'
+      required:
+      - success
+      - message
+      - page
+      - per_page
+      - retailer
+      - total_count
+      - products
+    PiTrendsDto:
+      type: object
+      properties:
+        error:
+          type: boolean
+          example: false
+        from_date:
+          type: string
+          format: date
+          example: '2023-08-24'
+        to_date:
+          type: string
+          format: date
+          example: '2023-08-25'
+        device_type:
+          type: string
+          enum:
+          - desktop
+          - mweb
+          - tablet
+          - other
+          example: desktop
+        search_terms:
+          type: array
+          items:
+            $ref: '#/components/schemas/PiTrendsSearchTermDto'
+      required:
+      - error
+      - from_date
+      - to_date
+      - device_type
+      - search_terms
+    PiAnalyticsTypeDto:
+      type: object
+      properties:
+        '2023-08-29':
+          description: 'Key has the following format: yyyy-mm-dd. Response might have as many keys as dates available with analytics'
+          allOf:
+          - $ref: '#/components/schemas/PiAnalyticsDto'
+      required:
+      - '2023-08-29'
+    TagSections:
+      type: object
+      properties:
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagsWithSynonyms'
+      required:
+      - category
+      - tags
+    ProductDtoWithSynonym:
+      type: object
+      properties:
+        productId:
+          type: number
+        skuId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        brand:
+          type: string
+        productType:
+          type: string
+        personType:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        tagSections:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagSections'
+        lastExportedOn:
+          type: string
+        processedOn:
+          type: string
+        variantOf:
+          type: string
+        tagCount:
+          type: number
+      required:
+      - productId
+      - skuId
+      - title
+      - description
+      - brand
+      - productType
+      - personType
+      - images
+      - tagSections
+      - lastExportedOn
+      - processedOn
+      - variantOf
+      - tagCount
+    PaginationDto:
+      type: object
+      properties:
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
+    FilterContainerDto:
+      type: object
+      properties:
+        piType:
+          type: string
+        piSubsidiaryCode:
+          type: string
+        piTitle:
+          type: string
+        pamDiscriminator:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterDto'
+      required:
+      - piType
+      - piSubsidiaryCode
+      - piTitle
+      - pamDiscriminator
+      - filters
+    TagUpdatePayloadDto:
+      type: object
+      properties:
+        product_id:
+          type: number
+        email:
+          type: string
+        subsidiary_id:
+          type: number
+        subsidiary_tags_to_add:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        subsidiary_tags_to_remove:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        subsidiary_code:
+          type: string
+      required:
+      - product_id
+      - email
+      - subsidiary_id
+      - subsidiary_tags_to_add
+      - subsidiary_tags_to_remove
+      - subsidiary_code
+    CategoryDto:
+      type: object
+      properties:
+        category:
+          type: string
+        name:
+          type: string
+      required:
+      - category
+      - name
+    ProductOldDto:
+      type: object
+      properties:
+        lily_product_id:
+          type: number
+        parent_sku_code:
+          type: string
+        sku_id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        brand:
+          type: string
+        product_type:
+          type: string
+        person_type:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        retailer_tag_sections:
+          type: object
+        processing_completion_date:
+          type: string
+      required:
+      - lily_product_id
+      - parent_sku_code
+      - sku_id
+      - title
+      - description
+      - brand
+      - product_type
+      - person_type
+      - images
+      - retailer_tag_sections
+      - processing_completion_date
+    FilterDto:
+      type: object
+      properties:
+        id:
+          type: number
+        piTag:
+          type: string
+        pamLabel:
+          type: string
+      required:
+      - id
+      - piTag
+      - pamLabel
+    PiAnalyticsValuesDto:
+      type: object
+      properties:
+        visitors:
+          type: number
+          default: 27278
+        total_orders:
+          type: number
+          default: 2872
+        total_searches:
+          type: number
+          default: 74685
+        total_pdp_session:
+          type: number
+          default: 19966
+        total_revenue:
+          type: number
+          default: 573186.63
+        total_addtocart_session:
+          type: number
+          default: 9350
+        total_ordercomplete_session:
+          type: number
+          default: 2780
+        search_exit:
+          type: number
+          default: 4028
+      required:
+      - visitors
+      - total_orders
+      - total_searches
+      - total_pdp_session
+      - total_revenue
+      - total_addtocart_session
+      - total_ordercomplete_session
+      - search_exit
+    PersonProductTypesDto:
+      type: object
+      properties:
+        personTypes:
+          type: array
+          items:
+            type: string
+        productTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - personTypes
+      - productTypes
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

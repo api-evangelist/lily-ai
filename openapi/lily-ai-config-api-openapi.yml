@@ -1,0 +1,194 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Config API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Config
+paths:
+  /config/brands:
+    get:
+      operationId: ConfigController_getAllBrands
+      parameters: []
+      responses:
+        '200':
+          description: List all brands.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubsidiaryDto'
+      security:
+      - JWT: []
+      tags:
+      - Config
+  /config/personproducttypes:
+    get:
+      operationId: ConfigController_getAllApis
+      parameters: []
+      responses:
+        '200':
+          description: List of Person Product Types.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonProductTypesDto'
+      security:
+      - JWT: []
+      tags:
+      - Config
+  /config/retailer/info:
+    get:
+      operationId: ConfigController_getReailerInfo
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieve retailer info (requires authentication).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetailerInfoDto'
+      security:
+      - JWT: []
+      tags:
+      - Config
+  /config/subsidiary/details/{id}:
+    get:
+      operationId: ConfigController_getSubsidiaryDetails
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List subsidiary details (requires authentication and authorization).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubsidiaryDto'
+      security:
+      - JWT: []
+      tags:
+      - Config
+  /config/subsidiary/{param}:
+    get:
+      operationId: ConfigController_getSubsidiaryConfig
+      parameters:
+      - name: param
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List subsidiary config details by ID or partner config details by subsidiary code (requires authentication).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubsidiaryDto'
+      security:
+      - JWT: []
+      tags:
+      - Config
+  /config/users/{id}/brands:
+    get:
+      operationId: UsersController_listUserBrands
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Retrieve all the brands from a user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BrandDto'
+      security:
+      - JWT: []
+      tags:
+      - Config
+components:
+  schemas:
+    RetailerInfoDto:
+      type: object
+      properties:
+        hasSubidiaries:
+          type: boolean
+        isSubsidiary:
+          type: boolean
+        hasOrIsSubsidiary:
+          type: boolean
+      required:
+      - hasSubidiaries
+      - isSubsidiary
+      - hasOrIsSubsidiary
+    BrandDto:
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: number
+        name:
+          type: string
+      required:
+      - code
+      - id
+      - name
+    PersonProductTypesDto:
+      type: object
+      properties:
+        personTypes:
+          type: array
+          items:
+            type: string
+        productTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - personTypes
+      - productTypes
+    SubsidiaryDto:
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: number
+        name:
+          type: string
+        brands:
+          type: array
+          items:
+            type: string
+      required:
+      - code
+      - id
+      - name
+      - brands
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

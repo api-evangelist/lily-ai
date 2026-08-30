@@ -1,0 +1,359 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Productcopy V2 API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: ProductcopyV2
+paths:
+  /productcopyV2/products/details/{productId}:
+    put:
+      operationId: ProductCopyControllerV2_updateProductCopyDetails
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDetailsUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit details of a product.
+      security:
+      - JWT: []
+      tags:
+      - ProductcopyV2
+  /productcopyV2/products/details/tags/{productId}:
+    get:
+      operationId: ProductCopyControllerV2_getProductCopyTags
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all tags for a product.
+      security:
+      - JWT: []
+      tags:
+      - ProductcopyV2
+  /productcopyV2/products/details/images/{productId}:
+    get:
+      operationId: ProductCopyControllerV2_getProductCopyImages
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all tags for a product.
+      security:
+      - JWT: []
+      tags:
+      - ProductcopyV2
+  /productcopyV2/products/status/{productId}:
+    put:
+      operationId: ProductCopyControllerV2_updateProductCopyStatus
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductStatusUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit status of a product.
+      security:
+      - JWT: []
+      tags:
+      - ProductcopyV2
+  /productcopyV2/batches:
+    get:
+      operationId: ProductBatchesControllerV2_getAllProductCopyBatchesFromPI
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieve all the PAM product batches.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCopyBatches'
+      security:
+      - JWT: []
+      tags:
+      - ProductcopyV2
+  /productcopyV2/batches/{id}:
+    post:
+      operationId: ProductBatchesControllerV2_getAllProductCopiesForBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          default: '1'
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          default: '100'
+          type: string
+      - name: order
+        required: false
+        in: query
+        description: The order in which the products are return in.
+        schema:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchProductCopyBodyDto'
+      responses:
+        '200':
+          description: Retrieve all the PAM products for a concrete batch.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCopySearchDtoV2'
+      security:
+      - JWT: []
+      tags:
+      - ProductcopyV2
+    delete:
+      operationId: ProductBatchesControllerV2_deleteProductBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Delete existing batch.
+      security:
+      - JWT: []
+      tags:
+      - ProductcopyV2
+components:
+  schemas:
+    ProductCopyStatus:
+      type: string
+      enum:
+      - PENDING
+      - APPROVED
+      - DENIED
+    PaginationDto:
+      type: object
+      properties:
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
+    ProductCopySearchDtoV2:
+      type: object
+      properties:
+        account:
+          type: string
+        subsidiary:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCopyDtoV2'
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
+      required:
+      - account
+      - subsidiary
+      - products
+      - pagination
+    ProductStatusUpdatePayloadDto:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+        subsidiary_code:
+          type: string
+          default: terra
+        productIds:
+          type: array
+          items:
+            type: string
+      required:
+      - status
+      - subsidiary_code
+      - productIds
+    ProductDetailsUpdatePayloadDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        subsidiary_code:
+          type: string
+          default: terra
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      required:
+      - title
+      - description
+      - subsidiary_code
+      - status
+    ProductCopyBatches:
+      type: object
+      properties: {}
+    SearchProductCopyBodyDto:
+      type: object
+      properties:
+        keywords:
+          type: array
+          items:
+            type: array
+        skuId:
+          type: string
+        brand:
+          type: string
+        personType:
+          type: string
+        productType:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        status:
+          type: array
+          items:
+            type: array
+    ProductCopyDtoV2:
+      type: object
+      properties:
+        productId:
+          type: number
+        skuId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        brand:
+          type: string
+        image:
+          type: string
+        lastExportedOn:
+          type: string
+        processedOn:
+          type: string
+        variantOf:
+          type: string
+      required:
+      - productId
+      - skuId
+      - title
+      - description
+      - brand
+      - image
+      - lastExportedOn
+      - processedOn
+      - variantOf
+    SubsidiaryTagsDto:
+      type: object
+      properties:
+        category:
+          type: object
+        label:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - category
+      - label
+      - tags
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

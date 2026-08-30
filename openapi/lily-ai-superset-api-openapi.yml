@@ -1,0 +1,86 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Superset API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Superset
+paths:
+  /superset/security/token:
+    get:
+      operationId: SupersetController_getPersonProductTypes
+      parameters:
+      - name: dashboardId
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: experimentId
+        required: true
+        in: query
+        description: Experiment ID for row-level security filtering
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get Superset Guest Token (requires authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuestTokenResponseDto'
+      security:
+      - JWT: []
+      tags:
+      - Superset
+  /superset/chart/data:
+    post:
+      operationId: SupersetController_getChartData
+      parameters:
+      - name: sliceId
+        required: true
+        in: query
+        description: Superset slice ID
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChartDataBodyDto'
+      responses:
+        '200':
+          description: Proxy chart data from Superset (requires authentication)
+      security:
+      - JWT: []
+      tags:
+      - Superset
+components:
+  schemas:
+    GuestTokenResponseDto:
+      type: object
+      properties: {}
+    ChartDataBodyDto:
+      type: object
+      properties:
+        guestToken:
+          type: string
+          description: Superset guest token
+        experimentId:
+          type: string
+          description: Experiment ID for filtering chart data
+      required:
+      - guestToken
+      - experimentId
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

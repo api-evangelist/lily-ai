@@ -1,0 +1,555 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Productcopy API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Productcopy
+paths:
+  /productcopy/batches:
+    get:
+      operationId: ProductBatchesController_getAllProductCopyBatchesFromPI
+      parameters:
+      - name: subsidiaryID
+        required: true
+        in: query
+        schema:
+          default: 40
+          type: number
+      responses:
+        '200':
+          description: Retrieve all the Product Copy batches per retailer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCopyBatches'
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/batches/{id}:
+    post:
+      operationId: ProductBatchesController_getAllProductCopiesForBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Batch's ID number
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          default: '1'
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          default: '100'
+          type: string
+      - name: order
+        required: false
+        in: query
+        description: The order in which the products are return in.
+        schema:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchProductCopyBodyDto'
+      responses:
+        '200':
+          description: Retrieve all the Product Copy products for a concrete batch.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCopySearchDto'
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/batches/export/{id}:
+    post:
+      operationId: ProductBatchesController_exportAllProductCopiesForBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Batch's ID number
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      - name: pageNumber
+        required: true
+        in: query
+        schema:
+          default: '1'
+          type: string
+      - name: pageSize
+        required: true
+        in: query
+        schema:
+          default: '100'
+          type: string
+      - name: order
+        required: false
+        in: query
+        description: The order in which the products are return in.
+        schema:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportProductCopyBodyDto'
+      responses:
+        '200':
+          description: Retrieve all the products in a batch for a Product Copy export.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCopySearchDto'
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/batches/add:
+    put:
+      operationId: ProductBatchesController_createProductBatch
+      parameters:
+      - name: subsidiaryID
+        required: true
+        in: query
+        description: ID for retailer. Required to check user permission for retailer.
+        schema:
+          default: '40'
+          type: string
+      - name: batchID
+        required: false
+        in: query
+        description: Optional paramater. Can be added to reinstate a previously deleted batch or create a batch with a specific number.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: "Create a new batch with no products. Default behavior is create a new batch with no products. \nAdding a batchID will create a new batch with that ID or reinstate a previously deleted batch."
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/batches/add/products/{id}:
+    post:
+      operationId: ProductBatchesController_createProductBatchCopiesAndProducts
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryID
+        required: true
+        in: query
+        description: ID for retailer. Required to check user permission for retailer.
+        schema:
+          default: '40'
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductCopyCopies'
+      responses:
+        '200':
+          description: Add products to an exisiting batch
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/batches/remove/{id}:
+    delete:
+      operationId: ProductBatchesController_deleteProductBatch
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Batch's ID number
+        schema:
+          type: number
+      - name: subsidiaryID
+        required: true
+        in: query
+        description: ID for retailer. Required to check user permission for retailer.
+        schema:
+          default: '40'
+          type: string
+      responses:
+        '200':
+          description: Delete existing batch.
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/batches/remove/products/{id}:
+    delete:
+      operationId: ProductBatchesController_deleteProductBatchCopiesandProducts
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Batch's ID number
+        schema:
+          type: number
+      - name: subsidiaryID
+        required: true
+        in: query
+        description: ID for retailer. Required to check user permission for retailer.
+        schema:
+          default: '40'
+          type: string
+      responses:
+        '200':
+          description: Delete existing batch.
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/products/details/{productId}:
+    put:
+      operationId: ProductCopyController_updateProductCopyDetails
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDetailsUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit details of a product.
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/products/details/tags/{productId}:
+    get:
+      operationId: ProductCopyController_getProductCopyDetails
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      responses:
+        '200':
+          description: Get all tags for a product.
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/products/status:
+    put:
+      operationId: ProductCopyController_updateProductCopyStatus
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductStatusUpdatePayloadDto'
+      responses:
+        '200':
+          description: Edit status of a product.
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+  /productcopy/products/generate/{productId}:
+    post:
+      operationId: ProductCopyController_generateDescription
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        description: Request to record search, but not for results. Any number can be used.
+        schema:
+          type: number
+      - name: subsidiaryCode
+        required: true
+        in: query
+        description: Code name for retailer. Required to check user permission for retailer.
+        schema:
+          default: terra
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DescriptionGenerationPayloadData'
+      responses:
+        '200':
+          description: Generate a new description of a product
+      security:
+      - JWT: []
+      tags:
+      - Productcopy
+components:
+  schemas:
+    ProductCopyStatus:
+      type: string
+      enum:
+      - PENDING
+      - APPROVED
+      - DENIED
+    PaginationDto:
+      type: object
+      properties:
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
+    ProductCopyCopies:
+      type: object
+      properties: {}
+    ProductCopyDto:
+      type: object
+      properties:
+        productId:
+          type: number
+        skuId:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        brand:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        lastExportedOn:
+          type: string
+        processedOn:
+          type: string
+        variantOf:
+          type: string
+        status:
+          type: string
+        statusChangedBy:
+          type: string
+        statusChangeTimestamp:
+          type: string
+      required:
+      - productId
+      - skuId
+      - title
+      - description
+      - brand
+      - images
+      - lastExportedOn
+      - processedOn
+      - variantOf
+      - status
+      - statusChangedBy
+      - statusChangeTimestamp
+    ProductDetailsUpdatePayloadDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        subsidiary_code:
+          type: string
+          default: terra
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      required:
+      - title
+      - description
+      - subsidiary_code
+      - status
+    ProductStatusUpdatePayloadDto:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+        subsidiary_code:
+          type: string
+          default: terra
+        productIds:
+          type: array
+          items:
+            type: string
+      required:
+      - status
+      - subsidiary_code
+      - productIds
+    ProductCopyBatches:
+      type: object
+      properties: {}
+    DescriptionGenerationPayloadData:
+      type: object
+      properties:
+        title:
+          type: object
+          description: Title of the product
+          default: Utility Shirt Dress
+        description:
+          type: object
+          description: Description of the product
+          default: On-trend short-sleeve shirt dress in our comfortable twill fabric, featuring classic collar, utility-style front and chest pockets, self-tie adjustable belt, and functional button-through detail.. To avoid color transfer, wash before wear, turn garment inside out. Machine wash cold separately. Only non-chlorine bleach. Tumble dry low. Low iron if needed. Do not dry clean. Body:97% Cotton, 3% Elastane.
+        feedback:
+          type: object
+          description: User input forn the AI
+          default: Write for GenZ.
+        session_id:
+          type: string
+      required:
+      - title
+      - description
+      - feedback
+    SearchProductCopyBodyDto:
+      type: object
+      properties:
+        keywords:
+          type: array
+          items:
+            type: array
+        skuId:
+          type: string
+        brand:
+          type: string
+        personType:
+          type: string
+        productType:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        status:
+          type: array
+          items:
+            type: array
+    ProductCopySearchDto:
+      type: object
+      properties:
+        account:
+          type: string
+        subsidiary:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCopyDto'
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
+      required:
+      - account
+      - subsidiary
+      - products
+      - pagination
+    ExportProductCopyBodyDto:
+      type: object
+      properties:
+        keywords:
+          type: array
+          items:
+            type: array
+        skuId:
+          type: string
+        brand:
+          type: string
+        personType:
+          type: string
+        productType:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        status:
+          type: array
+          items:
+            type: array
+        productIDs:
+          type: array
+          items:
+            type: array
+    SubsidiaryTagsDto:
+      type: object
+      properties:
+        category:
+          type: object
+        label:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - category
+      - label
+      - tags
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

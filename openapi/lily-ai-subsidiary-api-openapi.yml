@@ -1,0 +1,53 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Subsidiary API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Subsidiary
+paths:
+  /subsidiary/list:
+    get:
+      operationId: SubsidiaryController_getSubsidiaryList
+      parameters: []
+      responses:
+        '200':
+          description: List all subsidiaries for user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      tags:
+      - Subsidiary
+  /subsidiary/list-subsidiaries:
+    get:
+      operationId: SubsidiaryController_getSubsidiaryListUser
+      parameters: []
+      responses:
+        '200':
+          description: List all subsidiaries for user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+      security:
+      - JWT: []
+      tags:
+      - Subsidiary
+components:
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

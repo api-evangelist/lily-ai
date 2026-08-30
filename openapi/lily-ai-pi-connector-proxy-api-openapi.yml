@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Pi Connector Proxy API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Pi Connector Proxy
+paths:
+  /pi-connector-proxy/*:
+    get:
+      operationId: PiConnectorProxyController_proxy_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Connector Proxy
+    post:
+      operationId: PiConnectorProxyController_proxy_post
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Connector Proxy
+    put:
+      operationId: PiConnectorProxyController_proxy_put
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Connector Proxy
+    delete:
+      operationId: PiConnectorProxyController_proxy_delete
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Connector Proxy
+    patch:
+      operationId: PiConnectorProxyController_proxy_patch
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Connector Proxy
+    options:
+      operationId: PiConnectorProxyController_proxy_options
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Connector Proxy
+    head:
+      operationId: PiConnectorProxyController_proxy_head
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - JWT: []
+      tags:
+      - Pi Connector Proxy
+components:
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header

@@ -1,0 +1,82 @@
+openapi: 3.2.0
+info:
+  title: LilyApp API - Nest Based Application Integration API
+  description: Lily App Middleware
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://lilyapp-api-prd.pub.lilyai.net
+  description: Production (LilyApp-Api-Prod-AWS)
+- url: https://lilyapp-api-stg.pub.lilyai.net
+  description: Staging
+tags:
+- name: Integration
+paths:
+  /integration/partners/{subsidiaryCode}:
+    get:
+      operationId: IntegrationController_listAllBatches
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get partners for subsidiary
+      security:
+      - JWT: []
+      tags:
+      - Integration
+  /integration/partners/connection-information/{subsidiaryCode}/{partnerCode}:
+    post:
+      operationId: IntegrationController_configurePartner
+      parameters:
+      - name: subsidiaryCode
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: partnerCode
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurePartnerPayload'
+      responses:
+        '200':
+          description: Configure partner with subsidiary
+      security:
+      - JWT: []
+      tags:
+      - Integration
+components:
+  schemas:
+    ConfigurePartnerPayload:
+      type: object
+      properties:
+        connectionDetails:
+          $ref: '#/components/schemas/PartnerConnectionPayload'
+      required:
+      - connectionDetails
+    PartnerConnectionPayload:
+      type: object
+      properties:
+        url:
+          type: string
+        accessToken:
+          type: string
+      required:
+      - url
+      - accessToken
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      in: header
