@@ -171,34 +171,6 @@ apis:
     url: rate-limits/lily-ai-rate-limits.yml
   - type: Conformance
     url: conformance/lily-ai-conformance.yml
-- aid: lily-ai:lily-ai-faqs-api
-  name: Lily AI Faqs API
-  description: The Faqs API from Lily AI — 1 operation(s) for faqs.
-  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
-  baseURL: https://lilyapp-api-prd.pub.lilyai.net
-  tags:
-  - FAQs
-  tags_raw:
-  - Faqs
-  properties:
-  - type: OpenAPI
-    url: openapi/lily-ai-faqs-api-openapi.yml
-  - type: APIReference
-    url: https://lilyapp-api-prd.pub.lilyai.net/api
-  - type: Authentication
-    url: authentication/lily-ai-authentication.yml
-  - type: OpenIDConnect
-    url: well-known/lily-ai-b2c-openid-configuration.json
-  - type: Conventions
-    url: conventions/lily-ai-conventions.yml
-  - type: ErrorCatalog
-    url: errors/lily-ai-problem-types.yml
-  - type: DataModel
-    url: data-model/lily-ai-data-model.yml
-  - type: RateLimits
-    url: rate-limits/lily-ai-rate-limits.yml
-  - type: Conformance
-    url: conformance/lily-ai-conformance.yml
 - aid: lily-ai:lily-ai-health-api
   name: Lily AI Health API
   description: The Health API from Lily AI — 1 operation(s) for health.
@@ -577,6 +549,32 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/lily-ai-tce-api-proxy-api-openapi.yml
+  - type: APIReference
+    url: https://lilyapp-api-prd.pub.lilyai.net/api
+  - type: Authentication
+    url: authentication/lily-ai-authentication.yml
+  - type: OpenIDConnect
+    url: well-known/lily-ai-b2c-openid-configuration.json
+  - type: Conventions
+    url: conventions/lily-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/lily-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/lily-ai-data-model.yml
+  - type: RateLimits
+    url: rate-limits/lily-ai-rate-limits.yml
+  - type: Conformance
+    url: conformance/lily-ai-conformance.yml
+- aid: lily-ai:lily-ai-faqs-api
+  name: Lily AI Faqs API
+  description: The Faqs API from Lily AI — 1 operation(s) for faqs.
+  humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
+  baseURL: https://lilyapp-api-prd.pub.lilyai.net
+  tags:
+  - Faqs
+  properties:
+  - type: OpenAPI
+    url: openapi/lily-ai-faqs-api-openapi.yml
   - type: APIReference
     url: https://lilyapp-api-prd.pub.lilyai.net/api
   - type: Authentication
