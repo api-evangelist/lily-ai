@@ -571,6 +571,8 @@ apis:
   humanURL: https://lilyapp-api-prd.pub.lilyai.net/api
   baseURL: https://lilyapp-api-prd.pub.lilyai.net
   tags:
+  - FAQs
+  tags_raw:
   - Faqs
   properties:
   - type: OpenAPI
