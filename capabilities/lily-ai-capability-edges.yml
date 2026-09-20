@@ -1,0 +1,35 @@
+slug: lily-ai
+provider: Lily AI
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Retail & Consumer Goods
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Productcopy
+  spec_file: lily-ai-productcopy-api-openapi.yml
+  capability_id: BC-2370.20
+  capability_id_l1: BC-2370
+  capability_name: Product Content Authoring Management
+  confidence: 0.85
+  evidence: POST /productcopy/products/generate/{productId} ProductCopyController_generateDescription;
+    schemas ProductCopyDto, ProductDetailsUpdatePayloadDto
+  reason: Operations author, update and batch-manage product copy/descriptions for e-commerce catalogs
+    — product content authoring within Product Information Management.
+- tag: ProductcopyV2
+  spec_file: lily-ai-productcopyv2-api-openapi.yml
+  capability_id: BC-2370.20
+  capability_id_l1: BC-2370
+  capability_name: Product Content Authoring Management
+  confidence: 0.85
+  evidence: PUT /productcopyV2/products/details/{productId} ProductCopyControllerV2_updateProductCopyDetails;
+    GET /productcopyV2/products/details/images/{productId}
+  reason: 'Same product copy authoring surface (v2): manages product copy details, tags and images — product
+    content authoring.'
