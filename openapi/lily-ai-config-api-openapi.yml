@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Config
 paths:
@@ -27,6 +23,8 @@ paths:
       - JWT: []
       tags:
       - Config
+      summary: Config controller get all brands
+      x-summary-source: derived
   /config/personproducttypes:
     get:
       operationId: ConfigController_getAllApis
@@ -44,6 +42,8 @@ paths:
       - JWT: []
       tags:
       - Config
+      summary: Config controller get all apis
+      x-summary-source: derived
   /config/retailer/info:
     get:
       operationId: ConfigController_getReailerInfo
@@ -64,6 +64,8 @@ paths:
       - JWT: []
       tags:
       - Config
+      summary: Config controller get reailer info
+      x-summary-source: derived
   /config/subsidiary/details/{id}:
     get:
       operationId: ConfigController_getSubsidiaryDetails
@@ -84,6 +86,8 @@ paths:
       - JWT: []
       tags:
       - Config
+      summary: Config controller get subsidiary details
+      x-summary-source: derived
   /config/subsidiary/{param}:
     get:
       operationId: ConfigController_getSubsidiaryConfig
@@ -104,6 +108,8 @@ paths:
       - JWT: []
       tags:
       - Config
+      summary: Config controller get subsidiary config
+      x-summary-source: derived
   /config/users/{id}/brands:
     get:
       operationId: UsersController_listUserBrands
@@ -126,8 +132,24 @@ paths:
       - JWT: []
       tags:
       - Config
+      summary: Users controller list user brands
+      x-summary-source: derived
 components:
   schemas:
+    PersonProductTypesDto:
+      type: object
+      properties:
+        personTypes:
+          type: array
+          items:
+            type: string
+        productTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - personTypes
+      - productTypes
     RetailerInfoDto:
       type: object
       properties:
@@ -154,20 +176,6 @@ components:
       - code
       - id
       - name
-    PersonProductTypesDto:
-      type: object
-      properties:
-        personTypes:
-          type: array
-          items:
-            type: string
-        productTypes:
-          type: array
-          items:
-            type: string
-      required:
-      - personTypes
-      - productTypes
     SubsidiaryDto:
       type: object
       properties:

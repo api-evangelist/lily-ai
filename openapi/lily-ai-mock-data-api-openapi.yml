@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Mock Data
 paths:
@@ -23,6 +19,8 @@ paths:
       - JWT: []
       tags:
       - Mock Data
+      summary: Sheet controller get failed product summary
+      x-summary-source: derived
   /mock-data/sheet/taxonomy-mapping:
     get:
       operationId: SheetController_getTaxonomyMapping
@@ -34,6 +32,8 @@ paths:
       - JWT: []
       tags:
       - Mock Data
+      summary: Sheet controller get taxonomy mapping
+      x-summary-source: derived
   /mock-data/sheet/attribution-metrics:
     get:
       operationId: SheetController_getAttributionMetrics
@@ -45,6 +45,8 @@ paths:
       - JWT: []
       tags:
       - Mock Data
+      summary: Sheet controller get attribution metrics
+      x-summary-source: derived
   /mock-data/sheet/download-file:
     get:
       operationId: SheetController_getGoogleAuthToken
@@ -56,6 +58,8 @@ paths:
       - JWT: []
       tags:
       - Mock Data
+      summary: Sheet controller get google auth token
+      x-summary-source: derived
   /mock-data/sheet/product-copy/{tabId}:
     get:
       operationId: SheetController_getProductCopyData
@@ -72,6 +76,8 @@ paths:
       - JWT: []
       tags:
       - Mock Data
+      summary: Sheet controller get product copy data
+      x-summary-source: derived
   /mock-data/sheet/search-based-attributes:
     get:
       operationId: SheetController_getAllAttributes
@@ -83,6 +89,8 @@ paths:
       - JWT: []
       tags:
       - Mock Data
+      summary: Sheet controller get all attributes
+      x-summary-source: derived
   /mock-data/sheet/get-terms:
     get:
       operationId: SheetController_getAllTerms
@@ -94,6 +102,8 @@ paths:
       - JWT: []
       tags:
       - Mock Data
+      summary: Sheet controller get all terms
+      x-summary-source: derived
 components:
   securitySchemes:
     JWT:

@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Productcopy
 paths:
@@ -33,6 +29,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product batches controller get all product copy batches from PI
+      x-summary-source: derived
   /productcopy/batches/{id}:
     post:
       operationId: ProductBatchesController_getAllProductCopiesForBatch
@@ -87,6 +85,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product batches controller get all product copies for batch
+      x-summary-source: derived
   /productcopy/batches/export/{id}:
     post:
       operationId: ProductBatchesController_exportAllProductCopiesForBatch
@@ -141,6 +141,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product batches controller export all product copies for batch
+      x-summary-source: derived
   /productcopy/batches/add:
     put:
       operationId: ProductBatchesController_createProductBatch
@@ -165,6 +167,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product batches controller create product batch
+      x-summary-source: derived
   /productcopy/batches/add/products/{id}:
     post:
       operationId: ProductBatchesController_createProductBatchCopiesAndProducts
@@ -196,6 +200,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product batches controller create product batch copies and products
+      x-summary-source: derived
   /productcopy/batches/remove/{id}:
     delete:
       operationId: ProductBatchesController_deleteProductBatch
@@ -220,6 +226,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product batches controller delete product batch
+      x-summary-source: derived
   /productcopy/batches/remove/products/{id}:
     delete:
       operationId: ProductBatchesController_deleteProductBatchCopiesandProducts
@@ -244,6 +252,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product batches controller delete product batch copiesand products
+      x-summary-source: derived
   /productcopy/products/details/{productId}:
     put:
       operationId: ProductCopyController_updateProductCopyDetails
@@ -266,6 +276,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product copy controller update product copy details
+      x-summary-source: derived
   /productcopy/products/details/tags/{productId}:
     get:
       operationId: ProductCopyController_getProductCopyDetails
@@ -289,6 +301,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product copy controller get product copy details
+      x-summary-source: derived
   /productcopy/products/status:
     put:
       operationId: ProductCopyController_updateProductCopyStatus
@@ -306,6 +320,8 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product copy controller update product copy status
+      x-summary-source: derived
   /productcopy/products/generate/{productId}:
     post:
       operationId: ProductCopyController_generateDescription
@@ -336,35 +352,71 @@ paths:
       - JWT: []
       tags:
       - Productcopy
+      summary: Product copy controller generate description
+      x-summary-source: derived
 components:
   schemas:
+    SubsidiaryTagsDto:
+      type: object
+      properties:
+        category:
+          type: object
+        label:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - category
+      - label
+      - tags
     ProductCopyStatus:
       type: string
       enum:
       - PENDING
       - APPROVED
       - DENIED
-    PaginationDto:
+    ProductDetailsUpdatePayloadDto:
       type: object
       properties:
-        pageNumber:
-          type: object
-          default: '1'
-        pageSize:
-          type: object
-          default: '100'
-        total:
-          type: number
-        totalPages:
-          type: number
+        title:
+          type: string
+        description:
+          type: string
+        subsidiary_code:
+          type: string
+          default: terra
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
       required:
-      - pageNumber
-      - pageSize
-      - total
-      - totalPages
-    ProductCopyCopies:
+      - title
+      - description
+      - subsidiary_code
+      - status
+    SearchProductCopyBodyDto:
       type: object
-      properties: {}
+      properties:
+        keywords:
+          type: array
+          items:
+            type: array
+        skuId:
+          type: string
+        brand:
+          type: string
+        personType:
+          type: string
+        productType:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        status:
+          type: array
+          items:
+            type: array
     ProductCopyDto:
       type: object
       properties:
@@ -407,23 +459,6 @@ components:
       - status
       - statusChangedBy
       - statusChangeTimestamp
-    ProductDetailsUpdatePayloadDto:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        subsidiary_code:
-          type: string
-          default: terra
-        status:
-          $ref: '#/components/schemas/ProductCopyStatus'
-      required:
-      - title
-      - description
-      - subsidiary_code
-      - status
     ProductStatusUpdatePayloadDto:
       type: object
       properties:
@@ -440,71 +475,6 @@ components:
       - status
       - subsidiary_code
       - productIds
-    ProductCopyBatches:
-      type: object
-      properties: {}
-    DescriptionGenerationPayloadData:
-      type: object
-      properties:
-        title:
-          type: object
-          description: Title of the product
-          default: Utility Shirt Dress
-        description:
-          type: object
-          description: Description of the product
-          default: On-trend short-sleeve shirt dress in our comfortable twill fabric, featuring classic collar, utility-style front and chest pockets, self-tie adjustable belt, and functional button-through detail.. To avoid color transfer, wash before wear, turn garment inside out. Machine wash cold separately. Only non-chlorine bleach. Tumble dry low. Low iron if needed. Do not dry clean. Body:97% Cotton, 3% Elastane.
-        feedback:
-          type: object
-          description: User input forn the AI
-          default: Write for GenZ.
-        session_id:
-          type: string
-      required:
-      - title
-      - description
-      - feedback
-    SearchProductCopyBodyDto:
-      type: object
-      properties:
-        keywords:
-          type: array
-          items:
-            type: array
-        skuId:
-          type: string
-        brand:
-          type: string
-        personType:
-          type: string
-        productType:
-          type: string
-        subsidiary_tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubsidiaryTagsDto'
-        status:
-          type: array
-          items:
-            type: array
-    ProductCopySearchDto:
-      type: object
-      properties:
-        account:
-          type: string
-        subsidiary:
-          type: string
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductCopyDto'
-        pagination:
-          $ref: '#/components/schemas/PaginationDto'
-      required:
-      - account
-      - subsidiary
-      - products
-      - pagination
     ExportProductCopyBodyDto:
       type: object
       properties:
@@ -532,21 +502,69 @@ components:
           type: array
           items:
             type: array
-    SubsidiaryTagsDto:
+    DescriptionGenerationPayloadData:
       type: object
       properties:
-        category:
+        title:
           type: object
-        label:
+          description: Title of the product
+          default: Utility Shirt Dress
+        description:
+          type: object
+          description: Description of the product
+          default: On-trend short-sleeve shirt dress in our comfortable twill fabric, featuring classic collar, utility-style front and chest pockets, self-tie adjustable belt, and functional button-through detail.. To avoid color transfer, wash before wear, turn garment inside out. Machine wash cold separately. Only non-chlorine bleach. Tumble dry low. Low iron if needed. Do not dry clean. Body:97% Cotton, 3% Elastane.
+        feedback:
+          type: object
+          description: User input forn the AI
+          default: Write for GenZ.
+        session_id:
           type: string
-        tags:
+      required:
+      - title
+      - description
+      - feedback
+    ProductCopyCopies:
+      type: object
+      properties: {}
+    ProductCopySearchDto:
+      type: object
+      properties:
+        account:
+          type: string
+        subsidiary:
+          type: string
+        products:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/ProductCopyDto'
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
       required:
-      - category
-      - label
-      - tags
+      - account
+      - subsidiary
+      - products
+      - pagination
+    PaginationDto:
+      type: object
+      properties:
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
+    ProductCopyBatches:
+      type: object
+      properties: {}
   securitySchemes:
     JWT:
       scheme: bearer

@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Health
 paths:
@@ -121,6 +117,8 @@ paths:
                         type: string
       tags:
       - Health
+      summary: Health controller check
+      x-summary-source: derived
 components:
   securitySchemes:
     JWT:

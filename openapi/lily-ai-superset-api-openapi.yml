@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Superset
 paths:
@@ -38,6 +34,8 @@ paths:
       - JWT: []
       tags:
       - Superset
+      summary: Superset controller get person product types
+      x-summary-source: derived
   /superset/chart/data:
     post:
       operationId: SupersetController_getChartData
@@ -61,6 +59,8 @@ paths:
       - JWT: []
       tags:
       - Superset
+      summary: Superset controller get chart data
+      x-summary-source: derived
 components:
   schemas:
     GuestTokenResponseDto:

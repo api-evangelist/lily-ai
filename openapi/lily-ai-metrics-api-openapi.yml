@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Metrics
 paths:
@@ -21,6 +17,8 @@ paths:
           description: ''
       tags:
       - Metrics
+      summary: Prometheus controller index
+      x-summary-source: derived
 components:
   securitySchemes:
     JWT:

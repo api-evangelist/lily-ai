@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Search
 paths:
@@ -69,6 +65,8 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search pam controller get search data for gallery
+      x-summary-source: derived
   /search/products:
     post:
       operationId: SearchPamController_getAllProductsFromPI
@@ -119,6 +117,8 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search pam controller get all products from PI
+      x-summary-source: derived
   /search/products/export:
     post:
       operationId: SearchPamController_exportAllProductsFromPI
@@ -128,6 +128,8 @@ paths:
           description: ''
       tags:
       - Search
+      summary: Search pam controller export all products from PI
+      x-summary-source: derived
   /search/products/tags{edit}:
     post:
       operationId: SearchPamController_updateProductTagsApi
@@ -145,6 +147,8 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search pam controller update product tags api
+      x-summary-source: derived
   /search/products/filters/tableFormatted:
     get:
       operationId: SearchPamController_getFiltersTableFormattedLocalApi
@@ -169,6 +173,8 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search pam controller get filters table formatted local api
+      x-summary-source: derived
   /search/subsidiary/tags:
     get:
       operationId: SearchPamController_getPrductTagsFiltersList
@@ -193,6 +199,8 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search pam controller get prduct tags filters list
+      x-summary-source: derived
   /search/pi-analytics/meta:
     get:
       operationId: SearchAnalyticsController_getPIAnalyticsMeta
@@ -215,6 +223,8 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search analytics controller get PI analytics meta
+      x-summary-source: derived
   /search/pi-analytics/{type}:
     get:
       operationId: SearchAnalyticsController_getPIAnalytics
@@ -309,6 +319,8 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search analytics controller get PI analytics
+      x-summary-source: derived
   /search/tags/autocomplete:
     get:
       operationId: SearchTagsController_getProductTagAutocompleteApi
@@ -333,6 +345,8 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search tags controller get product tag autocomplete api
+      x-summary-source: derived
   /search/tags/types:
     get:
       operationId: SearchTagsController_getPersonProductTypes
@@ -355,6 +369,8 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search tags controller get person product types
+      x-summary-source: derived
   /search/products/tags/autocomplete:
     get:
       operationId: SearchTagsController_getProductTagsList
@@ -379,33 +395,162 @@ paths:
       - JWT: []
       tags:
       - Search
+      summary: Search tags controller get product tags list
+      x-summary-source: derived
 components:
   schemas:
-    SearchPAMPayloadDto:
+    PiTrendsDto:
       type: object
       properties:
-        brand:
+        error:
+          type: boolean
+          example: false
+        from_date:
           type: string
-        keywords:
-          type: array
-          items:
-            type: string
-        person_types:
-          type: array
-          items:
-            type: string
-        product_types:
-          type: array
-          items:
-            type: string
-        sku_id:
+          format: date
+          example: '2023-08-24'
+        to_date:
           type: string
-        subsidiary_tags:
+          format: date
+          example: '2023-08-25'
+        device_type:
+          type: string
+          enum:
+          - desktop
+          - mweb
+          - tablet
+          - other
+          example: desktop
+        search_terms:
           type: array
           items:
-            $ref: '#/components/schemas/SubsidiaryTagsDto'
+            $ref: '#/components/schemas/PiTrendsSearchTermDto'
       required:
-      - brand
+      - error
+      - from_date
+      - to_date
+      - device_type
+      - search_terms
+    FilterDto:
+      type: object
+      properties:
+        id:
+          type: number
+        piTag:
+          type: string
+        pamLabel:
+          type: string
+      required:
+      - id
+      - piTag
+      - pamLabel
+    CategoryDto:
+      type: object
+      properties:
+        category:
+          type: string
+        name:
+          type: string
+      required:
+      - category
+      - name
+    SearchOldResponseDto:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        page:
+          type: string
+        per_page:
+          type: string
+        retailer:
+          type: string
+        total_count:
+          type: number
+        products:
+          description: Array of products.
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductOldDto'
+      required:
+      - success
+      - message
+      - page
+      - per_page
+      - retailer
+      - total_count
+      - products
+    PiAnalyticsValuesDto:
+      type: object
+      properties:
+        visitors:
+          type: number
+          default: 27278
+        total_orders:
+          type: number
+          default: 2872
+        total_searches:
+          type: number
+          default: 74685
+        total_pdp_session:
+          type: number
+          default: 19966
+        total_revenue:
+          type: number
+          default: 573186.63
+        total_addtocart_session:
+          type: number
+          default: 9350
+        total_ordercomplete_session:
+          type: number
+          default: 2780
+        search_exit:
+          type: number
+          default: 4028
+      required:
+      - visitors
+      - total_orders
+      - total_searches
+      - total_pdp_session
+      - total_revenue
+      - total_addtocart_session
+      - total_ordercomplete_session
+      - search_exit
+    PiTrendsSearchTermDto:
+      type: object
+      properties:
+        device_type:
+          type: string
+          enum:
+          - desktop
+          - mweb
+          - tablet
+          - other
+          example: desktop
+        search_query:
+          type: string
+          example: seaside
+        total_searches:
+          type: number
+          example: 0.1
+        total_views:
+          type: number
+          example: 92.52
+        total_exit:
+          type: number
+          example: 6.54
+        no_result:
+          type: number
+          example: 0
+      required:
+      - device_type
+      - search_query
+      - total_searches
+      - total_views
+      - total_exit
+      - no_result
     PiAnalyticsMetaDto:
       type: object
       properties:
@@ -601,6 +746,129 @@ components:
       - device_types
       - min_date
       - max_date
+    SearchPAMPayloadDto:
+      type: object
+      properties:
+        brand:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        person_types:
+          type: array
+          items:
+            type: string
+        product_types:
+          type: array
+          items:
+            type: string
+        sku_id:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+      required:
+      - brand
+    TagUpdatePayloadDto:
+      type: object
+      properties:
+        product_id:
+          type: number
+        email:
+          type: string
+        subsidiary_id:
+          type: number
+        subsidiary_tags_to_add:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        subsidiary_tags_to_remove:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        subsidiary_code:
+          type: string
+      required:
+      - product_id
+      - email
+      - subsidiary_id
+      - subsidiary_tags_to_add
+      - subsidiary_tags_to_remove
+      - subsidiary_code
+    TagsWithSynonyms:
+      type: object
+      properties:
+        tag:
+          type: string
+        synonyms:
+          type: array
+          items:
+            type: string
+      required:
+      - tag
+      - synonyms
+    ProductOldDto:
+      type: object
+      properties:
+        lily_product_id:
+          type: number
+        parent_sku_code:
+          type: string
+        sku_id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        brand:
+          type: string
+        product_type:
+          type: string
+        person_type:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        retailer_tag_sections:
+          type: object
+        processing_completion_date:
+          type: string
+      required:
+      - lily_product_id
+      - parent_sku_code
+      - sku_id
+      - title
+      - description
+      - brand
+      - product_type
+      - person_type
+      - images
+      - retailer_tag_sections
+      - processing_completion_date
+    FilterContainerDto:
+      type: object
+      properties:
+        piType:
+          type: string
+        piSubsidiaryCode:
+          type: string
+        piTitle:
+          type: string
+        pamDiscriminator:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterDto'
+      required:
+      - piType
+      - piSubsidiaryCode
+      - piTitle
+      - pamDiscriminator
+      - filters
     SubsidiaryTagsDto:
       type: object
       properties:
@@ -616,39 +884,6 @@ components:
       - category
       - label
       - tags
-    PiTrendsSearchTermDto:
-      type: object
-      properties:
-        device_type:
-          type: string
-          enum:
-          - desktop
-          - mweb
-          - tablet
-          - other
-          example: desktop
-        search_query:
-          type: string
-          example: seaside
-        total_searches:
-          type: number
-          example: 0.1
-        total_views:
-          type: number
-          example: 92.52
-        total_exit:
-          type: number
-          example: 6.54
-        no_result:
-          type: number
-          example: 0
-      required:
-      - device_type
-      - search_query
-      - total_searches
-      - total_views
-      - total_exit
-      - no_result
     PiAnalyticsDto:
       type: object
       properties:
@@ -680,87 +915,6 @@ components:
       - subsidiary
       - productsWithSynonym
       - pagination
-    TagsWithSynonyms:
-      type: object
-      properties:
-        tag:
-          type: string
-        synonyms:
-          type: array
-          items:
-            type: string
-      required:
-      - tag
-      - synonyms
-    SearchOldResponseDto:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        page:
-          type: string
-        per_page:
-          type: string
-        retailer:
-          type: string
-        total_count:
-          type: number
-        products:
-          description: Array of products.
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductOldDto'
-      required:
-      - success
-      - message
-      - page
-      - per_page
-      - retailer
-      - total_count
-      - products
-    PiTrendsDto:
-      type: object
-      properties:
-        error:
-          type: boolean
-          example: false
-        from_date:
-          type: string
-          format: date
-          example: '2023-08-24'
-        to_date:
-          type: string
-          format: date
-          example: '2023-08-25'
-        device_type:
-          type: string
-          enum:
-          - desktop
-          - mweb
-          - tablet
-          - other
-          example: desktop
-        search_terms:
-          type: array
-          items:
-            $ref: '#/components/schemas/PiTrendsSearchTermDto'
-      required:
-      - error
-      - from_date
-      - to_date
-      - device_type
-      - search_terms
-    PiAnalyticsTypeDto:
-      type: object
-      properties:
-        '2023-08-29':
-          description: 'Key has the following format: yyyy-mm-dd. Response might have as many keys as dates available with analytics'
-          allOf:
-          - $ref: '#/components/schemas/PiAnalyticsDto'
-      required:
-      - '2023-08-29'
     TagSections:
       type: object
       properties:
@@ -773,6 +927,33 @@ components:
       required:
       - category
       - tags
+    PiAnalyticsTypeDto:
+      type: object
+      properties:
+        '2023-08-29':
+          description: 'Key has the following format: yyyy-mm-dd. Response might have as many keys as dates available with analytics'
+          allOf:
+          - $ref: '#/components/schemas/PiAnalyticsDto'
+      required:
+      - '2023-08-29'
+    PaginationDto:
+      type: object
+      properties:
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
     ProductDtoWithSynonym:
       type: object
       properties:
@@ -820,169 +1001,6 @@ components:
       - processedOn
       - variantOf
       - tagCount
-    PaginationDto:
-      type: object
-      properties:
-        pageNumber:
-          type: object
-          default: '1'
-        pageSize:
-          type: object
-          default: '100'
-        total:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - pageNumber
-      - pageSize
-      - total
-      - totalPages
-    FilterContainerDto:
-      type: object
-      properties:
-        piType:
-          type: string
-        piSubsidiaryCode:
-          type: string
-        piTitle:
-          type: string
-        pamDiscriminator:
-          type: string
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/FilterDto'
-      required:
-      - piType
-      - piSubsidiaryCode
-      - piTitle
-      - pamDiscriminator
-      - filters
-    TagUpdatePayloadDto:
-      type: object
-      properties:
-        product_id:
-          type: number
-        email:
-          type: string
-        subsidiary_id:
-          type: number
-        subsidiary_tags_to_add:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubsidiaryTagsDto'
-        subsidiary_tags_to_remove:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubsidiaryTagsDto'
-        subsidiary_code:
-          type: string
-      required:
-      - product_id
-      - email
-      - subsidiary_id
-      - subsidiary_tags_to_add
-      - subsidiary_tags_to_remove
-      - subsidiary_code
-    CategoryDto:
-      type: object
-      properties:
-        category:
-          type: string
-        name:
-          type: string
-      required:
-      - category
-      - name
-    ProductOldDto:
-      type: object
-      properties:
-        lily_product_id:
-          type: number
-        parent_sku_code:
-          type: string
-        sku_id:
-          type: string
-        title:
-          type: string
-        description:
-          type: string
-        brand:
-          type: string
-        product_type:
-          type: string
-        person_type:
-          type: string
-        images:
-          type: array
-          items:
-            type: string
-        retailer_tag_sections:
-          type: object
-        processing_completion_date:
-          type: string
-      required:
-      - lily_product_id
-      - parent_sku_code
-      - sku_id
-      - title
-      - description
-      - brand
-      - product_type
-      - person_type
-      - images
-      - retailer_tag_sections
-      - processing_completion_date
-    FilterDto:
-      type: object
-      properties:
-        id:
-          type: number
-        piTag:
-          type: string
-        pamLabel:
-          type: string
-      required:
-      - id
-      - piTag
-      - pamLabel
-    PiAnalyticsValuesDto:
-      type: object
-      properties:
-        visitors:
-          type: number
-          default: 27278
-        total_orders:
-          type: number
-          default: 2872
-        total_searches:
-          type: number
-          default: 74685
-        total_pdp_session:
-          type: number
-          default: 19966
-        total_revenue:
-          type: number
-          default: 573186.63
-        total_addtocart_session:
-          type: number
-          default: 9350
-        total_ordercomplete_session:
-          type: number
-          default: 2780
-        search_exit:
-          type: number
-          default: 4028
-      required:
-      - visitors
-      - total_orders
-      - total_searches
-      - total_pdp_session
-      - total_revenue
-      - total_addtocart_session
-      - total_ordercomplete_session
-      - search_exit
     PersonProductTypesDto:
       type: object
       properties:

@@ -1,14 +1,10 @@
 openapi: 3.2.0
 info:
-  title: LilyApp API - Nest Based Application LilyApp API Nest Based Application API
+  title: LilyApp API - Nest Based Application LilyApp API Nest Based…
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: LilyApp API Nest Based Application
 paths:
@@ -21,6 +17,8 @@ paths:
           description: ''
       tags:
       - LilyApp API Nest Based Application
+      summary: Home controller health check root
+      x-summary-source: derived
 components:
   securitySchemes:
     JWT:

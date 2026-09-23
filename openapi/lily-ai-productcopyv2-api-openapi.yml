@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: ProductcopyV2
 paths:
@@ -34,6 +30,8 @@ paths:
       - JWT: []
       tags:
       - ProductcopyV2
+      summary: Product copy controller V2 update product copy details
+      x-summary-source: derived
   /productcopyV2/products/details/tags/{productId}:
     get:
       operationId: ProductCopyControllerV2_getProductCopyTags
@@ -57,6 +55,8 @@ paths:
       - JWT: []
       tags:
       - ProductcopyV2
+      summary: Product copy controller V2 get product copy tags
+      x-summary-source: derived
   /productcopyV2/products/details/images/{productId}:
     get:
       operationId: ProductCopyControllerV2_getProductCopyImages
@@ -80,6 +80,8 @@ paths:
       - JWT: []
       tags:
       - ProductcopyV2
+      summary: Product copy controller V2 get product copy images
+      x-summary-source: derived
   /productcopyV2/products/status/{productId}:
     put:
       operationId: ProductCopyControllerV2_updateProductCopyStatus
@@ -102,6 +104,8 @@ paths:
       - JWT: []
       tags:
       - ProductcopyV2
+      summary: Product copy controller V2 update product copy status
+      x-summary-source: derived
   /productcopyV2/batches:
     get:
       operationId: ProductBatchesControllerV2_getAllProductCopyBatchesFromPI
@@ -134,6 +138,8 @@ paths:
       - JWT: []
       tags:
       - ProductcopyV2
+      summary: Product batches controller V2 get all product copy batches from PI
+      x-summary-source: derived
   /productcopyV2/batches/{id}:
     post:
       operationId: ProductBatchesControllerV2_getAllProductCopiesForBatch
@@ -187,6 +193,8 @@ paths:
       - JWT: []
       tags:
       - ProductcopyV2
+      summary: Product batches controller V2 get all product copies for batch
+      x-summary-source: derived
     delete:
       operationId: ProductBatchesControllerV2_deleteProductBatch
       parameters:
@@ -202,6 +210,8 @@ paths:
       - JWT: []
       tags:
       - ProductcopyV2
+      summary: Product batches controller V2 delete product batch
+      x-summary-source: derived
 components:
   schemas:
     ProductCopyStatus:
@@ -210,101 +220,6 @@ components:
       - PENDING
       - APPROVED
       - DENIED
-    PaginationDto:
-      type: object
-      properties:
-        pageNumber:
-          type: object
-          default: '1'
-        pageSize:
-          type: object
-          default: '100'
-        total:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - pageNumber
-      - pageSize
-      - total
-      - totalPages
-    ProductCopySearchDtoV2:
-      type: object
-      properties:
-        account:
-          type: string
-        subsidiary:
-          type: string
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductCopyDtoV2'
-        pagination:
-          $ref: '#/components/schemas/PaginationDto'
-      required:
-      - account
-      - subsidiary
-      - products
-      - pagination
-    ProductStatusUpdatePayloadDto:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/ProductCopyStatus'
-        subsidiary_code:
-          type: string
-          default: terra
-        productIds:
-          type: array
-          items:
-            type: string
-      required:
-      - status
-      - subsidiary_code
-      - productIds
-    ProductDetailsUpdatePayloadDto:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        subsidiary_code:
-          type: string
-          default: terra
-        status:
-          $ref: '#/components/schemas/ProductCopyStatus'
-      required:
-      - title
-      - description
-      - subsidiary_code
-      - status
-    ProductCopyBatches:
-      type: object
-      properties: {}
-    SearchProductCopyBodyDto:
-      type: object
-      properties:
-        keywords:
-          type: array
-          items:
-            type: array
-        skuId:
-          type: string
-        brand:
-          type: string
-        personType:
-          type: string
-        productType:
-          type: string
-        subsidiary_tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubsidiaryTagsDto'
-        status:
-          type: array
-          items:
-            type: array
     ProductCopyDtoV2:
       type: object
       properties:
@@ -351,6 +266,101 @@ components:
       - category
       - label
       - tags
+    SearchProductCopyBodyDto:
+      type: object
+      properties:
+        keywords:
+          type: array
+          items:
+            type: array
+        skuId:
+          type: string
+        brand:
+          type: string
+        personType:
+          type: string
+        productType:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        status:
+          type: array
+          items:
+            type: array
+    ProductDetailsUpdatePayloadDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        subsidiary_code:
+          type: string
+          default: terra
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      required:
+      - title
+      - description
+      - subsidiary_code
+      - status
+    ProductStatusUpdatePayloadDto:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+        subsidiary_code:
+          type: string
+          default: terra
+        productIds:
+          type: array
+          items:
+            type: string
+      required:
+      - status
+      - subsidiary_code
+      - productIds
+    PaginationDto:
+      type: object
+      properties:
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
+    ProductCopySearchDtoV2:
+      type: object
+      properties:
+        account:
+          type: string
+        subsidiary:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCopyDtoV2'
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
+      required:
+      - account
+      - subsidiary
+      - products
+      - pagination
+    ProductCopyBatches:
+      type: object
+      properties: {}
   securitySchemes:
     JWT:
       scheme: bearer

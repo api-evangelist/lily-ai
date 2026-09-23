@@ -1,0 +1,34 @@
+# Front Door AI Index — lily-ai — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: lily-ai
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: lily.ai
+  final_host: www.lily.ai
+  ownership: own
+  owner: lily-ai
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 68
+  host_score: 68
+  density: 51.17
+  words: 1329
+  tiers:
+    agentic: 15
+    core: 45
+    model: 8
+  ambiguous: 20
+  top_terms:
+    AI: 41
+    agentic: 13
+    intelligence: 11
+    agent: 9
+    Gemini: 5
+    LLMs: 3
+    AI agent: 2
+    ChatGPT: 2
+    Claude: 1
+    machine learning: 1

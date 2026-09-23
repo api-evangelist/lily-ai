@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Products
 paths:
@@ -44,6 +40,8 @@ paths:
       - JWT: []
       tags:
       - Products
+      summary: Product controller search products with synonyms
+      x-summary-source: derived
 components:
   schemas:
     ProductSearchSynonymsRequestBodyDto:

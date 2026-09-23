@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Pi Config Proxy
 paths:
@@ -23,6 +19,8 @@ paths:
       - JWT: []
       tags:
       - Pi Config Proxy
+      summary: Pi config proxy controller proxy get
+      x-summary-source: derived
     post:
       operationId: PiConfigProxyController_proxy_post
       parameters: []
@@ -33,6 +31,8 @@ paths:
       - JWT: []
       tags:
       - Pi Config Proxy
+      summary: Pi config proxy controller proxy post
+      x-summary-source: derived
     put:
       operationId: PiConfigProxyController_proxy_put
       parameters: []
@@ -43,6 +43,8 @@ paths:
       - JWT: []
       tags:
       - Pi Config Proxy
+      summary: Pi config proxy controller proxy put
+      x-summary-source: derived
     delete:
       operationId: PiConfigProxyController_proxy_delete
       parameters: []
@@ -53,6 +55,8 @@ paths:
       - JWT: []
       tags:
       - Pi Config Proxy
+      summary: Pi config proxy controller proxy delete
+      x-summary-source: derived
     patch:
       operationId: PiConfigProxyController_proxy_patch
       parameters: []
@@ -63,6 +67,8 @@ paths:
       - JWT: []
       tags:
       - Pi Config Proxy
+      summary: Pi config proxy controller proxy patch
+      x-summary-source: derived
     options:
       operationId: PiConfigProxyController_proxy_options
       parameters: []
@@ -73,6 +79,8 @@ paths:
       - JWT: []
       tags:
       - Pi Config Proxy
+      summary: Pi config proxy controller proxy options
+      x-summary-source: derived
     head:
       operationId: PiConfigProxyController_proxy_head
       parameters: []
@@ -83,6 +91,8 @@ paths:
       - JWT: []
       tags:
       - Pi Config Proxy
+      summary: Pi config proxy controller proxy head
+      x-summary-source: derived
 components:
   securitySchemes:
     JWT:

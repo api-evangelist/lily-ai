@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Pi Api Proxy
 paths:
@@ -28,6 +24,8 @@ paths:
       - JWT: []
       tags:
       - Pi Api Proxy
+      summary: Pi api proxy controller proxy get
+      x-summary-source: derived
     post:
       operationId: PiApiProxyController_proxy_post
       parameters:
@@ -43,6 +41,8 @@ paths:
       - JWT: []
       tags:
       - Pi Api Proxy
+      summary: Pi api proxy controller proxy post
+      x-summary-source: derived
     put:
       operationId: PiApiProxyController_proxy_put
       parameters:
@@ -58,6 +58,8 @@ paths:
       - JWT: []
       tags:
       - Pi Api Proxy
+      summary: Pi api proxy controller proxy put
+      x-summary-source: derived
     delete:
       operationId: PiApiProxyController_proxy_delete
       parameters:
@@ -73,6 +75,8 @@ paths:
       - JWT: []
       tags:
       - Pi Api Proxy
+      summary: Pi api proxy controller proxy delete
+      x-summary-source: derived
     patch:
       operationId: PiApiProxyController_proxy_patch
       parameters:
@@ -88,6 +92,8 @@ paths:
       - JWT: []
       tags:
       - Pi Api Proxy
+      summary: Pi api proxy controller proxy patch
+      x-summary-source: derived
     options:
       operationId: PiApiProxyController_proxy_options
       parameters:
@@ -103,6 +109,8 @@ paths:
       - JWT: []
       tags:
       - Pi Api Proxy
+      summary: Pi api proxy controller proxy options
+      x-summary-source: derived
     head:
       operationId: PiApiProxyController_proxy_head
       parameters:
@@ -118,6 +126,8 @@ paths:
       - JWT: []
       tags:
       - Pi Api Proxy
+      summary: Pi api proxy controller proxy head
+      x-summary-source: derived
 components:
   securitySchemes:
     JWT:

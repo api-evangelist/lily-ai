@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Subsidiary
 paths:
@@ -27,6 +23,8 @@ paths:
                   type: array
       tags:
       - Subsidiary
+      summary: Subsidiary controller get subsidiary list
+      x-summary-source: derived
   /subsidiary/list-subsidiaries:
     get:
       operationId: SubsidiaryController_getSubsidiaryListUser
@@ -44,6 +42,8 @@ paths:
       - JWT: []
       tags:
       - Subsidiary
+      summary: Subsidiary controller get subsidiary list user
+      x-summary-source: derived
 components:
   securitySchemes:
     JWT:

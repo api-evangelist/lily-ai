@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Integration
 paths:
@@ -28,6 +24,8 @@ paths:
       - JWT: []
       tags:
       - Integration
+      summary: Integration controller list all batches
+      x-summary-source: derived
   /integration/partners/connection-information/{subsidiaryCode}/{partnerCode}:
     post:
       operationId: IntegrationController_configurePartner
@@ -55,6 +53,8 @@ paths:
       - JWT: []
       tags:
       - Integration
+      summary: Integration controller configure partner
+      x-summary-source: derived
 components:
   schemas:
     ConfigurePartnerPayload:

@@ -4,11 +4,7 @@ info:
   description: Lily App Middleware
   version: '1.0'
   contact: {}
-servers:
-- url: https://lilyapp-api-prd.pub.lilyai.net
-  description: Production (LilyApp-Api-Prod-AWS)
-- url: https://lilyapp-api-stg.pub.lilyai.net
-  description: Staging
+servers: []
 tags:
 - name: Auth
 paths:
@@ -25,6 +21,8 @@ paths:
                 type: string
       tags:
       - Auth
+      summary: Auth controller login user ext
+      x-summary-source: derived
   /auth/microsoft/login:
     get:
       operationId: AuthController_loginUser
@@ -38,6 +36,8 @@ paths:
                 type: string
       tags:
       - Auth
+      summary: Auth controller login user
+      x-summary-source: derived
   /v2/auth/b2c/login:
     get:
       operationId: AuthV2Controller_loginUserExt
@@ -51,6 +51,8 @@ paths:
                 type: string
       tags:
       - Auth
+      summary: Auth V2 controller login user ext
+      x-summary-source: derived
   /v2/auth/microsoft/login:
     get:
       operationId: AuthV2Controller_loginUser
@@ -64,6 +66,8 @@ paths:
                 type: string
       tags:
       - Auth
+      summary: Auth V2 controller login user
+      x-summary-source: derived
   /v2/auth/qa-automated/login:
     post:
       operationId: AuthV2Controller_loginQaSupport
@@ -97,6 +101,8 @@ paths:
           description: Origin is not authorized to access this feature.
       tags:
       - Auth
+      summary: Auth V2 controller login qa support
+      x-summary-source: derived
 components:
   schemas:
     QaSupportLoginDto:
