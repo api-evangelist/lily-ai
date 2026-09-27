@@ -25,9 +25,7 @@
     "lily-ai-superset-api-openapi.yml",
     "lily-ai-tce-api-proxy-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -147,8 +145,7 @@
     "lily-ai-lilyapp-api-openapi.json: declared missing tag: Subsidiary",
     "lily-ai-lilyapp-api-openapi.json: declared missing tag: Superset",
     "lily-ai-lilyapp-api-openapi.json: declared missing tag: Tce Api Proxy",
-    "superseded outputs removed: lily-ai-fa-qs-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 20 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "_original/lily-ai-lilyapp-api-openapi.yml: archived document superseded by a larger archived document",
@@ -156,7 +153,7 @@
     "lily-ai-batch-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "lily-ai-config-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "lily-ai-enrichment-platform-proxy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "lily-ai-fa-qs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lily-ai-faqs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "lily-ai-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "lily-ai-integration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "lily-ai-lilyapp-api-nest-based-application-api-openapi.yml: previously refined output, superseded by openapi/_original/",

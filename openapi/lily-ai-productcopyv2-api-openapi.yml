@@ -214,12 +214,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ProductCopyStatus:
-      type: string
-      enum:
-      - PENDING
-      - APPROVED
-      - DENIED
     ProductCopyDtoV2:
       type: object
       properties:
@@ -251,21 +245,6 @@ components:
       - lastExportedOn
       - processedOn
       - variantOf
-    SubsidiaryTagsDto:
-      type: object
-      properties:
-        category:
-          type: object
-        label:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-      required:
-      - category
-      - label
-      - tags
     SearchProductCopyBodyDto:
       type: object
       properties:
@@ -289,6 +268,21 @@ components:
           type: array
           items:
             type: array
+    SubsidiaryTagsDto:
+      type: object
+      properties:
+        category:
+          type: object
+        label:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - category
+      - label
+      - tags
     ProductDetailsUpdatePayloadDto:
       type: object
       properties:
@@ -322,6 +316,9 @@ components:
       - status
       - subsidiary_code
       - productIds
+    ProductCopyBatches:
+      type: object
+      properties: {}
     PaginationDto:
       type: object
       properties:
@@ -340,6 +337,12 @@ components:
       - pageSize
       - total
       - totalPages
+    ProductCopyStatus:
+      type: string
+      enum:
+      - PENDING
+      - APPROVED
+      - DENIED
     ProductCopySearchDtoV2:
       type: object
       properties:
@@ -358,9 +361,6 @@ components:
       - subsidiary
       - products
       - pagination
-    ProductCopyBatches:
-      type: object
-      properties: {}
   securitySchemes:
     JWT:
       scheme: bearer
