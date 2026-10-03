@@ -356,6 +356,90 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ProductStatusUpdatePayloadDto:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+        subsidiary_code:
+          type: string
+          default: terra
+        productIds:
+          type: array
+          items:
+            type: string
+      required:
+      - status
+      - subsidiary_code
+      - productIds
+    SearchProductCopyBodyDto:
+      type: object
+      properties:
+        keywords:
+          type: array
+          items:
+            type: array
+        skuId:
+          type: string
+        brand:
+          type: string
+        personType:
+          type: string
+        productType:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        status:
+          type: array
+          items:
+            type: array
+    ProductCopyStatus:
+      type: string
+      enum:
+      - PENDING
+      - APPROVED
+      - DENIED
+    DescriptionGenerationPayloadData:
+      type: object
+      properties:
+        title:
+          type: object
+          description: Title of the product
+          default: Utility Shirt Dress
+        description:
+          type: object
+          description: Description of the product
+          default: On-trend short-sleeve shirt dress in our comfortable twill fabric, featuring classic collar, utility-style front and chest pockets, self-tie adjustable belt, and functional button-through detail.. To avoid color transfer, wash before wear, turn garment inside out. Machine wash cold separately. Only non-chlorine bleach. Tumble dry low. Low iron if needed. Do not dry clean. Body:97% Cotton, 3% Elastane.
+        feedback:
+          type: object
+          description: User input forn the AI
+          default: Write for GenZ.
+        session_id:
+          type: string
+      required:
+      - title
+      - description
+      - feedback
+    PaginationDto:
+      type: object
+      properties:
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
     ProductCopySearchDto:
       type: object
       properties:
@@ -401,29 +485,6 @@ components:
           type: array
           items:
             type: array
-    SearchProductCopyBodyDto:
-      type: object
-      properties:
-        keywords:
-          type: array
-          items:
-            type: array
-        skuId:
-          type: string
-        brand:
-          type: string
-        personType:
-          type: string
-        productType:
-          type: string
-        subsidiary_tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubsidiaryTagsDto'
-        status:
-          type: array
-          items:
-            type: array
     SubsidiaryTagsDto:
       type: object
       properties:
@@ -439,44 +500,6 @@ components:
       - category
       - label
       - tags
-    DescriptionGenerationPayloadData:
-      type: object
-      properties:
-        title:
-          type: object
-          description: Title of the product
-          default: Utility Shirt Dress
-        description:
-          type: object
-          description: Description of the product
-          default: On-trend short-sleeve shirt dress in our comfortable twill fabric, featuring classic collar, utility-style front and chest pockets, self-tie adjustable belt, and functional button-through detail.. To avoid color transfer, wash before wear, turn garment inside out. Machine wash cold separately. Only non-chlorine bleach. Tumble dry low. Low iron if needed. Do not dry clean. Body:97% Cotton, 3% Elastane.
-        feedback:
-          type: object
-          description: User input forn the AI
-          default: Write for GenZ.
-        session_id:
-          type: string
-      required:
-      - title
-      - description
-      - feedback
-    ProductDetailsUpdatePayloadDto:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        subsidiary_code:
-          type: string
-          default: terra
-        status:
-          $ref: '#/components/schemas/ProductCopyStatus'
-      required:
-      - title
-      - description
-      - subsidiary_code
-      - status
     ProductCopyDto:
       type: object
       properties:
@@ -522,49 +545,26 @@ components:
     ProductCopyBatches:
       type: object
       properties: {}
-    ProductStatusUpdatePayloadDto:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/ProductCopyStatus'
-        subsidiary_code:
-          type: string
-          default: terra
-        productIds:
-          type: array
-          items:
-            type: string
-      required:
-      - status
-      - subsidiary_code
-      - productIds
-    ProductCopyStatus:
-      type: string
-      enum:
-      - PENDING
-      - APPROVED
-      - DENIED
-    PaginationDto:
-      type: object
-      properties:
-        pageNumber:
-          type: object
-          default: '1'
-        pageSize:
-          type: object
-          default: '100'
-        total:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - pageNumber
-      - pageSize
-      - total
-      - totalPages
     ProductCopyCopies:
       type: object
       properties: {}
+    ProductDetailsUpdatePayloadDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        subsidiary_code:
+          type: string
+          default: terra
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      required:
+      - title
+      - description
+      - subsidiary_code
+      - status
   securitySchemes:
     JWT:
       scheme: bearer

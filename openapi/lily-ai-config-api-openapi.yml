@@ -136,6 +136,19 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    RetailerInfoDto:
+      type: object
+      properties:
+        hasSubidiaries:
+          type: boolean
+        isSubsidiary:
+          type: boolean
+        hasOrIsSubsidiary:
+          type: boolean
+      required:
+      - hasSubidiaries
+      - isSubsidiary
+      - hasOrIsSubsidiary
     BrandDto:
       type: object
       properties:
@@ -149,6 +162,20 @@ components:
       - code
       - id
       - name
+    PersonProductTypesDto:
+      type: object
+      properties:
+        personTypes:
+          type: array
+          items:
+            type: string
+        productTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - personTypes
+      - productTypes
     SubsidiaryDto:
       type: object
       properties:
@@ -167,33 +194,6 @@ components:
       - id
       - name
       - brands
-    RetailerInfoDto:
-      type: object
-      properties:
-        hasSubidiaries:
-          type: boolean
-        isSubsidiary:
-          type: boolean
-        hasOrIsSubsidiary:
-          type: boolean
-      required:
-      - hasSubidiaries
-      - isSubsidiary
-      - hasOrIsSubsidiary
-    PersonProductTypesDto:
-      type: object
-      properties:
-        personTypes:
-          type: array
-          items:
-            type: string
-        productTypes:
-          type: array
-          items:
-            type: string
-      required:
-      - personTypes
-      - productTypes
   securitySchemes:
     JWT:
       scheme: bearer

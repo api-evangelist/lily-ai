@@ -214,6 +214,102 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ProductStatusUpdatePayloadDto:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+        subsidiary_code:
+          type: string
+          default: terra
+        productIds:
+          type: array
+          items:
+            type: string
+      required:
+      - status
+      - subsidiary_code
+      - productIds
+    ProductCopySearchDtoV2:
+      type: object
+      properties:
+        account:
+          type: string
+        subsidiary:
+          type: string
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCopyDtoV2'
+        pagination:
+          $ref: '#/components/schemas/PaginationDto'
+      required:
+      - account
+      - subsidiary
+      - products
+      - pagination
+    SearchProductCopyBodyDto:
+      type: object
+      properties:
+        keywords:
+          type: array
+          items:
+            type: array
+        skuId:
+          type: string
+        brand:
+          type: string
+        personType:
+          type: string
+        productType:
+          type: string
+        subsidiary_tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubsidiaryTagsDto'
+        status:
+          type: array
+          items:
+            type: array
+    ProductCopyStatus:
+      type: string
+      enum:
+      - PENDING
+      - APPROVED
+      - DENIED
+    PaginationDto:
+      type: object
+      properties:
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
+      required:
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
+    SubsidiaryTagsDto:
+      type: object
+      properties:
+        category:
+          type: object
+        label:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - category
+      - label
+      - tags
     ProductCopyDtoV2:
       type: object
       properties:
@@ -245,44 +341,9 @@ components:
       - lastExportedOn
       - processedOn
       - variantOf
-    SearchProductCopyBodyDto:
+    ProductCopyBatches:
       type: object
-      properties:
-        keywords:
-          type: array
-          items:
-            type: array
-        skuId:
-          type: string
-        brand:
-          type: string
-        personType:
-          type: string
-        productType:
-          type: string
-        subsidiary_tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubsidiaryTagsDto'
-        status:
-          type: array
-          items:
-            type: array
-    SubsidiaryTagsDto:
-      type: object
-      properties:
-        category:
-          type: object
-        label:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-      required:
-      - category
-      - label
-      - tags
+      properties: {}
     ProductDetailsUpdatePayloadDto:
       type: object
       properties:
@@ -300,67 +361,6 @@ components:
       - description
       - subsidiary_code
       - status
-    ProductStatusUpdatePayloadDto:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/ProductCopyStatus'
-        subsidiary_code:
-          type: string
-          default: terra
-        productIds:
-          type: array
-          items:
-            type: string
-      required:
-      - status
-      - subsidiary_code
-      - productIds
-    ProductCopyBatches:
-      type: object
-      properties: {}
-    PaginationDto:
-      type: object
-      properties:
-        pageNumber:
-          type: object
-          default: '1'
-        pageSize:
-          type: object
-          default: '100'
-        total:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - pageNumber
-      - pageSize
-      - total
-      - totalPages
-    ProductCopyStatus:
-      type: string
-      enum:
-      - PENDING
-      - APPROVED
-      - DENIED
-    ProductCopySearchDtoV2:
-      type: object
-      properties:
-        account:
-          type: string
-        subsidiary:
-          type: string
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductCopyDtoV2'
-        pagination:
-          $ref: '#/components/schemas/PaginationDto'
-      required:
-      - account
-      - subsidiary
-      - products
-      - pagination
   securitySchemes:
     JWT:
       scheme: bearer
