@@ -149,19 +149,6 @@ components:
       - hasSubidiaries
       - isSubsidiary
       - hasOrIsSubsidiary
-    BrandDto:
-      type: object
-      properties:
-        code:
-          type: string
-        id:
-          type: number
-        name:
-          type: string
-      required:
-      - code
-      - id
-      - name
     PersonProductTypesDto:
       type: object
       properties:
@@ -176,6 +163,19 @@ components:
       required:
       - personTypes
       - productTypes
+    BrandDto:
+      type: object
+      properties:
+        code:
+          type: string
+        id:
+          type: number
+        name:
+          type: string
+      required:
+      - code
+      - id
+      - name
     SubsidiaryDto:
       type: object
       properties:

@@ -214,22 +214,24 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ProductStatusUpdatePayloadDto:
+    PaginationDto:
       type: object
       properties:
-        status:
-          $ref: '#/components/schemas/ProductCopyStatus'
-        subsidiary_code:
-          type: string
-          default: terra
-        productIds:
-          type: array
-          items:
-            type: string
+        pageNumber:
+          type: object
+          default: '1'
+        pageSize:
+          type: object
+          default: '100'
+        total:
+          type: number
+        totalPages:
+          type: number
       required:
-      - status
-      - subsidiary_code
-      - productIds
+      - pageNumber
+      - pageSize
+      - total
+      - totalPages
     ProductCopySearchDtoV2:
       type: object
       properties:
@@ -248,6 +250,63 @@ components:
       - subsidiary
       - products
       - pagination
+    ProductCopyStatus:
+      type: string
+      enum:
+      - PENDING
+      - APPROVED
+      - DENIED
+    SubsidiaryTagsDto:
+      type: object
+      properties:
+        category:
+          type: object
+        label:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+      required:
+      - category
+      - label
+      - tags
+    ProductStatusUpdatePayloadDto:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+        subsidiary_code:
+          type: string
+          default: terra
+        productIds:
+          type: array
+          items:
+            type: string
+      required:
+      - status
+      - subsidiary_code
+      - productIds
+    ProductCopyBatches:
+      type: object
+      properties: {}
+    ProductDetailsUpdatePayloadDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        subsidiary_code:
+          type: string
+          default: terra
+        status:
+          $ref: '#/components/schemas/ProductCopyStatus'
+      required:
+      - title
+      - description
+      - subsidiary_code
+      - status
     SearchProductCopyBodyDto:
       type: object
       properties:
@@ -271,45 +330,6 @@ components:
           type: array
           items:
             type: array
-    ProductCopyStatus:
-      type: string
-      enum:
-      - PENDING
-      - APPROVED
-      - DENIED
-    PaginationDto:
-      type: object
-      properties:
-        pageNumber:
-          type: object
-          default: '1'
-        pageSize:
-          type: object
-          default: '100'
-        total:
-          type: number
-        totalPages:
-          type: number
-      required:
-      - pageNumber
-      - pageSize
-      - total
-      - totalPages
-    SubsidiaryTagsDto:
-      type: object
-      properties:
-        category:
-          type: object
-        label:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-      required:
-      - category
-      - label
-      - tags
     ProductCopyDtoV2:
       type: object
       properties:
@@ -341,26 +361,6 @@ components:
       - lastExportedOn
       - processedOn
       - variantOf
-    ProductCopyBatches:
-      type: object
-      properties: {}
-    ProductDetailsUpdatePayloadDto:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        subsidiary_code:
-          type: string
-          default: terra
-        status:
-          $ref: '#/components/schemas/ProductCopyStatus'
-      required:
-      - title
-      - description
-      - subsidiary_code
-      - status
   securitySchemes:
     JWT:
       scheme: bearer
