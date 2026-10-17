@@ -57,13 +57,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ConfigurePartnerPayload:
-      type: object
-      properties:
-        connectionDetails:
-          $ref: '#/components/schemas/PartnerConnectionPayload'
-      required:
-      - connectionDetails
     PartnerConnectionPayload:
       type: object
       properties:
@@ -74,6 +67,13 @@ components:
       required:
       - url
       - accessToken
+    ConfigurePartnerPayload:
+      type: object
+      properties:
+        connectionDetails:
+          $ref: '#/components/schemas/PartnerConnectionPayload'
+      required:
+      - connectionDetails
   securitySchemes:
     JWT:
       scheme: bearer

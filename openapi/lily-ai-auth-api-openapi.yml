@@ -51,7 +51,7 @@ paths:
                 type: string
       tags:
       - Auth
-      summary: Auth V2 controller login user ext
+      summary: Auth V2Controller login user ext
       x-summary-source: derived
   /v2/auth/microsoft/login:
     get:
@@ -66,7 +66,7 @@ paths:
                 type: string
       tags:
       - Auth
-      summary: Auth V2 controller login user
+      summary: Auth V2Controller login user
       x-summary-source: derived
   /v2/auth/qa-automated/login:
     post:
@@ -101,7 +101,7 @@ paths:
           description: Origin is not authorized to access this feature.
       tags:
       - Auth
-      summary: Auth V2 controller login qa support
+      summary: Auth V2Controller login qa support
       x-summary-source: derived
 components:
   schemas:

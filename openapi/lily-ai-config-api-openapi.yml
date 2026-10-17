@@ -149,20 +149,6 @@ components:
       - hasSubidiaries
       - isSubsidiary
       - hasOrIsSubsidiary
-    PersonProductTypesDto:
-      type: object
-      properties:
-        personTypes:
-          type: array
-          items:
-            type: string
-        productTypes:
-          type: array
-          items:
-            type: string
-      required:
-      - personTypes
-      - productTypes
     BrandDto:
       type: object
       properties:
@@ -194,6 +180,20 @@ components:
       - id
       - name
       - brands
+    PersonProductTypesDto:
+      type: object
+      properties:
+        personTypes:
+          type: array
+          items:
+            type: string
+        productTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - personTypes
+      - productTypes
   securitySchemes:
     JWT:
       scheme: bearer
